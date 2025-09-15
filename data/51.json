@@ -1,0 +1,42 @@
+{
+  "texto": "19-XIエーフフ・\n11-235\n2-79\n\nLIGA COMUNISTA \"23 DE SEPTIEMBRE\"\nEn días pasados fue detenido en la Estación \"Via--\nducto\" del Sistema de Transporte Colectivo (Metro), OSCAR -\nMONTIEL NAVA, que tuvo una riña con otro individuo y quien -\nal tratar de ser detenido por ese motivo, sustrajo de sus ro\npas una pistola, privando de la vida a un menor, a una caje-\nra y al individuo con el que había sostenido el altercado.\n\nEn virtud de que en los interrogatorios no esclare\ncía el motivo de su actitud, fue trasladado a las instalacio\nnes de la Brigada Especial, en donde confesó ser miembro de\nla llamada Brigada \"José Luis Pacheco Aragón\" de la Liga Co-\nmunista \"23 de Septiembre\" y utilizar el seudónimo de \"Ernes\nto\".\n\nDe la misma forma proporcionó la dirección de su\ndomicilio ubicado en las calles de Nicolás San Juan No. 110,\nColonia del Valle, al que incursionaron los Agentes, encon--\ntrando múltiples ejemplares del periódico clandestino \"Made-\nra\", en su edición No. 33, así como materiales para la reali\nzación de \"pintas\" y diversa propaganda del grupo subversivo\nmencionado.\n\nPosteriormente, OSCAR MONTIEL NAVA (a) \"Ernesto\"\nconfesó que a las 17.00 horas del día 17 del actual tenía\nuna \"cita\" con otros elementos de ese grupo, en la esquina\nque forman las calles de Oriente 29 y Rojo Gomez, Colonia --\nAgrícola Oriental, por lo que los miembros de la Brigada Es-\npecial instalaron un dispositivo y se logró la captura de PA\nTRICIA LARA CONTRERAS (a) \"Antonia Salas Acosta\" o \"Toni\" y\nde LUCIO MENDOZA UBIARCO (a) \"Rail\", quienes intentaron ha--\ncer uso de sus pistolas, calibres .45 y 9mm., respectivamen-\nte, habiendo sido sometidos por los Agentes.\n\nLos 2 detenidos se encuentran confesos de pertene-\ncer también a la Brigada \"José Luis Pacheco Aragón\" de la --\nLiga Comunista \"23 de Septiembre\".",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "En días pasados fue detenido en la Estación \"Via--ducto\" del Sistema de Transporte Colectivo (Metro), OSCAR -MONTIEL NAVA",
+      "fecha": "días pasados",
+      "lugar": "Estación \"Viaducto\" del Sistema de Transporte Colectivo",
+      "victimas": [
+        "OSCAR MONTIEL NAVA"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "OSCAR MONTIEL NAVA, que tuvo una riña con otro individuo y quien -al tratar de ser detenido por ese motivo, sustrajo de sus ropas una pistola, privando de la vida a un menor, a una caje-ra y al individuo con el que había sostenido el altercado.",
+      "fecha": "días pasados",
+      "lugar": "Estación \"Viaducto\" del Sistema de Transporte Colectivo",
+      "victimas": [
+        "OSCAR MONTIEL NAVA"
+      ],
+      "victimarios": [
+        "un menor",
+        "una cajera",
+        "hombre"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "en la esquinaque forman las calles de Oriente 29 y Rojo Gomez, Colonia --Agrícola Oriental, por lo que los miembros de la Brigada Es-pecial instalaron un dispositivo y se logró la captura de PATRICIA LARA CONTRERAS (a) \"Antonia Salas Acosta\" o \"Toni\" yde LUCIO MENDOZA UBIARCO (a) \"Rail\", quienes intentaron ha--cer uso de sus pistolas, calibres .45 y 9mm., respectivamen-te, habiendo sido sometidos por los Agentes",
+      "fecha": null,
+      "lugar": "calles de Oriente 29 y Rojo Gomez, Colonia Agrícola Oriental",
+      "victimas": [
+        "PATRICIA LARA CONTRERAS",
+        "LUCIO MENDOZA UBIARCO"
+      ],
+      "victimarios": [
+        "Brigada Especial"
+      ]
+    }
+  ]
+}

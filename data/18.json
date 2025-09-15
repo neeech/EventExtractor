@@ -1,0 +1,59 @@
+{
+  "texto": "JESUS PIEDRA IBARRA cuya detención\nse realizó el 18 de abril de 1975, en las calles de Zara-\ngoza de la Ciudad de Monterrey, F.L. Se sabe que después\nfue conducido al Campo Militar No. 1, en la Ciudad de\nMéxico, D.F.\n\n RAFAEL RAMIREZ DUARTE detenido el 9\nde junio de 1977, por elementos que se hicieron llamar\nde la Brigada Blanca. Sus hermanos que también fueron\ndetenidos y puestos en libertad posteriormente, aseguran\nhaberlo visto en el Campo Militar No.1.\nPrófogo JESUS AVILA GONZALEZ deterido el 5 de\nabril de 1974 en la Ciudad de México. Este era estudian-\nte de la ESE del I.PN\nPresa DOLORES AMEZDITA VALADEZ, quien fue\ndetenida junto con EDUARDO MANZANO en 1976 en la Ciudad\nde Guadalajara, Jal.; su madre MA. DE JESUS VALADEZ DE\nAMEZDITA asegura que no se sigue ningún juicio en su\ncontra, pero que está presa en la citada ciudad. Esta\ntiene su domicilio en las calles de Cruces y Ojo Zarco\nCol. Oblatos, Sector Libertad, Guadalajara, Jal.\nFor otra parte también se presentó\nel Sr. JOSE LUIS MORENO VILLELA padre de JOSE LUIS MORE\nNO. BORBOLLA a pedir se permita que un médico particular-\nhage examen al citado, mismo que se encuentra recluído\nen el Reclusorio Criente, de esta Ciudad, por actos sub--\nversivos, ya que debido a un tumor en el brazo izquierdo,",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JESUS PIEDRA IBARRA cuya detención se realizó el 18 de abril de 1975, en las calles de Zara-goza de la Ciudad de Monterrey, F.L.",
+      "fecha": "18 de abril de 1975",
+      "lugar": "calles de Zara-goza de la Ciudad de Monterrey, F.L.",
+      "victimas": [
+        "JESUS PIEDRA IBARRA"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "RAFAEL RAMIREZ DUARTE detenido el 9 de junio de 1977, por elementos que se hicieron llamar de la Brigada Blanca.",
+      "fecha": "9 de junio de 1977",
+      "lugar": null,
+      "victimas": [
+        "RAFAEL RAMIREZ DUARTE",
+        "otros"
+      ],
+      "victimarios": [
+        "Brigada Blanca"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JESUS AVILA GONZALEZ deterido el 5 de abril de 1974 en la Ciudad de México.",
+      "fecha": "5 de abril de 1974",
+      "lugar": "Ciudad de México",
+      "victimas": [
+        "JESUS AVILA GONZALEZ"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "DOLORES AMEZDITA VALADEZ, quien fue detenida junto con EDUARDO MANZANO en 1976 en la Ciudad de Guadalajara, Jal.",
+      "fecha": "1976",
+      "lugar": "Ciudad de Guadalajara, Jal.",
+      "victimas": [
+        "DOLORES AMEZDITA VALADEZ",
+        "EDUARDO MANZANO"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Sr. JOSE LUIS MORENO VILLELA padre de JOSE LUIS MORENO. BORBOLLA a pedir se permita que un médico particular-hage examen al citado, mismo que se encuentra recluído en el Reclusorio Criente, de esta Ciudad, por actos sub--versivos",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "JOSE LUIS MORENO. BORBOLLA"
+      ],
+      "victimarios": []
+    }
+  ]
+}

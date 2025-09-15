@@ -1,0 +1,83 @@
+{
+  "texto": "como resultado de diversas investigaciones que\ndesde hace varios días se han estado llevando a cabo por\nAgentes de esta Dirección Federal de Seguridad y de la\nBrigada Especial, durante ayer en la noche y el día de\nhoy en dos enfrentamientos que con miembros de la Liga\nComunista \"23 de Septiembre\" se han sostenido, se encuen\ntran detenidos 4 elementos de ese grupo subversivo y\notros 3 de ellos resultaron muertos.\n\nEntre estos últimos se encuentra César Antonio\nSolís Rodriguez (a) \"Mike\" o \"El Karateca\", uno de los -\nprincipales dirigentes de la Liga Comunista \"23 de Sep-\ntiembre\" e integrante del llamado Comité de Redacción,\nórgano máximo de ese grupo subversivo, que está integra-\ndo por 4 personas.\n\nEn unión de este sujeto se logró la captura de\nALICIA DE LOS RIOS MERINO (a) \"Susana\", responsable del-\nIlamado \"Comité Militar\" de la Liga Comunista \"23 de Sep\ntiembre\", grupo dedicado a la preparación y realización-\nde acciones subversivas.\n\nEsta mujer ha confesado que tanto ella como el\nocciso participaron en la tentativa de secuestro en con-\ntra de la señora MARGARITA LOPES PORTILLO Y ECCO, el-\n11 de agosto de 1976, habiendo agregado que se tuvo la\nintención de secuestrar a esa dama para obtener por su\nrescate la cantidad de veinticinco millones de pesos.\n\nAgregó que la misión que a ambos les correspon\ndió fue la de obstaculizar el paso del automóvil de la\nescolta y disparar en contra de los integrantes de la\nmisma.\n\nAdemás de lo anterior ha indicado que en unión\nde Solís Rodriguez participó en el secuestro de LORENA-\nKELLER CURT el 27 de septiembre de 1977, siendo el que-\nfisicamente privó de la vida a la madre de la secuestra\nda, señora Margarita Wurtz de Keller, que intentó oponer\n-",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "como resultado de diversas investigaciones quedesde hace varios días se han estado llevando a cabo porAgentes de esta Dirección Federal de Seguridad y de laBrigada Especial, durante ayer en la noche y el día dehoy en dos enfrentamientos que con miembros de la LigaComunista \"23 de Septiembre\" se han sostenido, se encuentran detenidos 4 elementos de ese grupo subversivo yotros 3 de ellos resultaron muertos.",
+      "fecha": "ayer en la noche y el día de hoy",
+      "lugar": null,
+      "victimas": [
+        "Liga Comunista \"23 de Septiembre\""
+      ],
+      "victimarios": [
+        "Dirección Federal de Seguridad",
+        "Brigada Especial"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "como resultado de diversas investigaciones quedesde hace varios días se han estado llevando a cabo porAgentes de esta Dirección Federal de Seguridad y de laBrigada Especial, durante ayer en la noche y el día dehoy en dos enfrentamientos que con miembros de la LigaComunista \"23 de Septiembre\" se han sostenido, se encuentran detenidos 4 elementos de ese grupo subversivo yotros 3 de ellos resultaron muertos.",
+      "fecha": "ayer en la noche y el día de hoy",
+      "lugar": null,
+      "victimas": [
+        "César Antonio Solís Rodriguez",
+        "Liga Comunista \"23 de Septiembre\""
+      ],
+      "victimarios": [
+        "Dirección Federal de Seguridad",
+        "Brigada Especial"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "En unión de este sujeto se logró la captura deALICIA DE LOS RIOS MERINO (a) \"Susana\", responsable del-Ilamado \"Comité Militar\" de la Liga Comunista \"23 de Septiembre\", grupo dedicado a la preparación y realización-de acciones subversivas.",
+      "fecha": "ayer en la noche y el día de hoy",
+      "lugar": null,
+      "victimas": [
+        "ALICIA DE LOS RIOS MERINO"
+      ],
+      "victimarios": [
+        "Dirección Federal de Seguridad",
+        "Brigada Especial"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Esta mujer ha confesado que tanto ella como elocciso participaron en la tentativa de secuestro en con-tra de la señora MARGARITA LOPES PORTILLO Y ECCO, el-11 de agosto de 1976",
+      "fecha": "11 de agosto de 1976",
+      "lugar": null,
+      "victimas": [
+        "MARGARITA LOPES PORTILLO Y ECCO"
+      ],
+      "victimarios": [
+        "ALICIA DE LOS RIOS MERINO",
+        "César Antonio Solís Rodriguez"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Además de lo anterior ha indicado que en uniónde Solís Rodriguez participó en el secuestro de LORENA-KELLER CURT el 27 de septiembre de 1977",
+      "fecha": "27 de septiembre de 1977",
+      "lugar": null,
+      "victimas": [
+        "LORENA KELLER CURT"
+      ],
+      "victimarios": [
+        "ALICIA DE LOS RIOS MERINO",
+        "César AntonioSolís Rodriguez"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "siendo el que-fisicamente privó de la vida a la madre de la secuestrada, señora Margarita Wurtz de Keller, que intentó oponer",
+      "fecha": "27 de septiembre de 1977",
+      "lugar": null,
+      "victimas": [
+        "Margarita Wurtz de Keller"
+      ],
+      "victimarios": [
+        "César AntonioSolís Rodriguez"
+      ]
+    }
+  ]
+}

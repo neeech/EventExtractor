@@ -1,0 +1,39 @@
+{
+  "texto": "A DOS AÑOS DE SU DESAPARICION\nSEGUIREMOS LUCHANDO HASTA LOGRAR\nSU LIBERACION\n\nPROFR. JUAN CARLOS\nMENDOZA GALOZ.\nDetenido-desaparecido por\nelementos de la D.G.P.T. el\ndía 30 de diciembre de 1981,\nel mismo día que el Profr.\nEzequiel Reyes Carrillo.\n\nPROFRA. AUSTREBERTA\nHILDA ESCOBEDO OCAÑA\nDesaparecida por elementos\npoliciacos el 31 de diciembre\nde 1981\n\nRESPONSABILIZAMOS AL ACTUAL\nGOBIERNO DE LA INTEGRIDAD FISICA\nY MORAL DE NUESTROS DOS\nMAESTROS Y DE LA DE MAS DE 507\nSECUESTRADOS POR MOTIVOS\nPOLITICOS\n\nNO PUEDE HABER RENOVACION\nMORAL MIENTRAS EN EL PAIS SE\nGOLPEE, ENCARCELE, TORTURE,\nDESAPAREZCA Y ASESINE AL PUEBLO\n\nLA REPRESION\nNO DETIENE EL\nAVANCE\nREVOLUCIONARIO\n\nCNTE\nCoordinadora Nacional de Trabajadores de la Educación\nANOCP\nAsamblea Nacional Obrero Campesino Fopular\nEscuela para trabajadores Maestro Rafael Ramírez.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Detenido-desaparecido por elementos de la D.G.P.T. el día 30 de diciembre de 1981",
+      "fecha": "30 de diciembre de 1981",
+      "lugar": null,
+      "victimas": [
+        "JUAN CARLOS MENDOZA GALOZ"
+      ],
+      "victimarios": [
+        "D.G.P.T."
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "el mismo día que el Profr. Ezequiel Reyes Carrillo",
+      "fecha": "30 de diciembre de 1981",
+      "lugar": null,
+      "victimas": [
+        "Ezequiel Reyes Carrillo"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Desaparecida por elementos policiacos el 31 de diciembre de 1981",
+      "fecha": "31 de diciembre de 1981",
+      "lugar": null,
+      "victimas": [
+        "AUSTREBERTA HILDA ESCOBEDO OCAÑA"
+      ],
+      "victimarios": [
+        "elementos policiacos"
+      ]
+    }
+  ]
+}

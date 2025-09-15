@@ -1,0 +1,116 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n4\n-\n-\n-\n-\nотраñехов que resültaren heridos en\nhas acciones y enfrente-\nmientos con le Policía, incluyendo además\"expropiaciones\" a ofi-\ncinas y Escuelas para apoderarse de mimeografos, máquinas de 96-\ncribir y material de impresión dela diversa propaganda propaganda que edita\ny distribuye la repetide Liga. Que se pasata exponen que des\nde la primera reunión dela Coordinadora Nacional, se, planteó la-\nnecesidad de efectuar el secuestro de alguna persona importante-\npara obtener una fuerte cantidad de dinero y la liberación de\ncompañeros revolucionarios presos en diferentes cárceles del País,\npero sin que encontes se determinara y ni siquiera se pensara en\nla persona que se secuestraría, lo cual vino a planearse, discu-\ntirse y aprobarse hasta posteriormente, cuando previo análisis\nde la personalidad, condición económica y posibilidades de éxito,\n-se determinó que la victima sería el señor Eugenio Garza Sada,\n- conocido industrial de Monterrey, N.L., y aunque el de la voz\nasesoró y supervisó los plenes de dicho secuestro, la responsabi\nlidad respecto a la vigilancia de las costumbres de ls víctima\nelegida y la afinación de los planes y ejecución de la acción\nrecayó en los responsables del Comité Coordinador Zonal del nores\nte o sean GARCIA MARTINEZ, TORRES GONZALEZ TORRES GONZALEZ y PIEDRA IBARRA, quie\nnes además también tuvieron la responsabilidad de seleccionar a-\n-los participantes en ese hecho, así como, prepararlos y adiestrar\nlos militarmente para ello; que para le ejecución del secuestro-\nde Garza Sada, el declarante le ordenó a HECTOR ESCAMILLA LIRA,-\n(a) \"Victor\", elemento que militó en los asaltos a los Bancos de\nMonterrey el catorce de octubre de mil novecientos setenta y dos,\n...que se trasladara a dicha ciudad para reforzar a los compañeros-\nque ejecutarían la acción, pero desconoce la actividad concreta-\nque éste haya desarrollado pues esa determinación correspondió a\nlos responsables; que los componentes del. Buró Político acostum-\nbraban reunirse cada dos o tres meses en diferentes lugares, y\nen una de estas juntas efectuada en una casa de la ciudad de Gua\ndalajara, Jal., a la que se citó con motivo del fracaso y conse-\ncuencias del secuestro intentado en la persona de Eugenio Garza-\nSada, en la que se tuvo que lamentar la muerte de dos compañeros\nrevolucionarios, después de analizar las causas del fracaso\n--\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"Eugenio Garza Sada\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Monterrey, N.L.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Liga\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"mimeografos\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"máquinas de escribir\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"material de impresión\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Coordinadora Nacional\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"García MARTINEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"TORRES GONZALEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"PIEDRA IBARRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"HECTOR ESCAMILLA LIRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Bancos de Monterrey\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"catorce de octubre de mil novecientos setenta y dos\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Guanajuato\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Jal.\",\n      \"tipo\": \"LUGAR\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"se pasata exponen que des de la primera reunión dela Coordinadora Nacional, se, planteó la-necesidad de efectuar el secuestro de alguna persona importante-para obtener una fuerte cantidad de dinero y la liberación de compañeros revolucionarios presos en diferentes cárceles del País, pero sin que encontes se determinara y ni siquiera se pensara en la persona que se secuestraría, lo cual vino a planearse, discu-tirse y aprobarse hasta posteriormente, cuando previo análisis de la personalidad, condición económica y posibilidades de éxito, se determinó que la victima sería el señor Eugenio Garza Sada, conocido industrial de Monterrey, N.L.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"Monterrey, N.L.\",\n      \"victimas\": [\n        \"Eugenio Garza Sada\"\n      ],\n      \"victimarios\": [\n        \"García MARTINEZ\",\n        \"TORRES GONZALEZ\",\n        \"PIEDRA IBARRA\"\n      ]\n    },\n    {\n      \"descripcion\": \"el de la voz asesoró y supervisó los plenes de dicho secuestro, la responsabi-lidad respecto a la vigilancia de las costumbres de ls víctima elegida y la afinación de los planes y ejecución de la acción recayó en los responsables del Comité Coordinador Zonal del nores-te o sean GARCIA MARTINEZ, TORRES GONZALEZ TORRES GONZALEZ y PIEDRA IBARRA, quienes además también tuvieron la responsabilidad de seleccionar a-a los participantes en ese hecho, así como, prepararlos y adiestrar los militarmente para ello\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": [\n        \"García MARTINEZ\",\n        \"TORRES GONZALEZ\",\n        \"PIEDRA IBARRA\"\n      ]\n    },\n    {\n      \"descripcion\": \"para le ejecución del secuestro-de Garza Sada, el declarante le ordenó a HECTOR ESCAMILLA LIRA,- (a) \\\"Victor\\\", elemento que militó en los asaltos a los Bancos de Monterrey el catorce de octubre de mil novecientos setenta y dos, que se trasladara a dicha ciudad para reforzar a los compañeros-que ejecutarían la acción, pero desconoce la actividad concreta-que éste haya desarrollado pues esa determinación correspondió a los responsables\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [\n        \"HECTOR ESCAMILLA LIRA\"\n      ],\n      \"victimarios\": [\n        \"declarante\"\n      ]\n    },\n    {\n      \"descripcion\": \"en una de estas juntas efectuada en una casa de la ciudad de Gua-dalajara, Jal., a la que se citó con motivo del fracaso y conse-cuencias del secuestro intentado en la persona de Eugenio Garza-Sada, en la que se tuvo que lamentar la muerte de dos compañeros revolucionarios, después de analizar las causas del fracaso\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"en una de estas juntas\",\n      \"lugar\": \"Guanajuato\",\n      \"victimas\": [\n        \"dos compañeros revolucionarios\"\n      ],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n4\n-\n-\n-\n-\nотраñехов que resültaren heridos en\nhas acciones y enfrente-\nmientos con le Policía, incluyendo además\"expropiaciones\" a ofi-\ncinas y Escuelas para apoderarse de mimeografos, máquinas de 96-\ncribir y material de impresión dela diversa propaganda propaganda que edita\ny distribuye la repetide Liga. Que se pasata exponen que des\nde la primera reunión dela Coordinadora Nacional, se, planteó la-\nnecesidad de efectuar el secuestro de alguna persona importante-\npara obtener una fuerte cantidad de dinero y la liberación de\ncompañeros revolucionarios presos en diferentes cárceles del País,\npero sin que encontes se determinara y ni siquiera se pensara en\nla persona que se secuestraría, lo cual vino a planearse, discu-\ntirse y aprobarse hasta posteriormente, cuando previo análisis\nde la personalidad, condición económica y posibilidades de éxito,\n-se determinó que la victima sería el señor Eugenio Garza Sada,\n- conocido industrial de Monterrey, N.L., y aunque el de la voz\nasesoró y supervisó los plenes de dicho secuestro, la responsabi\nlidad respecto a la vigilancia de las costumbres de ls víctima\nelegida y la afinación de los planes y ejecución de la acción\nrecayó en los responsables del Comité Coordinador Zonal del nores\nte o sean GARCIA MARTINEZ, TORRES GONZALEZ TORRES GONZALEZ y PIEDRA IBARRA, quie\nnes además también tuvieron la responsabilidad de seleccionar a-\n-los participantes en ese hecho, así como, prepararlos y adiestrar\nlos militarmente para ello; que para le ejecución del secuestro-\nde Garza Sada, el declarante le ordenó a HECTOR ESCAMILLA LIRA,-\n(a) \"Victor\", elemento que militó en los asaltos a los Bancos de\nMonterrey el catorce de octubre de mil novecientos setenta y dos,\n...que se trasladara a dicha ciudad para reforzar a los compañeros-\nque ejecutarían la acción, pero desconoce la actividad concreta-\nque éste haya desarrollado pues esa determinación correspondió a\nlos responsables; que los componentes del. Buró Político acostum-\nbraban reunirse cada dos o tres meses en diferentes lugares, y\nen una de estas juntas efectuada en una casa de la ciudad de Gua\ndalajara, Jal., a la que se citó con motivo del fracaso y conse-\ncuencias del secuestro intentado en la persona de Eugenio Garza-\nSada, en la que se tuvo que lamentar la muerte de dos compañeros\nrevolucionarios, después de analizar las causas del fracaso\n--\n ",
+    "entidades": [
+        {
+            "texto": "Eugenio Garza Sada",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Monterrey, N.L.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Liga",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "mimeografos",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "máquinas de escribir",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "material de impresión",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Coordinadora Nacional",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "García MARTINEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "TORRES GONZALEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "PIEDRA IBARRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "HECTOR ESCAMILLA LIRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Bancos de Monterrey",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "catorce de octubre de mil novecientos setenta y dos",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Guanajuato",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Jal.",
+            "tipo": "LUGAR"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "se pasata exponen que des de la primera reunión dela Coordinadora Nacional, se, planteó la-necesidad de efectuar el secuestro de alguna persona importante-para obtener una fuerte cantidad de dinero y la liberación de compañeros revolucionarios presos en diferentes cárceles del País, pero sin que encontes se determinara y ni siquiera se pensara en la persona que se secuestraría, lo cual vino a planearse, discu-tirse y aprobarse hasta posteriormente, cuando previo análisis de la personalidad, condición económica y posibilidades de éxito, se determinó que la victima sería el señor Eugenio Garza Sada, conocido industrial de Monterrey, N.L.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "Monterrey, N.L.",
+            "victimas": [
+                "Eugenio Garza Sada"
+            ],
+            "victimarios": [
+                "García MARTINEZ",
+                "TORRES GONZALEZ",
+                "PIEDRA IBARRA"
+            ]
+        },
+        {
+            "descripcion": "el de la voz asesoró y supervisó los plenes de dicho secuestro, la responsabi-lidad respecto a la vigilancia de las costumbres de ls víctima elegida y la afinación de los planes y ejecución de la acción recayó en los responsables del Comité Coordinador Zonal del nores-te o sean GARCIA MARTINEZ, TORRES GONZALEZ TORRES GONZALEZ y PIEDRA IBARRA, quienes además también tuvieron la responsabilidad de seleccionar a-a los participantes en ese hecho, así como, prepararlos y adiestrar los militarmente para ello",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [],
+            "victimarios": [
+                "García MARTINEZ",
+                "TORRES GONZALEZ",
+                "PIEDRA IBARRA"
+            ]
+        },
+        {
+            "descripcion": "para le ejecución del secuestro-de Garza Sada, el declarante le ordenó a HECTOR ESCAMILLA LIRA,- (a) \"Victor\", elemento que militó en los asaltos a los Bancos de Monterrey el catorce de octubre de mil novecientos setenta y dos, que se trasladara a dicha ciudad para reforzar a los compañeros-que ejecutarían la acción, pero desconoce la actividad concreta-que éste haya desarrollado pues esa determinación correspondió a los responsables",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [
+                "HECTOR ESCAMILLA LIRA"
+            ],
+            "victimarios": [
+                "declarante"
+            ]
+        },
+        {
+            "descripcion": "en una de estas juntas efectuada en una casa de la ciudad de Gua-dalajara, Jal., a la que se citó con motivo del fracaso y conse-cuencias del secuestro intentado en la persona de Eugenio Garza-Sada, en la que se tuvo que lamentar la muerte de dos compañeros revolucionarios, después de analizar las causas del fracaso",
+            "tipo": "CAPTURA",
+            "fecha": "en una de estas juntas",
+            "lugar": "Guanajuato",
+            "victimas": [
+                "dos compañeros revolucionarios"
+            ],
+            "victimarios": []
+        }
+    ]
+}

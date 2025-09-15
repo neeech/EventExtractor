@@ -1,0 +1,59 @@
+{
+  "texto": "RAFAEL AVILA SAAVEDRA detenido por-\nla policía el dia 23 de junio de 1977, dentro de su\ndomicilio, ubicado en Héroes Ferrocarrileros 8-A, de\ndonde fue sacado violentamente. Su madre ROSA MARIA\nSAAVEDRA DE AVILA con domicilio en Figuerilla 1656,\nes quien hace la denuncia.\nRICARDO MADRIGAL SAHAGUN detenido\nel 15 de abril de 1977 en un taller de la Colonia In-\ndustrial, en Guadalajara, Jal. Este tiene su domicilio\nen Pino Suárez No. 828; su hermana vive en Calle Topil-\nZin. No. 4492, Fraccionamiento El Zapote, Zapopan, Jal.\nFRANCISCO MERCADO ESPIROZA deteNido\nel 10 de febrero de 1977 en Ciudad Juárez, Chih,, de\ndonde fue trasladado a la Ciudad de México.\nJORGE CARRASCO GUTIERREZ detenido el-\n28 de febrero de 1977, en las calles de la Purísima\nNo. 2017, de Guadalajara, Jal., junto con VICTOR ARIAS--\nDE LA CRUZ. Su madre MA. LUISA GUTIERREZ DE CARRASCO\nvive en Draque No. 4240.\nVICTOR ARIAS DE LA CRUZ su deten\nción fue el 28 de febrero de 1977, junto con JORGE CA--\nARASCO GUTIERREZ, Su hermano RAMON ARIAS DE LA CRUZ\nhace la denuncia y tiene su domicilio en Tezozomoc 4527\nen el Fraccionamiento Zapopan, Sector Juárez, Mpio.de -\nZapopan, Jal.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "RAFAEL AVILA SAAVEDRA detenido por la policía el dia 23 de junio de 1977, dentro de su domicilio",
+      "fecha": "23 de junio de 1977",
+      "lugar": "su domicilio",
+      "victimas": [
+        "RAFAEL AVILA SAAVEDRA"
+      ],
+      "victimarios": [
+        "policía"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "RICARDO MADRIGAL SAHAGUN detenido el 15 de abril de 1977 en un taller de la Colonia Industrial, en Guadalajara, Jal.",
+      "fecha": "15 de abril de 1977",
+      "lugar": "Colonia Industrial, en Guadalajara, Jal.",
+      "victimas": [
+        "RICARDO MADRIGAL SAHAGUN"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "FRANCISCO MERCADO ESPIROZA detenido el 10 de febrero de 1977 en Ciudad Juárez, Chih.",
+      "fecha": "10 de febrero de 1977",
+      "lugar": "Ciudad Juárez, Chih.",
+      "victimas": [
+        "FRANCISCO MERCADO ESPIROZA"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JORGE CARRASCO GUTIERREZ detenido el 28 de febrero de 1977, en las calles de la Purísima No. 2017, de Guadalajara, Jal., junto con VICTOR ARIAS DE LA CRUZ.",
+      "fecha": "28 de febrero de 1977",
+      "lugar": "Purísima No. 2017, de Guadalajara, Jal.",
+      "victimas": [
+        "JORGE CARRASCO GUTIERREZ",
+        "VICTOR ARIAS DE LA CRUZ"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "VICTOR ARIAS DE LA CRUZ su deten\nción fue el 28 de febrero de 1977, junto con JORGE CA--\nARASCO GUTIERREZ",
+      "fecha": "28 de febrero de 1977",
+      "lugar": "Purísima No. 2017, de Guadalajara, Jal.",
+      "victimas": [
+        "JORGE CARRASCO GUTIERREZ",
+        "VICTOR ARIAS DE LA CRUZ"
+      ],
+      "victimarios": []
+    }
+  ]
+}

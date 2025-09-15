@@ -1,0 +1,55 @@
+{
+  "texto": "11-235\nQio\ncuerdo de cinco puntos básicos que son: el ya apuntado de ajus-\nticiaziento de miembros de le Folicía y del Ejército; realizar\nactividades militares para apoyar el movimiento de masas; recupe\nrar u obtener ermas; \"expropiar\" todos los recursos materiales y\nmonetarios necesarios para la lucha y libera que asi\npuede mencionar un encuentro que se suscitó diciem\nbre de mil novecientos setente y tres la 1. Moctezuma, entre\ncuatro individuos miembros de la \"Enigede Roja que se balacearon\ncon Policías de una patrulla resultando muerto el Cabo León\nJaeso y neridos el Agente EZECHIEL HUGO OLMOS y un particular de\nnombre-JUAN-AMERIZ y al huir sus compañeros, dejaron abandonada-\nuna maleta en la que llevaban armas y parque, enterándose de ese\nhecho el declarante por informes de los responsables de la men-\ncionada \"Brigada\", los que también le informaron que otro encuen\ntro sostenido por elementos de la propia Brigada con el personal\nde una patrulla en la Col. Campestre Churubusco, en el que resul\ntaron fuertos dos policías, cuyas acciones era aprobadas por el-\nde la voz en los particular y por los integrantes del Euró en lo\ngeneral; que el día dieciséis de enero del año en curso el Comi-\nté Político Militar \"Arturo Génié\" que opera en la sierra Sonora-\nChihuahua bajo el mando de SALOMON GAYTAN (a) \"Don Chuy\" secues\ntró en la población de San Bernardo, del Muncipio de Alamo, Son.\na JOSE HERNEGILDO SAENZ CANO, por cuyo rescate recibieron la\nsuma de un millón de pesos y aunque comunicaron al Buró de Direc\nción esa acción y sus resultados, conservaron en su poder el pro\nducto del rescate. Que al ocurrir unos disturbios en la pobla--\nción de Pinotepa Nacional, Oax., a mediados del años pasado en\nque gentes del pueblo se anotinaron contra los caciques de la re\ngión, el Buró Político Militar de la Liga envió a ese lugar a\nJOSE GARCIA WENCESLAO (a) \"Sam\", como responsale, auxiliado por\notros compañeros a los que sólo conoce por sus caras\ncon la orden de formar en esa zona otra brigada, lo cual hicie--\nron y a la que denominaron \"Emiliano Zapata\", que la fecha está-\nineegrada por alrededor de treinta elementos, mismos que el\nveinte de enero último secuestraron Raymundo Soberanes Otero en-",
+  "eventos": [
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "puede mencionar un encuentro que se suscitó diciembre de mil novecientos setente y tres en la Col. Moctezuma, entre cuatro individuos miembros de la \"Enigede Roja que se balacearon con Policías de una patrulla resultando muerto el Cabo León Jaeso",
+      "fecha": "diciembre de mil novecientos setente y tres",
+      "lugar": "Col. Moctezuma",
+      "victimas": [
+        "Cabo León Jaeso"
+      ],
+      "victimarios": [
+        "Brigada Roja"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "le informaron que otro encuentro sostenido por elementos de la propia Brigada con el personal de una patrulla en la Col. Campestre Churubusco, en el que resultaron fuertos dos policías, cuyas acciones era aprobadas por el-de la voz en los particular y por los integrantes del Euró en lo general",
+      "fecha": null,
+      "lugar": "Col. Campestre Churubusco",
+      "victimas": [
+        "dos policias"
+      ],
+      "victimarios": [
+        "Brigada Roja"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "dieciséis de enero del año en curso el Comi-té Político Militar \"Arturo Génié\" que opera en la sierra Sonora-Chihuahua bajo el mando de SALOMON GAYTAN (a) \"Don Chuy\" secuestró en la población de San Bernardo, del Muncipio de Alamo, Son. a JOSE HERNEGILDO SAENZ CANO",
+      "fecha": "dieciséis de enero del año en curso",
+      "lugar": "San Bernardo, del Muncipio de Alamo, Son.",
+      "victimas": [
+        "JOSE HERNEGILDO SAENZ CANO"
+      ],
+      "victimarios": [
+        "Comi-té Político Militar \"Arturo Génié\"",
+        "SALOMON GAYTAN"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "con la orden de formar en esa zona otra brigada, lo cual hicie--ron y a la que denominaron \"Emiliano Zapata\", que la fecha está-ineegrada por alrededor de treinta elementos, mismos que el veinte de enero último secuestraron Raymundo Soberanes Otero",
+      "fecha": "veinte de enero último",
+      "lugar": null,
+      "victimas": [
+        "Raymundo Soberanes Otero"
+      ],
+      "victimarios": [
+        "JOSE GARCIA WENCESLAO",
+        "Emiliano Zapata"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "texto": "Noviembre 22 de 1977.\n\nHoy se presentó a esta Secretaría -\nuna comisión de representantes del Comité Pro-Defensa-\nde Fresos, Perseguidos, Desaparecidos y Exiliados Poli\nticos, a denunciar la desaparición de las personas que\nenseguida se señalan, mismas que al parecer fueron de-\ntenidas por elementos policíacos y militares.\n JESUS REYES MAYORAL JAURAGUI, de 70\naños de edad, detenido a las 10.30 horas del día 23 de\nagosto de 1977, después de haber sido allanado su domi\ncilio sito en Francisco Sarabia No. 98, Sector Libertas,\nde Guadalajara, Jal.\n\nGABRIEL SOLORIO ORTEGA detenido la-\nmadrugada del día 14 de septiembre de 1977, en la Ciu---\ndad de Guadalajara, Jal. Esta detención fue informada -\na su madre que tiene su domicilio en Monte La Luna\nNo. 918, Col. San Marcos, Sector Libertad, Guadalajara,\nJal., lugar de donde también fueron sacados tres horas antes, \ndos hombres y una mujer, quienes fueron puestos en\nlibertad a las 23.00 horas del mismo dia.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JESUS REYES MAYORAL JAURAGUI, de 70 años de edad, detenido a las 10.30 horas del día 23 de agosto de 1977",
+      "fecha": "10.30 horas del día 23 de agosto de 1977",
+      "lugar": "Francisco Sarabia No. 98, Sector Libertas, de Guadalajara, Jal.",
+      "victimas": [
+        "JESUS REYES MAYORAL JAURAGUI"
+      ],
+      "victimarios": [
+        "elementos policíacos y militares"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "GABRIEL SOLORIO ORTEGA detenido la madrugada del día 14 de septiembre de 1977, en la Ciudad de Guadalajara, Jal.",
+      "fecha": "madrugada del día 14 de septiembre de 1977",
+      "lugar": "Ciudad de Guadalajara, Jal.",
+      "victimas": [
+        "GABRIEL SOLORIO ORTEGA"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "fueron sacados tres horas antes, dos hombres y una mujer",
+      "fecha": "14 de septiembre de 1977",
+      "lugar": "Monte La Luna No. 918, Col. San Marcos, Sector Libertad, Guadalajara, Jal.",
+      "victimas": [
+        "dos hombres",
+        "una mujer"
+      ],
+      "victimarios": []
+    }
+  ]
+}

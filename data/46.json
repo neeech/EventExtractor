@@ -1,0 +1,18 @@
+{
+  "texto": "PARRA;\nSONTO FREDO TECLA PARRAAL\nBERNARDEL\nRAFAEL RAMOS EUSEBIO (a) \"Fernando\"; CALDERON ESQUIVEL VICI\nTOR MANUEL VELASCO DAIJAN NERGIO FINALDO HAVARRETE, MARIA EUGE\n17\n-\n- -\nNIA CALMADA FLORES; (a) \"Gertrudis\"; (a) \"Femando\"; (2) \"Javier\";\n(a) \"Seni\", \"BENITO\" o \"El Immoral\"; (a) Mario\"; (a) Mariano\";\n(a) \"Salvedor\"; (a) \"La Papa\"; (a) Pana\"; (a) \"Manuel\"; (a) \"C\ny (a) \"Nora\" o \"Fe\".- Que quiere aclarar que JOSE DOMINGUEZ RODRI\nGUEZ (a) \"El Chaparro\", se encuentra asimilado a la Brigada \"Emilia\nno_Zapata\" en el sur.- Que los grupos aglutinados que formaron la\nLiga Comunista 23 de Septiembre son los siguientes: los que quedaron\ndel grupo que encabezaba Raúl Ramos Zavala; los que quedaron del\nnucleo guerrillero de Diego Lucero Martínez, del \"Frente Estudiantil\nRevolucionario\" de Guadalajara, Jal.; del \"Ilovimiento 23 de Septiem\nbre de Chihuahua\"; de la Liga leninista Espartaco de Monterrey, N.L.;\ny de los \"Lacandones\" del Distrito Federal y del \"Movimiento de\nAcción Revolucionaria\" entrenados en Corea del Norte, contando la Li\nga con un cuerpo de servicios para asuntos secretariales, alquiler-\nde casas de seguridad, control de las mismas, contacto y trasлados-\nde militantes clandestinamente sin que conozcan la dirección de los\nlugares a los que llegan, formado por (a) Ricardo\", (a) \"El Guero\",\n(a) \"Hara\" y (a) \"La Flaca\", éstas dos últimas que vivían con el de\nclarante y RODOLFO GOMEZ GARCIA en la casa número cuarenta y uno al\ntos de las calles de Puebla en la Colonia Valle de Ceylan del Muni-\ncipio de Tlanepantla, Méx., último domicilio que habitó el declaran\nte.- Que en este acto recuerda los hechos ocurridos en Popo Park,-\nMéx., por el mes de septiembre u octubre del año pasado, a la que\nasistieron entre diez y doce compañeros y que tenía por objeto dar-\ninstrucción político militar aelementos procedentes de los diferen-\ntes comités zonales, para que éstos a su vez transmitieran los cono\ncimientos que adquiriesen a los compañeros de sus respectivas bases\npero como es sabido, fueron descubiertos por la Policía y resultaron\nmuertos Ernesto Rojas Días y otro compañero cuyo nombre no recuerda\ny herido el militante de la Brigada Roja que usa el seudónimo de\n\"Fernando\", precisando que esos hechos ocurrieron el cinco de octu-\nbre citado y aún cuando en la Prensa se mencionó que se trataba del\ngrupo de \"Los Guajiros\", tal cosa era falsa, pues como dijo se tra-\n--",
+  "eventos": [
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "fueron descubiertos por la Policía y resultaronmuertos Ernesto Rojas Días y otro compañero cuyo nombre no recuerda",
+      "fecha": "septiembre u octubre del año pasado",
+      "lugar": "Popo Park,-Méx.",
+      "victimas": [
+        "Ernesto Rojas Días",
+        "otro compañero"
+      ],
+      "victimarios": [
+        "Policía"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "texto": "2.\ncilio particular para enfrentarse a una verdadera lucha en donde\nse emplearian las armas, pero ella sintió temor y optó por reti-\nrarse de esas amistades.\nCECILIA LOPEZ LOPEZ quedó a disposición de las autori-\ndades de la Policía Judicial del Estado en esta población.\nPor otra parte, de las 14.30 a las 15.00 horas de esta\nfecha el Lic. ANTONIO QUEZADA FORNELLI, Procurador General de --\nJusticia de la Entidad presentó a la prensa local asi como a la-\ntelevisión y radio a los siguientes elementos que se encuentran-\ndetenidos:\nMIGUEL LERMA CAMARGO, (a) \"Daniel\" o \"Arturo Rodriguez\nLópez\" o \"Daniel Arturo Ramírez López\"; JOSE PILAR TERRAZAS SAN-\nSABAS, (a) \"Ricardo\"; RIGOBERTO AVILA ORDOÑEZ, (a) \"Efrén\",\nJOSE ELMER GUTIERREZ RODRIGUEZ, (a) \"Juan M. Cano Hernández o-\n\"Agustin\" o \"Joaquin\" y a ISIDRO JAVIER QUEZADA ARAGON, (a) \"Da-\nmián\", acusados todos ellos, a excepción del segundo, de los de-\nlitos siguientes:\nAsalto a mano armada a un camión repartidor de la Le--\ncheria \"Zaragoza\", de la colonia \"Los Lagos\" y robo de un vehicu\nlo en la Col. Melchor Ocampo de esta ciudad, el día 15 de enero-\nde 1974, que produjo la cantidad de $ 3,500.00. En este último-\natraco participó J. NATIVIDAD VILLELA VARGAS, (a) \"El Billetes\",\nactualmente procesado en Guadalajara, Jal.\nAsalto a mano armada a la gasolinera \"Diaz\" de la es--\nquina de las calles 28 y Adolfo López Matéos y robo de un automo\nvil marca Volkswagen en el mes de marzo último, con una ganancia\nde $ 2,500.00. También tomó parte VILLELA VARGAS.\nAsalto a mano armada del depósito de la Cervecería Car\nta Blanca, en marzo del presente año, con un ingreso de $3,000.00\nAsesinato de los patrulleros Victor Ortiz Villalpando-\ny Antonio Zambrano Rosales, el 2 de febrero de 1974 en la Col.\n\"La Carbonifera\" de esta ciudad. Participó también SALVADOR GAR\nCIA CORRAL (a) \"Roberto\" o \"Juan Corral\" o \"Ramón\".\n-\nAsesinato del patrullero Jesús Mendoza Delgado y lesiones \nal policía ROBERTO FIGUEROA, el día 30 de marzo del año en -\ncurso, en la esquina de las calles Venezuela y Niños Héroes de -\nesta ciudad. Fueron acompañados en esta ocasión por VILLELA VAR\nGAS.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "CECILIA LOPEZ LOPEZ quedó a disposición de las autori-dades de la Policía Judicial del Estado en esta población",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "CECILIA LOPEZ LOPEZ"
+      ],
+      "victimarios": [
+        "Policía Judicial del Estado"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "los siguientes elementos que se encuentran-detenidos:MIGUEL LERMA CAMARGO, (a) \"Daniel\" o \"Arturo RodriguezLópez\" o \"Daniel Arturo Ramírez López\"; JOSE PILAR TERRAZAS SAN-SABAS, (a) \"Ricardo\"; RIGOBERTO AVILA ORDOÑEZ, (a) \"Efrén\",JOSE ELMER GUTIERREZ RODRIGUEZ, (a) \"Juan M. Cano Hernández\" o-\"Agustin\" o \"Joaquin\" y a ISIDRO JAVIER QUEZADA ARAGON, (a) \"Da-mián\"",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "MIGUEL LERMA CAMARGO",
+        "JOSE PILAR TERRAZAS SAN-SABAS",
+        "RIGOBERTO AVILA ORDOÑEZ",
+        "JOSE ELMER GUTIERREZ RODRIGUEZ",
+        "ISIDRO JAVIER QUEZADA ARAGON"
+      ],
+      "victimarios": [
+        "ANTONIO QUEZADA FORNELLI"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "Asesinato de los patrulleros Victor Ortiz Villalpando-y Antonio Zambrano Rosales, el 2 de febrero de 1974 en la Col.\"La Carbonifera\" de esta ciudad. Participó también SALVADOR GARCIA CORRAL (a) \"Roberto\" o \"Juan Corral\" o \"Ramón\".",
+      "fecha": "2 de febrero de 1974",
+      "lugar": "Col.\"La Carbonifera\"",
+      "victimas": [
+        "Victor Ortiz Villalpando",
+        "Antonio Zambrano Rosales"
+      ],
+      "victimarios": [
+        "MIGUEL LERMA CAMARGO",
+        "RIGOBERTO AVILA ORDOÑEZ",
+        "JOSE ELMER GUTIERREZ RODRIGUEZ",
+        "ISIDRO JAVIER QUEZADA ARAGON",
+        "SALVADOR GARCIA CORRAL"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "Asesinato del patrullero Jesús Mendoza Delgado y lesiones al policía ROBERTO FIGUEROA, el día 30 de marzo del año en -curso, en la esquina de las calles Venezuela y Niños Héroes de -esta ciudad. Fueron acompañados en esta ocasión por VILLELA VARGAS.",
+      "fecha": "30 de marzo del año en curso",
+      "lugar": "calles Venezuela y Niños Héroes de esta ciudad",
+      "victimas": [
+        "Jesús Mendoza Delgado"
+      ],
+      "victimarios": [
+        "MIGUEL LERMA CAMARGO",
+        "RIGOBERTO AVILA ORDOÑEZ",
+        "JOSE ELMER GUTIERREZ RODRIGUEZ",
+        "ISIDRO JAVIER QUEZADA ARAGON",
+        "VILLELA VARGAS"
+      ]
+    }
+  ]
+}

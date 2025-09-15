@@ -1,0 +1,207 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nJACOBO GAMIZ GARCIA\nDetenido en marzo de 1974\nen Acapulco, Gro, por la poli-\ncía y el ejército. Herido en\nuna pierna, Identificado ple-\nnamente por su esposa. Fue\nconducido al Campo Militar\nNo. 1 de la Cd. de México.\nJESUS PIEDRA IBARRA\nSecuestrado por la Policia el\n18 de Abril de 1975 en la co-\nlle Zaragoza en Monterrey,\nN. L, según testigo y notas\nperiodísticas. Tras str salva-\njemente torturado fus condu-\ncido al Compo Militar No. 1\nde la Ciudad de México.\nIGNACIO ARTURO SALAS\nOBREGON\nCapturado herido en Tlalne-\npantia, en 1974, fué conduci-\ndo al Hospital Militar en don-\nde fué visto por un compañe-\nro que lo manifestó pública-\nmente por medio de una carta\na \"Foro de Excelsior\".\nLIC. CESAR YAÑEZ MUÑOZ\nVisto por última vez en Oco-\nsingo, Chiapas, según datos\nde la Procuraduría General de\nla República en febrero de\n1974. Se cree que fue captu-\nrado y se teme por su vida.\nPROFR. JACOB N. JERA\nHERNANDEZ\nDESTACADO LIDER DEL MO\nVIMIENTO REVOLUCIONA-\nRIO DEL MAGISTERIO\nFue sacado de su casa en San\nJerónimo, Gro. el 2 de sep-\ntiembre de 1974. Entre los\nagentes judiciales que lo se-\nJOSE DE JESUS AVILA\nGONZALEZ\nDesaparecido desde el 5 de\nabril de 1974. Secuestrado\nfuera de su casa en México,\nD. F. por agentes de la Direc-\nción Federal de Seguridad.\nEstudiante de la Escuela Su-\nperior de Economia del IPN.\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"JACOBO GAMIZ GARCIA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"marzo de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Acapulco, Gro\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Campo Militar No. 1\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Cd. de México\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"JESUS PIEDRA IBARRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"18 de Abril de 1975\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"calle Zaragoza\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Monterrey, N. L\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Campo Militar No. 1\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Ciudad de México\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"IGNACIO ARTURO SALAS OBREGON\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Tlalnepantia\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Hospital Militar\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"LIC. CESAR YAÑEZ MUÑOZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Ocosingo, Chiapas\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Procuraduría General de la República\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"febrero de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"PROFR. JACOB N. JERA HERNANDEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"San Jerónimo, Gro.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"2 de septiembre de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"JOSE DE JESUS AVILA GONZALEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"5 de abril de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"México, D. F.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Dirección Federal de Seguridad\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Escuela Superior de Economia del IPN\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"Detenido en marzo de 1974 en Acapulco, Gro, por la policía y el ejército.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"marzo de 1974\",\n      \"lugar\": \"Acapulco, Gro\",\n      \"victimas\": [\n        \"JACOBO GAMIZ GARCIA\"\n      ],\n      \"victimarios\": [\n        \"policía\",\n        \"ejército\"\n      ]\n    },\n    {\n      \"descripcion\": \"Fue conducido al Campo Militar No. 1 de la Cd. de México.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"Campo Militar No. 1\",\n      \"victimas\": [\n        \"JACOBO GAMIZ GARCIA\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"Secuestrado por la Policia el 18 de Abril de 1975 en la calle Zaragoza en Monterrey, N. L, según testigo y notas periodísticas.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"18 de Abril de 1975\",\n      \"lugar\": \"calle Zaragoza\",\n      \"victimas\": [\n        \"JESUS PIEDRA IBARRA\"\n      ],\n      \"victimarios\": [\n        \"Policia\"\n      ]\n    },\n    {\n      \"descripcion\": \"Tras ser salvajemente torturado fus condu-cido al Compo Militar No. 1 de la Ciudad de México.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"Compo Militar No. 1\",\n      \"victimas\": [\n        \"JESUS PIEDRA IBARRA\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"Capturado herido en Tlalnepantia, en 1974, fué conducido al Hospital Militar\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"1974\",\n      \"lugar\": \"Tlalnepantia\",\n      \"victimas\": [\n        \"IGNACIO ARTURO SALAS OBREGON\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"Visto por última vez en Ocosingo, Chiapas, según datos de la Procuraduría General de la República en febrero de 1974. Se cree que fue captu-rado y se teme por su vida.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"febrero de 1974\",\n      \"lugar\": \"Ocosingo, Chiapas\",\n      \"victimas\": [\n        \"LIC. CESAR YAÑEZ MUÑOZ\"\n      ],\n      \"victimarios\": [\n        \"Procuraduría General de la República\"\n      ]\n    },\n    {\n      \"descripcion\": \"Fue sacado de su casa en San Jerónimo, Gro. el 2 de septiembre de 1974.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"2 de septiembre de 1974\",\n      \"lugar\": \"San Jerónimo, Gro.\",\n      \"victimas\": [\n        \"PROFR. JACOB N. JERA HERNANDEZ\"\n      ],\n      \"victimarios\": [\n        \"agentes judiciales\"\n      ]\n    },\n    {\n      \"descripcion\": \"Desaparecido desde el 5 de abril de 1974. Secuestrado fuera de su casa en México, D. F. por agentes de la Dirección Federal de Seguridad.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"5 de abril de 1974\",\n      \"lugar\": \"México, D. F.\",\n      \"victimas\": [\n        \"JOSE DE JESUS AVILA GONZALEZ\"\n      ],\n      \"victimarios\": [\n        \"Dirección Federal de Seguridad\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nJACOBO GAMIZ GARCIA\nDetenido en marzo de 1974\nen Acapulco, Gro, por la poli-\ncía y el ejército. Herido en\nuna pierna, Identificado ple-\nnamente por su esposa. Fue\nconducido al Campo Militar\nNo. 1 de la Cd. de México.\nJESUS PIEDRA IBARRA\nSecuestrado por la Policia el\n18 de Abril de 1975 en la co-\nlle Zaragoza en Monterrey,\nN. L, según testigo y notas\nperiodísticas. Tras str salva-\njemente torturado fus condu-\ncido al Compo Militar No. 1\nde la Ciudad de México.\nIGNACIO ARTURO SALAS\nOBREGON\nCapturado herido en Tlalne-\npantia, en 1974, fué conduci-\ndo al Hospital Militar en don-\nde fué visto por un compañe-\nro que lo manifestó pública-\nmente por medio de una carta\na \"Foro de Excelsior\".\nLIC. CESAR YAÑEZ MUÑOZ\nVisto por última vez en Oco-\nsingo, Chiapas, según datos\nde la Procuraduría General de\nla República en febrero de\n1974. Se cree que fue captu-\nrado y se teme por su vida.\nPROFR. JACOB N. JERA\nHERNANDEZ\nDESTACADO LIDER DEL MO\nVIMIENTO REVOLUCIONA-\nRIO DEL MAGISTERIO\nFue sacado de su casa en San\nJerónimo, Gro. el 2 de sep-\ntiembre de 1974. Entre los\nagentes judiciales que lo se-\nJOSE DE JESUS AVILA\nGONZALEZ\nDesaparecido desde el 5 de\nabril de 1974. Secuestrado\nfuera de su casa en México,\nD. F. por agentes de la Direc-\nción Federal de Seguridad.\nEstudiante de la Escuela Su-\nperior de Economia del IPN.\n\n ",
+    "entidades": [
+        {
+            "texto": "JACOBO GAMIZ GARCIA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "marzo de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Acapulco, Gro",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Campo Militar No. 1",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Cd. de México",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "JESUS PIEDRA IBARRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "18 de Abril de 1975",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "calle Zaragoza",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Monterrey, N. L",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Campo Militar No. 1",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Ciudad de México",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "IGNACIO ARTURO SALAS OBREGON",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Tlalnepantia",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Hospital Militar",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "LIC. CESAR YAÑEZ MUÑOZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Ocosingo, Chiapas",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Procuraduría General de la República",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "febrero de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "PROFR. JACOB N. JERA HERNANDEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "San Jerónimo, Gro.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "2 de septiembre de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "JOSE DE JESUS AVILA GONZALEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "5 de abril de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "México, D. F.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Dirección Federal de Seguridad",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Escuela Superior de Economia del IPN",
+            "tipo": "ORGANIZACIÓN"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "Detenido en marzo de 1974 en Acapulco, Gro, por la policía y el ejército.",
+            "tipo": "CAPTURA",
+            "fecha": "marzo de 1974",
+            "lugar": "Acapulco, Gro",
+            "victimas": [
+                "JACOBO GAMIZ GARCIA"
+            ],
+            "victimarios": [
+                "policía",
+                "ejército"
+            ]
+        },
+        {
+            "descripcion": "Fue conducido al Campo Militar No. 1 de la Cd. de México.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "Campo Militar No. 1",
+            "victimas": [
+                "JACOBO GAMIZ GARCIA"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "Secuestrado por la Policia el 18 de Abril de 1975 en la calle Zaragoza en Monterrey, N. L, según testigo y notas periodísticas.",
+            "tipo": "CAPTURA",
+            "fecha": "18 de Abril de 1975",
+            "lugar": "calle Zaragoza",
+            "victimas": [
+                "JESUS PIEDRA IBARRA"
+            ],
+            "victimarios": [
+                "Policia"
+            ]
+        },
+        {
+            "descripcion": "Tras ser salvajemente torturado fus condu-cido al Compo Militar No. 1 de la Ciudad de México.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "Compo Militar No. 1",
+            "victimas": [
+                "JESUS PIEDRA IBARRA"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "Capturado herido en Tlalnepantia, en 1974, fué conducido al Hospital Militar",
+            "tipo": "CAPTURA",
+            "fecha": "1974",
+            "lugar": "Tlalnepantia",
+            "victimas": [
+                "IGNACIO ARTURO SALAS OBREGON"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "Visto por última vez en Ocosingo, Chiapas, según datos de la Procuraduría General de la República en febrero de 1974. Se cree que fue captu-rado y se teme por su vida.",
+            "tipo": "CAPTURA",
+            "fecha": "febrero de 1974",
+            "lugar": "Ocosingo, Chiapas",
+            "victimas": [
+                "LIC. CESAR YAÑEZ MUÑOZ"
+            ],
+            "victimarios": [
+                "Procuraduría General de la República"
+            ]
+        },
+        {
+            "descripcion": "Fue sacado de su casa en San Jerónimo, Gro. el 2 de septiembre de 1974.",
+            "tipo": "CAPTURA",
+            "fecha": "2 de septiembre de 1974",
+            "lugar": "San Jerónimo, Gro.",
+            "victimas": [
+                "PROFR. JACOB N. JERA HERNANDEZ"
+            ],
+            "victimarios": [
+                "agentes judiciales"
+            ]
+        },
+        {
+            "descripcion": "Desaparecido desde el 5 de abril de 1974. Secuestrado fuera de su casa en México, D. F. por agentes de la Dirección Federal de Seguridad.",
+            "tipo": "CAPTURA",
+            "fecha": "5 de abril de 1974",
+            "lugar": "México, D. F.",
+            "victimas": [
+                "JOSE DE JESUS AVILA GONZALEZ"
+            ],
+            "victimarios": [
+                "Dirección Federal de Seguridad"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+  "texto": "2\n---en un automovil que el declarante tenia, por haberselo-\nfacilitado Jose y cuyas caracteristicas del mismo eran, mares-\nFord tipo Falcon, modelo mil novecientos sesenta, color azul,\nde cuatro puertas, dicho auto en esa ocasion que iban hacer -\nuns practica de tiro lo iba guiando el declarante, a su lado ->\nse sento Jose y atras Damian-are decidieron realizar la citada\npractica de tiro en un lugar que estuviera solitario y para el\nefecto se dirigieron rumbo a la Carbonifera, levando consigo-\nuna ametralladora calibre cuarenta y cinco, un rifle N Uno, - -\ndos pistolas cuarenta y cinco y una nueve milimetros, mismas -\nMERA ALVARE les habia mandado la organizacion, que despues de llegar -\nlico No. 2.\nFrey, Chih\nal lugar donde decisieron practicar el tiro y manejo de armas\ny habiendolo hecho, y ya cuando iban de regreso saliendo casi-\nde la Carbonifera se les atasco el auto y se bajaron los tres ->\na tratar de desatascarlo, cuando estaban et eso, Damian grito,\nque ahi venia un Jeep de la Policia, por lo que tomaron posi-->\nciones y esperaron a que llegara dicho vehiculo, que cuando - -\nllege, uno de los Policias corto cartucho con su pistola, por\nlo que Jose disparo el rifle N Uno, dandole en una pierna, -\ny gritandoles que se rindieran, a lo que los Policias leventa-\nron las manos y pusieron sun armas arriba del capacete, mien--\ntras tanto Jose arrancaba el alambre del radio trasmisor del -\nJeep, y estando boca-abajo en el suelo acostados Jose, agarro -\nla ametralladora cuarenta y cinco y los disparo primero, hacien\ndo le mismo el declaronte y Damian, que por cierto Damian siem\npre estuvo en la creencia de que no se les habia hecho, y no-\nse entero hasta el dia siguiente por los periodicos y por ellos\nque habian matado a los patrulleros. Despues de que les diapa-\n\ntodo el armamento en unos costalitos de lona y de manta que --\nllevaban.-Habiendose venido por la sierra hasta llegar a una\nColonia cuyo nombre ne recuerda donde tomaron un rutero que los\ndejo en el viaducto para abordar despues otro rutero que los",
+  "eventos": [
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "",
+      "fecha": "30 de marzo del año en curso",
+      "lugar": "Carbonifera",
+      "victimas": [
+        "patrulleros/Policías"
+      ],
+      "victimarios": [
+        "Damian",
+        "Jose",
+        "declarante"
+      ]
+    }
+  ]
+}

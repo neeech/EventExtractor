@@ -1,0 +1,39 @@
+{
+  "texto": "se esperaban que ocurriera tan rápido y en que forma fueron\n detenidos muchos de los activistas y dirigentes, resul-\ntando algunos muertos.  Que en vista de diversos problemas y mo-\nvilizaciones de obreros, principalmente de Petróleos Mexicanos,-\nque han ocurrido en Las Choapas, Pajaritos, Minatitlán y Coatza-\ncoalcos, Ver., y en algunos lugares del Estado de Tabasco como -\nCiudad Pemex, la Coordinadora Nacional de la LigaComunista 23 de\nSeptiembre decidió enviar a un elementos para realizar trabajos\npolíticos en esa zona y entre esos gremios, habiendo sido desig-\nnado como responsable PAULINO PEÑA PEÑA (a) \"Pancho\", ex-miembro\ndel M.A.U., que tiene como auxiliar a otro compañero procedenta-\nde Monterrey, N.L. al que llaman \"Pancho II\" y además cuenta con\nel apoyo de individuos de la región que ha venido reclutando y -\npolitizando, calculando que esa brigada, que a la fecha carece de\nnombre, cuenta con unos quince miembros; que sobre el particular\nla Brigada Roja cuenta con alrededor de treinta compañeros; el -\nComité del noreste, cuenta con veinte elementos aproximadameente-\ny actúa a través del Comité Estudiantil Revolucionario; el Comité\ndel noroeste, cuenta con mucha gente tanto en Sinaloa como en -\nSonora y Chihuahua, y pocos en Durango, pero el dicente no puede\ndecir su número ni aproximadamente, y sólo respecto a la sierra\nsabe que el contigente fluctúa entre treinta y cuarenta elemen--\ntos; y respecto a Guerrero, en ese Estado estuvo operando la Bri\ngada \"Genaro Vázquez\", pero al ocurrir la muerte de varios compa\nñeros por parte del Ejército, se decidió su fusión con la Briga-\nda \"Emiliano Zapata\", de la que pasaron a formar parte sus inte-\ngrantes que quedaban; que en la ciudad de Monterrey los miembros\ndel Comité Coordinador que opera en esa ciudad ha asaltado varios\nautomercados y en Sinaloa y Sonora han tenido dirección de actos\nde masas contra edificios públicos, que aunque no se consideran -\nimportantes se realizan por tradición y táctica de lucha dentro -\ndel movimiento.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "fueron detenidos muchos de los activistas y dirigentes",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "activistas",
+        "dirigentes"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "fueron detenidos muchos de los activistas y dirigentes, resul-tando algunos muertos",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "activistas",
+        "dirigentes"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "y respecto a Guerrero, en ese Estado estuvo operando la Brigada \"Genaro Vázquez\", pero al ocurrir la muerte de varios compañeros por parte del Ejército",
+      "fecha": null,
+      "lugar": "Guerrero",
+      "victimas": [
+        "Brigada \"Genaro Vázquez\""
+      ],
+      "victimarios": [
+        "Ejército"
+      ]
+    }
+  ]
+}

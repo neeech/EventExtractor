@@ -1,0 +1,66 @@
+{
+  "texto": "Piedra Ibarra Puede ser el\nComandante Uno: Garza Guzmán\nDeclara en la Capital el Director\nde la Judicial de NL\nMEXICO, D.F., 3 (Excelsior).- Jesús\nPiedra Ibarra, ex-integrante del comité\nestudiantil revolucionario de Monterrey, y\nex-activista al que se le atribuyen decenas\nde asaltos, secuestros y atentados contra\npolicias en Mexico, a quien, además, no se\nle ha vuelto a ver o saber de él, desde el 18\nde abril de 1975. a juicio del director de la\npolicia Judicial de Nuevo León, licenciado\nFernando Garza Guzmán, por sus rasgos\nfisicos, tiene el mismo tipo de narız,\nligeramente concava; coinciden en labios,\nsonrisa, pómulos, menton borleado, lon-\ngitud frontai y cejas pobladas es el\nComandante Uno, del grupo guerrillero M-\n19 de Colombia\".\nten-\nPara poder tener la plena seguridad\nde esto, explico el jefe policiaco,\ndriamos que tener las huellas digitales del\nComandante Uno y compararlas con las de\nJesús Piedra; pero en fotografia -reitero-\nson exactamente identicos y estoy seguro\nque se trata de la misma persona\".\nJesús Piedra barra, segun infor-\nmaciones proporcionadas por Garza\nGuzmán, inició su actividad subversiva el\n25 de noviembre de 1973, al dar muerte al\npolicia Alejandro Villarreal Valdez y herir\nde gravedad al también uniformado,\nArturo Arévalo Espitia, en Monterrey,\nNuevo León.\nSu madre, doria Rosario Ibarra de Pie-\ndra no lo volvió a ver desde esa acción y\nfue hasta el 18 de abril de 1975, cuando en\nun enfrentamiento con la policia, se dijo\nqus habia sido ultimado; sin embargo,\nnunca se entregó su cuerpo o se lo pudo\nver.\nHUYE\nAl respecto, el procurador general de\nla República, licenciado Oscar Flores\nSánchez, señaló que a Jesús Piedra Ibarra\njamás se le detuvo y que, según infor-\nmaciones periodisticas locales, se le vio\nhuir herido, pero, reiteró, jamás se le de-\ntuvo.\nSobre lo dicho por Garza Guzmán,\n\nOscar Flores Sánchez señaló que el\nComandante Uno e hijo de la señora\nRosario Ibarra \"son iguales en fo-\ntografias\", pero explicó que seria\nnecesario tener las huellas digitales de\nambos para poder confirmar esa sos-\npecha.\nDona Rosario Ibarra de Piedra, según\ndeclaraciones que hizo a los medios de\ninformación de Monterrey, investiga ya sı\nel Comandante Uno es su hijo o\nsimplemente un \"sujeto muy parecido a\nel\".\nNo confirmó que el Comandante Uno\nsea su hijo y se mostró, ante los periodistas\nde Nuevo León, confusa al mostrársele fo-\ntografias del guerrillero colombiano.\nBUSQUEDA.\nLa señora durante siete años ha\nrecorrido toda la República Mexicana e\nincluso acudió a la ONU, en Nueva York,\nen busca y para clamar por la aparición de\nsu hijo.\nLas fotografias le fueron tomadas al\nComandante Uno el 28 de abril pasado a su\narribo a La Habana, con los demás parti-\ncipantes en el secuestro de diplomáticos,\nentre ellos el embajador mexicano\nRicardo Galán.\nRicardo Galán, en pláticas con fun-\ncionarios mexicanos señaló que \"el\nComandante Uno tiene muchas\nexpresiones mexicanas y su asento al ha-\nblar, es distinto al de los colombianos\".\nAl preguntarsele a Garza Guzmán el\npor qué Jesús Piedra, si es que es el\nComandante Uno, lucha en otro pais, dijo\nque \"éstas personas actúan por una\nideologia, según ellos, que no tiene fron-\nteras\".\nManifestó que existe un ejemplo de\notro mexicano que también era de Mon-\nterrey y que se alió a un grupo terrorista\nde Europa que trató de secuestrar a una\ndiplomática en Holanda, en junio de 1977.\nEs, agregó, Tomás Okusono.\nEL DIARIO TEL. 59-25-25",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Jesús Piedra Ibarra, ex-integrante del comité estudiantil revolucionario de Monterrey, y ex-activista al que se le atribuyen decenas de asaltos, secuestros y atentados contra policias en Mexico",
+      "fecha": null,
+      "lugar": "México",
+      "victimas": [],
+      "victimarios": [
+        "Jesús Piedra Ibarra"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "Jesús Piedra barra, segun infor-maciones proporcionadas por Garza Guzmán, inició su actividad subversiva el 25 de noviembre de 1973, al dar muerte al policia Alejandro Villarreal Valdez y herir de gravedad al también uniformado, Arturo Arévalo Espitia, en Monterrey, Nuevo León.",
+      "fecha": "25 de noviembre de 1973",
+      "lugar": "Monterrey, Nuevo León",
+      "victimas": [
+        "Alejandro Villarreal Valdez"
+      ],
+      "victimarios": [
+        "Jesús Piedra Ibarra"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "Su madre, doria Rosario Ibarra de Pie-dra no lo volvió a ver desde esa acción y fue hasta el 18 de abril de 1975, cuando en un enfrentamiento con la policia, se dijo qus habia sido ultimado",
+      "fecha": "18 de abril de 1975",
+      "lugar": null,
+      "victimas": [
+        "Jesús Piedra Ibarra"
+      ],
+      "victimarios": [
+        "policia"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Las fotografias le fueron tomadas al Comandante Uno el 28 de abril pasado a su arribo a La Habana, con los demás parti-cipantes en el secuestro de diplomáticos, entre ellos el embajador mexicano Ricardo Galán",
+      "fecha": "28 de abril pasado a su arribo a La Habana",
+      "lugar": null,
+      "victimas": [
+        "diplomáticos",
+        "Ricardo Galán"
+      ],
+      "victimarios": [
+        "Comandante Uno",
+        "demás participantes"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Manifestó que existe un ejemplo de otro mexicano que también era de Mon-terrey y que se alió a un grupo terrorista de Europa que trató de secuestrar a una diplomática en Holanda, en junio de 1977. Es, agregó, Tomás Okusono.",
+      "fecha": "junio de 1977",
+      "lugar": "Holanda",
+      "victimas": [
+        "diplomática"
+      ],
+      "victimarios": [
+        "grupo terrorista de Europa",
+        "Tomás Okusono"
+      ]
+    }
+  ]
+}

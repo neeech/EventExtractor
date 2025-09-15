@@ -1,0 +1,130 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nDIRECCION GENERAL DE POLICIA\nDECLARACION DEL PRESENTADO JAIME JESU GUTIERREZ GONZALEZ,\n(a) \"VALENTIN\n198\nEN JA CIUDAD DE FEXICO DISTRITO FEDERAL, siendo las quince-\nhoras del día veintitres de octubre de mil novecientos se-\ntenta y tres, miembros de esta División presentaron ante--\nel Asesor Jurídico Licenciado Manuel Bravo Prieto, al que-\ndijo llamarse JALAS JASUS OCTIERIES GONZALEZ (&) \"VAL\nTIN\", quien se encuentra relacionado con los hechos que se\ninvestigah, por lo que el suscrito 'procedió a tomarle decla\nración con testigos de asistencia que al final firsant-\nTHO LAHADION TRI PRESENTA DƠI JAILNE JESUS CUTIINGNE GONZALEZ.\nMá seguida presente en el local de esta oficina, el que en-\nsu estado normal y exhortado que fue en términos de Ley pa-\nra que se conduses con verdad, por sus geherales dijo: lla-\nmarse como quedó escrito, se de 18 años de edad, soltero,--\nnon instrucción, estudiante de Trirer año de Ingenieria,\noriginario de Yajalon, Betado de Chiapas, y con domicilio\nen esta Capital, en el Edificio Francisco Javier Mina, entra\nda \"P\", departamento 122, de Guerrero 330, Unidad Nonoaleo-\nMatelolao; y quien sobre los hechos que se inventican:\nQUE sus padres son 02 GUZILAR & AGUILAR Y DATILDE GONZALEZ\nTLISH quienes viven en Yajalon, Chiaras, lugar en donde el-\ndeclarante estudió su instrucción primaria y el tercer año\nde secundaria, ya que el primero lo hiso en Córdoba, Vera---\ncruz y el segundo en esta Capital, que estudió los dos años-\nde Vocacional en Tuxtla Gutiérres, Capital del Estado de\nChiapas y fue a principios de marzo del año en curso que de-\nfinitivamente se quedó a radicar en esta Ciudad Capital ya-\nque logró au incripción en la Escuela Superior de Ingenieria\nMecánica y Eléctrica dependiente del Instituto Politécnico-\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"DIRECCION GENERAL DE POLICIA\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"JAIME JESU GUTIERREZ GONZALEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"VALENTIN\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"198\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"CIUDAD DE MEXICO\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"DISTRITO FEDERAL\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"quince-horas del día veintitres de octubre de mil novecientos setenta y tres\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Asesor Jurídico Licenciado Manuel Bravo Prieto\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JALAS JASUS OCTIERIES GONZALEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"VALTIN\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"hechos que se investigah\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"subscrito\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"18 años de edad\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"soltero\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"no instrucción\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"estudiante de Trirer año de Ingenieria\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"JAIME JESU GUTIERREZ GONZALEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Yajalon, Betado de Chiapas\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Edificio Francisco Javier Mina\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"entrada \\\"P\\\", departamento 122, de Guerrero 330, Unidad Nooleo-Matelolao\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"02 GUZILAR & AGUILAR\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"DATILDE GONZALEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Yajalon, Chiaras\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Córdoba, Vera---cruz\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Tuxtla Gutiérres\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"principios de marzo del año en curso\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Escuela Superior de Ingenieria Mecánica y Eléctrica\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Instituto Politécnico\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"JAIME JESU GUTIERREZ GONZALEZ, (a) \\\"VALENTIN\\\" fue presentado ante el Asesor Jurídico Licenciado Manuel Bravo Prieto, quien se identificó como JALAS JASUS OCTIERIES GONZALEZ (&) \\\"VALTIN\\\", para declarar sobre los hechos que se investigan.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"23 de octubre de 1973\",\n      \"lugar\": \"CIUDAD DE MEXICO, DISTRITO FEDERAL\",\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Asesor Jurídico Licenciado Manuel Bravo Prieto\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nDIRECCION GENERAL DE POLICIA\nDECLARACION DEL PRESENTADO JAIME JESU GUTIERREZ GONZALEZ,\n(a) \"VALENTIN\n198\nEN JA CIUDAD DE FEXICO DISTRITO FEDERAL, siendo las quince-\nhoras del día veintitres de octubre de mil novecientos se-\ntenta y tres, miembros de esta División presentaron ante--\nel Asesor Jurídico Licenciado Manuel Bravo Prieto, al que-\ndijo llamarse JALAS JASUS OCTIERIES GONZALEZ (&) \"VAL\nTIN\", quien se encuentra relacionado con los hechos que se\ninvestigah, por lo que el suscrito 'procedió a tomarle decla\nración con testigos de asistencia que al final firsant-\nTHO LAHADION TRI PRESENTA DƠI JAILNE JESUS CUTIINGNE GONZALEZ.\nMá seguida presente en el local de esta oficina, el que en-\nsu estado normal y exhortado que fue en términos de Ley pa-\nra que se conduses con verdad, por sus geherales dijo: lla-\nmarse como quedó escrito, se de 18 años de edad, soltero,--\nnon instrucción, estudiante de Trirer año de Ingenieria,\noriginario de Yajalon, Betado de Chiapas, y con domicilio\nen esta Capital, en el Edificio Francisco Javier Mina, entra\nda \"P\", departamento 122, de Guerrero 330, Unidad Nonoaleo-\nMatelolao; y quien sobre los hechos que se inventican:\nQUE sus padres son 02 GUZILAR & AGUILAR Y DATILDE GONZALEZ\nTLISH quienes viven en Yajalon, Chiaras, lugar en donde el-\ndeclarante estudió su instrucción primaria y el tercer año\nde secundaria, ya que el primero lo hiso en Córdoba, Vera---\ncruz y el segundo en esta Capital, que estudió los dos años-\nde Vocacional en Tuxtla Gutiérres, Capital del Estado de\nChiapas y fue a principios de marzo del año en curso que de-\nfinitivamente se quedó a radicar en esta Ciudad Capital ya-\nque logró au incripción en la Escuela Superior de Ingenieria\nMecánica y Eléctrica dependiente del Instituto Politécnico-\n\n ",
+    "entidades": [
+        {
+            "texto": "DIRECCION GENERAL DE POLICIA",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "JAIME JESU GUTIERREZ GONZALEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "VALENTIN",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "198",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "CIUDAD DE MEXICO",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "DISTRITO FEDERAL",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "quince-horas del día veintitres de octubre de mil novecientos setenta y tres",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Asesor Jurídico Licenciado Manuel Bravo Prieto",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JALAS JASUS OCTIERIES GONZALEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "VALTIN",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "hechos que se investigah",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "subscrito",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "18 años de edad",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "soltero",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "no instrucción",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "estudiante de Trirer año de Ingenieria",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "JAIME JESU GUTIERREZ GONZALEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Yajalon, Betado de Chiapas",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Edificio Francisco Javier Mina",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "entrada \"P\", departamento 122, de Guerrero 330, Unidad Nooleo-Matelolao",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "02 GUZILAR & AGUILAR",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "DATILDE GONZALEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Yajalon, Chiaras",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Córdoba, Vera---cruz",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Tuxtla Gutiérres",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "principios de marzo del año en curso",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Escuela Superior de Ingenieria Mecánica y Eléctrica",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Instituto Politécnico",
+            "tipo": "ORGANIZACIÓN"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "JAIME JESU GUTIERREZ GONZALEZ, (a) \"VALENTIN\" fue presentado ante el Asesor Jurídico Licenciado Manuel Bravo Prieto, quien se identificó como JALAS JASUS OCTIERIES GONZALEZ (&) \"VALTIN\", para declarar sobre los hechos que se investigan.",
+            "tipo": "CAPTURA",
+            "fecha": "23 de octubre de 1973",
+            "lugar": "CIUDAD DE MEXICO, DISTRITO FEDERAL",
+            "victimas": [],
+            "victimarios": [
+                "Asesor Jurídico Licenciado Manuel Bravo Prieto"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,159 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nESTADO DE GUERRERO\n012-011-016\n200001\n11-XI-84.\n\nCHILPANCINGO. De las 18.25 a las 20.00 horas de\nhoy, en la Plaza \"Nicolás Bravo\" ubicada enfrente al Palacio-\nde Gobierno de esta ciudad, se efectuó un acto político-cultー\nral como parte de la Jornada Nacional por la Libertad de los\nPresos Polifticos\" y Presentación de los Desaparecidos, organis\nzada por la Asociación Civica Nacional Revolucionaria, con\nasistencia de aproximadamente 80 personas, encabezadas por AL--\nFREDO/CASTRO MONDRAGON (a) \"El Capullo\", ARQUIMIDES GARCIA CAS\nTRO, LORENZO AYORA GUZMAN, DEMOSTENES ONOFRE BALLON que se en\ncontrapa exiliado en Cuba y que fue recientemente amnistiado:-/\nARSENIO RIOS LOPEZ (a) \"El Camarón\" y RAMON ALFREDO GARCIDA\nlos que incitaban a los ahí reunidos a luchar en contra del Go\nbierno burgues del Sr. Presidente de la República, Lic. MIGUEL\nDE LA MADRID HURTADO.\nAl hacer uso de la palabra AYORA GUZMAN que fungió\ncomo Maestro de Ceremonias, se manifestó en contra de los cuer\npos policíacos constitucionales y anticonstitucionales, como\nes el Grupo \"Cobra\" que el 15 de noviembre de 1983 a las 3.00-\nhoras, tomó por asalto el campamento de colonos \"13 de Junio\"\nen Acapulco, acción en la que resultaron detenides 9 personas,\nmismas que se encuentran recluidas en el Penal de dicho Puer--\nto y por quienes el 15 del actual visitarán el citado Centro\npara exigir su libertad, que sese la persecución policíaca y\nla presentación de los Profrs. JUAN CARLOS MENDOZA GALOZY\nAUSTRREBERTHA HILDA ESCOBEDO OCAÑA desaparecidos el 30 y 31\nde diciembre de 1981, respectivamente.\nSeñaló que el dinero del pueblo de México y en espe-\ncial del de Guerrero, está siendo robado por el Mandatario de-\nla Nación y la bande de delincuentes que tiene como Secreta---\nrios de Estado.\nPara concluir, invitó a los ahí reunidos a que estén\npendientes de los llamados de la A.C.N.R. y que exijan la li-\nbertad a nivel nacional de todos los \"presos políticos\" de Me-\nxico y el mundo.\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"ESTADO DE GUERRERO\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"11-XI-84\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"CHILPANCINGO\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"18.25 a las 20.00 horas de hoy\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Plaza \\\"Nicolás Bravo\\\"\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Palacio de Gobierno\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Jornada Nacional por la Libertad de los Presos Polifticos\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Presentación de los Desaparecidos\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Asociación Civica Nacional Revolucionaria\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"A.C.N.R.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ALFREDO CASTRO MONDRAGON\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"\\\"El Capullo\\\"\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ARQUIMIDES GARCIA CASTRO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"LORENZO AYORA GUZMAN\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"DEMOSTENES ONOFRE BALLON\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Cuba\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"ARSENIO RIOS LOPEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"\\\"El Camarón\\\"\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"RAMON ALFREDO GARCIDA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MIGUEL DE LA MADRID HURTADO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"AYORA GUZMAN\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Grupo \\\"Cobra\\\"\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"15 de noviembre de 1983 a las 3.00 horas\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"campamento de colonos \\\"13 de Junio\\\"\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Acapulco\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Penal de dicho Puerto\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"15 del actual\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"JUAN CARLOS MENDOZA GALOZY\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"AUSTRREBERTHA HILDA ESCOBEDO OCAÑA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"30 y 31 de diciembre de 1981\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"México\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Guerrero\",\n      \"tipo\": \"LUGAR\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"tomó por asalto el campamento de colonos \\\"13 de Junio\\\" en Acapulco, acción en la que resultaron detenides 9 personas, mismas que se encuentran recluidas en el Penal de dicho Puer--to\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"15 de noviembre de 1983 a las 3.00 horas\",\n      \"lugar\": \"campamento de colonos \\\"13 de Junio\\\"\",\n      \"victimas\": [\n        \"9 personas\"\n      ],\n      \"victimarios\": [\n        \"Grupo \\\"Cobra\\\"\"\n      ]\n    },\n    {\n      \"descripcion\": \"desaparecidos el 30 y 31 de diciembre de 1981, respectivamente\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"30 y 31 de diciembre de 1981\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"JUAN CARLOS MENDOZA GALOZY\",\n        \"AUSTRREBERTHA HILDA ESCOBEDO OCAÑA\"\n      ],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nESTADO DE GUERRERO\n012-011-016\n200001\n11-XI-84.\n\nCHILPANCINGO. De las 18.25 a las 20.00 horas de\nhoy, en la Plaza \"Nicolás Bravo\" ubicada enfrente al Palacio-\nde Gobierno de esta ciudad, se efectuó un acto político-cultー\nral como parte de la Jornada Nacional por la Libertad de los\nPresos Polifticos\" y Presentación de los Desaparecidos, organis\nzada por la Asociación Civica Nacional Revolucionaria, con\nasistencia de aproximadamente 80 personas, encabezadas por AL--\nFREDO/CASTRO MONDRAGON (a) \"El Capullo\", ARQUIMIDES GARCIA CAS\nTRO, LORENZO AYORA GUZMAN, DEMOSTENES ONOFRE BALLON que se en\ncontrapa exiliado en Cuba y que fue recientemente amnistiado:-/\nARSENIO RIOS LOPEZ (a) \"El Camarón\" y RAMON ALFREDO GARCIDA\nlos que incitaban a los ahí reunidos a luchar en contra del Go\nbierno burgues del Sr. Presidente de la República, Lic. MIGUEL\nDE LA MADRID HURTADO.\nAl hacer uso de la palabra AYORA GUZMAN que fungió\ncomo Maestro de Ceremonias, se manifestó en contra de los cuer\npos policíacos constitucionales y anticonstitucionales, como\nes el Grupo \"Cobra\" que el 15 de noviembre de 1983 a las 3.00-\nhoras, tomó por asalto el campamento de colonos \"13 de Junio\"\nen Acapulco, acción en la que resultaron detenides 9 personas,\nmismas que se encuentran recluidas en el Penal de dicho Puer--\nto y por quienes el 15 del actual visitarán el citado Centro\npara exigir su libertad, que sese la persecución policíaca y\nla presentación de los Profrs. JUAN CARLOS MENDOZA GALOZY\nAUSTRREBERTHA HILDA ESCOBEDO OCAÑA desaparecidos el 30 y 31\nde diciembre de 1981, respectivamente.\nSeñaló que el dinero del pueblo de México y en espe-\ncial del de Guerrero, está siendo robado por el Mandatario de-\nla Nación y la bande de delincuentes que tiene como Secreta---\nrios de Estado.\nPara concluir, invitó a los ahí reunidos a que estén\npendientes de los llamados de la A.C.N.R. y que exijan la li-\nbertad a nivel nacional de todos los \"presos políticos\" de Me-\nxico y el mundo.\n\n ",
+    "entidades": [
+        {
+            "texto": "ESTADO DE GUERRERO",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "11-XI-84",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "CHILPANCINGO",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "18.25 a las 20.00 horas de hoy",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Plaza \"Nicolás Bravo\"",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Palacio de Gobierno",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Jornada Nacional por la Libertad de los Presos Polifticos",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Presentación de los Desaparecidos",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Asociación Civica Nacional Revolucionaria",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "A.C.N.R.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ALFREDO CASTRO MONDRAGON",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "\"El Capullo\"",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ARQUIMIDES GARCIA CASTRO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "LORENZO AYORA GUZMAN",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "DEMOSTENES ONOFRE BALLON",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Cuba",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "ARSENIO RIOS LOPEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "\"El Camarón\"",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "RAMON ALFREDO GARCIDA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MIGUEL DE LA MADRID HURTADO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "AYORA GUZMAN",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Grupo \"Cobra\"",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "15 de noviembre de 1983 a las 3.00 horas",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "campamento de colonos \"13 de Junio\"",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Acapulco",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Penal de dicho Puerto",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "15 del actual",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "JUAN CARLOS MENDOZA GALOZY",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "AUSTRREBERTHA HILDA ESCOBEDO OCAÑA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "30 y 31 de diciembre de 1981",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "México",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Guerrero",
+            "tipo": "LUGAR"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "tomó por asalto el campamento de colonos \"13 de Junio\" en Acapulco, acción en la que resultaron detenides 9 personas, mismas que se encuentran recluidas en el Penal de dicho Puer--to",
+            "tipo": "CAPTURA",
+            "fecha": "15 de noviembre de 1983 a las 3.00 horas",
+            "lugar": "campamento de colonos \"13 de Junio\"",
+            "victimas": [
+                "9 personas"
+            ],
+            "victimarios": [
+                "Grupo \"Cobra\""
+            ]
+        },
+        {
+            "descripcion": "desaparecidos el 30 y 31 de diciembre de 1981, respectivamente",
+            "tipo": "CAPTURA",
+            "fecha": "30 y 31 de diciembre de 1981",
+            "lugar": null,
+            "victimas": [
+                "JUAN CARLOS MENDOZA GALOZY",
+                "AUSTRREBERTHA HILDA ESCOBEDO OCAÑA"
+            ],
+            "victimarios": []
+        }
+    ]
+}

@@ -1,0 +1,82 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n\npor considerar que la fotografía podría prestarse a confusiones.\nContrastando con el decaimiento físico y emocional de\notros años, Doña ROSARIO, parece ahora mas repuesta y animosa.\nElla no admintió que el Comandante 1 sea su hijo JESUS, -\npero tampoco lo negó. Simplemente dijo: estoy investigando se es la\nmisma persona.\nEntre tanto indicó que seguirá reclamando la presenta----\nción de su hijo al igual que la de decenas de jóvenes que han sido-\nencarcelados y torturados en los ultimos años por su ideología poli\ntica.\nDoña ROSARIO, indicó que hoy, por enésima vez trataría\nde entrevistarse con el Presidente LOPEZ PORTILLO, con ese objeto.\nPor otra parte. ELISEO, SERNA RAMIREZ, Jefe del Dpto. de\nAdministración y Criminalística de la Policía Judicial del Estado\nindicó, que las características fisonómicas del Comandante 1 coinci\nden con la de PIEDRA IBARRA.\nNaturalmente, advirtió, las opiniones que puedan surgir\nal respecto deben tomarse con las reservas que implican la percep---\nción de cada persona, mas aún cuando no se dispone de un juego de\nfotografías que permitan el análisis mas detallado.\nSin embargo, el medio perfil que ofrece ambas fotografías\nla del Comandante 1 y la de PIEDRA IBARRA, tienen la características\ncoincidentes explicó.\nSERNA RAMIREZ, perito en técnicas de identificación, fi--\nsonómica, dactilar, y caligráfica, dijo que, aunque las fotografías\neatán tomadas con diferentes acercamientos, pudo apreciar que en am--\nbas el mismo tipo de nariz ligeramente cóncava.\nLos dos individuos coinciden en labios, comisura, sonrisa\npómulos, mentón borleado, longitud frontal y cejas pobladas, entre\notros detalles, dijo.\nEl perito manifestó que a simple vista se advierten carac\nteristicas faciales que son suceptibles de cambio a traves de los\naños, pero que conservan sus peculiaridades básicas.\nEl Lic. FERNANDO GARZA GUZMAN, Director de la Policía Ju\ndicial, dijo que PIEDRA IBARRA, es idéntico al Comandante 1 en la\nfotografía.\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"Doña ROSARIO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Comandante 1\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JESUS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Doña ROSARIO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"decenas de jóvenes\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"LOPEZ PORTILLO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ELISEO SERNA RAMIREZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Dpto. de Administración y Criminalística\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Policía Judicial del Estado\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"PIEDRA IBARRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"fernando garza guzman\",\n      \"tipo\": \"PERSONA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"Ella no admintió que el Comandante 1 sea su hijo JESUS, - pero tampoco lo negó. Simplemente dijo: estoy investigando se es la misma persona.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [\n        \"JESUS\"\n      ],\n      \"victimarios\": [\n        \"Comandante 1\"\n      ]\n    },\n    {\n      \"descripcion\": \"Doña ROSARIO, indicó que hoy, por enésima vez trataría de entrevistarse con el Presidente LOPEZ PORTILLO, con ese objeto.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": [\n        \"LOPEZ PORTILLO\"\n      ]\n    },\n    {\n      \"descripcion\": \"El perito manifestó que a simple vista se advierten carac teristicas faciales que son suceptibles de cambio a traves de los años, pero que conservan sus peculiaridades básicas.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n\npor considerar que la fotografía podría prestarse a confusiones.\nContrastando con el decaimiento físico y emocional de\notros años, Doña ROSARIO, parece ahora mas repuesta y animosa.\nElla no admintió que el Comandante 1 sea su hijo JESUS, -\npero tampoco lo negó. Simplemente dijo: estoy investigando se es la\nmisma persona.\nEntre tanto indicó que seguirá reclamando la presenta----\nción de su hijo al igual que la de decenas de jóvenes que han sido-\nencarcelados y torturados en los ultimos años por su ideología poli\ntica.\nDoña ROSARIO, indicó que hoy, por enésima vez trataría\nde entrevistarse con el Presidente LOPEZ PORTILLO, con ese objeto.\nPor otra parte. ELISEO, SERNA RAMIREZ, Jefe del Dpto. de\nAdministración y Criminalística de la Policía Judicial del Estado\nindicó, que las características fisonómicas del Comandante 1 coinci\nden con la de PIEDRA IBARRA.\nNaturalmente, advirtió, las opiniones que puedan surgir\nal respecto deben tomarse con las reservas que implican la percep---\nción de cada persona, mas aún cuando no se dispone de un juego de\nfotografías que permitan el análisis mas detallado.\nSin embargo, el medio perfil que ofrece ambas fotografías\nla del Comandante 1 y la de PIEDRA IBARRA, tienen la características\ncoincidentes explicó.\nSERNA RAMIREZ, perito en técnicas de identificación, fi--\nsonómica, dactilar, y caligráfica, dijo que, aunque las fotografías\neatán tomadas con diferentes acercamientos, pudo apreciar que en am--\nbas el mismo tipo de nariz ligeramente cóncava.\nLos dos individuos coinciden en labios, comisura, sonrisa\npómulos, mentón borleado, longitud frontal y cejas pobladas, entre\notros detalles, dijo.\nEl perito manifestó que a simple vista se advierten carac\nteristicas faciales que son suceptibles de cambio a traves de los\naños, pero que conservan sus peculiaridades básicas.\nEl Lic. FERNANDO GARZA GUZMAN, Director de la Policía Ju\ndicial, dijo que PIEDRA IBARRA, es idéntico al Comandante 1 en la\nfotografía.\n\n ",
+    "entidades": [
+        {
+            "texto": "Doña ROSARIO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Comandante 1",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JESUS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Doña ROSARIO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "decenas de jóvenes",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "LOPEZ PORTILLO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ELISEO SERNA RAMIREZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Dpto. de Administración y Criminalística",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Policía Judicial del Estado",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "PIEDRA IBARRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "fernando garza guzman",
+            "tipo": "PERSONA"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "Ella no admintió que el Comandante 1 sea su hijo JESUS, - pero tampoco lo negó. Simplemente dijo: estoy investigando se es la misma persona.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [
+                "JESUS"
+            ],
+            "victimarios": [
+                "Comandante 1"
+            ]
+        },
+        {
+            "descripcion": "Doña ROSARIO, indicó que hoy, por enésima vez trataría de entrevistarse con el Presidente LOPEZ PORTILLO, con ese objeto.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [],
+            "victimarios": [
+                "LOPEZ PORTILLO"
+            ]
+        },
+        {
+            "descripcion": "El perito manifestó que a simple vista se advierten carac teristicas faciales que son suceptibles de cambio a traves de los años, pero que conservan sus peculiaridades básicas.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [],
+            "victimarios": []
+        }
+    ]
+}

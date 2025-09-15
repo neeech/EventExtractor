@@ -1,0 +1,16 @@
+{
+  "texto": "por considerar que la fotografía podría prestarse a confusiones.\nContrastando con el decaimiento físico y emocional de\notros años, Doña ROSARIO, parece ahora mas repuesta y animosa.\nElla no admintió que el Comandante 1 sea su hijo JESUS, -\npero tampoco lo negó. Simplemente dijo: estoy investigando se es la\nmisma persona.\nEntre tanto indicó que seguirá reclamando la presenta----\nción de su hijo al igual que la de decenas de jóvenes que han sido-\nencarcelados y torturados en los ultimos años por su ideología poli\ntica.\nDoña ROSARIO, indicó que hoy, por enésima vez trataría\nde entrevistarse con el Presidente LOPEZ PORTILLO, con ese objeto.\nPor otra parte. ELISEO, SERNA RAMIREZ, Jefe del Dpto. de\nAdministración y Criminalística de la Policía Judicial del Estado\nindicó, que las características fisonómicas del Comandante 1 coinci\nden con la de PIEDRA IBARRA.\nNaturalmente, advirtió, las opiniones que puedan surgir\nal respecto deben tomarse con las reservas que implican la percep---\nción de cada persona, mas aún cuando no se dispone de un juego de\nfotografías que permitan el análisis mas detallado.\nSin embargo, el medio perfil que ofrece ambas fotografías\nla del Comandante 1 y la de PIEDRA IBARRA, tienen la características\ncoincidentes explicó.\nSERNA RAMIREZ, perito en técnicas de identificación, fi--\nsonómica, dactilar, y caligráfica, dijo que, aunque las fotografías\neatán tomadas con diferentes acercamientos, pudo apreciar que en am--\nbas el mismo tipo de nariz ligeramente cóncava.\nLos dos individuos coinciden en labios, comisura, sonrisa\npómulos, mentón borleado, longitud frontal y cejas pobladas, entre\notros detalles, dijo.\nEl perito manifestó que a simple vista se advierten carac\nteristicas faciales que son suceptibles de cambio a traves de los\naños, pero que conservan sus peculiaridades básicas.\nEl Lic. FERNANDO GARZA GUZMAN, Director de la Policía Ju\ndicial, dijo que PIEDRA IBARRA, es idéntico al Comandante 1 en la\nfotografía.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Entre tanto indicó que seguirá reclamando la presenta----ción de su hijo al igual que la de decenas de jóvenes que han sido- encarcelados y torturados en los ultimos años por su ideología politica.",
+      "fecha": "Ultimos años",
+      "lugar": null,
+      "victimas": [
+        "JESUS",
+        "decenas de jóvenes"
+      ],
+      "victimarios": []
+    }
+  ]
+}

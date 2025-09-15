@@ -1,0 +1,138 @@
+{
+  "texto": "aisladamente en lo Sindical, Popular, Campesino y en otros campos\neste frente Nacional permitirá enfrentarse unitariamente a la po-\nlítica de austeridad del Gobierno.\n\nEn esta reunión también se dijo, de diferentes de--\ntenciones de personas hechas por los diversos cuerpos policiácos-\nen el País, señalando los siguientes casos: JUAN CARLOS MENDOZA\nGALOZ, maestro detenido el 25 de diciembre de 1981, IRMA AUSTREBERTA\nESCOBEDO, estudiante del Instituto Politécnico Nacional, detenida-\nel 31 de diciembre de 1981, en el D.F. JAVIER CHONG SANTIAGO, maes\ntro de la Preparatoria Popular Tacuba, de la Ciudad de México, de-\ntenido el 11 de abril del presente año.\n\nEn Chiapas, se mantienen detenidos: ARTURO ALBORES,--\nVICTORINO HERNANDEZ, Y RAFAEL DE LA TORRE, dirigentes de las comu-\nnidades \"Flores Magón y Venustiano Carranza\" y además en el Munici-\npio de Venustiano Carranza, de esa Entidad, se han cometido 12 ase-\nsinatos en los últimos 6 meses.\n\nEn Guerrero, en el poblado de Coacoyol, en la zona\nalta de la Costa Grante, el ejército detuvo a 11 campesinos de los-\ncuales 5 aparecieron muertos 4 estan detenidos en la policía Ju-\ndicial y se desconoce el paradero de dos más.\n\nEn Sonora, el pasado jueves, fue detenido FAUSTO LEON\nURIARTE, dirigente del Frente Campesino Revolucionario, Independien\nte a causa de la lucha por la tierra, que se realiza en el poblado-\nSan Vicente, Municipio de Alamos.\n\nEn las cárceles de Tantoyuca, Alancingo,y Perote, Ver.,\nse encuentran 50 campesinos presos.\n\nEn Pantepec, Estado de Puebla, fueron asesinados 27\ncampesinos a manos de pistoleros de caciques, apoyados por policías-\nJudiciales,\nEn Mazatlán, Sin., el pasado jueves fue detenido EDGARDO\nMILLAN, quien participaba en luchas de Colonias Populares.\n\nEn el Estado de Morelos, el pasado 5 de julio, fue de-\ntenido VICTOR ARIEL BARCENAS, dirigente del Comité Central de Lucha-\nde Morelos.\n\nPor otra parte se hace notar, que en el Exterior del Au\nditorio de la Escuela Normal Superior del Estado, así como en el in--\nterior del mismo se instalaron mantas, carteles, fotografías, en donde\nse pide la presentación de todos los desaparecidos y la libertad de\npresos políticos, así mismo piden la total amnistía de los presos po-\nliticos en el País.\n\nLa reunión terminó a la hora antes señalada sin que se-\nregistrara incidente alguno.\nJFMP.\n\nRESPETUOSAMENTE.\nRAFAEL CHAO LOPEZ.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JUAN CARLOS MENDOZA GALOZ, maestro detenido el 25 de diciembre de 1981",
+      "fecha": "25 de diciembre de 1981",
+      "lugar": null,
+      "victimas": [
+        "JUAN CARLOS MENDOZA GALOZ"
+      ],
+      "victimarios": [
+        "cuerpos policiácos"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "IRMA AUSTREBERTA ESCOBEDO, estudiante del Instituto Politécnico Nacional, detenida-el 31 de diciembre de 1981, en el D.F.",
+      "fecha": "31 de diciembre de 1981",
+      "lugar": "D.F.",
+      "victimas": [
+        "IRMA AUSTREBERTA ESCOBEDO"
+      ],
+      "victimarios": [
+        "cuerpos policiácos"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JAVIER CHONG SANTIAGO, maes tro de la Preparatoria Popular Tacuba, de la Ciudad de México, de-tenido el 11 de abril del presente año",
+      "fecha": "11 de abril del presente año",
+      "lugar": "Ciudad de México",
+      "victimas": [
+        "JAVIER CHONG SANTIAGO"
+      ],
+      "victimarios": [
+        "cuerpos policiácos"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "En Chiapas, se mantienen detenidos: ARTURO ALBORES,--VICTORINO HERNANDEZ, Y RAFAEL DE LA TORRE",
+      "fecha": null,
+      "lugar": "Chiapas",
+      "victimas": [
+        "ARTURO ALBORES",
+        "VICTORINO HERNANDEZ",
+        "RAFAEL DE LA TORRE"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "se han cometido 12 ase-sinatos",
+      "fecha": "últimos 6 meses",
+      "lugar": "Venustiano Carranza",
+      "victimas": [
+        "otros"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "el ejército detuvo a 11 campesinos",
+      "fecha": null,
+      "lugar": "Coacoyol",
+      "victimas": [
+        "11 campesinos"
+      ],
+      "victimarios": [
+        "ejército"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "5 aparecieron muertos",
+      "fecha": null,
+      "lugar": "Coacoyol",
+      "victimas": [
+        "5 campesinos"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "fue detenido FAUSTO LEON URIARTE",
+      "fecha": "pasado jueves",
+      "lugar": "Sonora",
+      "victimas": [
+        "FAUSTO LEON URIARTE"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "En las cárceles de Tantoyuca, Alancingo,y Perote, Ver., se encuentran 50 campesinos presos.",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "50 campesinos"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "fueron asesinados 27 campesinos",
+      "fecha": null,
+      "lugar": "Pantepec, Estado de Puebla",
+      "victimas": [
+        "27 campesinos"
+      ],
+      "victimarios": [
+        "pistoleros de caciques",
+        "policías-Judiciales"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "el pasado jueves fue detenido EDGARDO MILLAN",
+      "fecha": "el pasado jueves",
+      "lugar": "Mazatlán, Sin.",
+      "victimas": [
+        "EDGARDO MILLAN"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "fue de-tenido VICTOR ARIEL BARCENAS",
+      "fecha": "pasado 5 de julio",
+      "lugar": "Estado de Morelos",
+      "victimas": [
+        "VICTOR ARIEL BARCENAS"
+      ],
+      "victimarios": []
+    }
+  ]
+}

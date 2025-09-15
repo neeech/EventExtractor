@@ -1,0 +1,37 @@
+{
+  "texto": "ESTADO DE GUERRERO\n012-011-016\n200001\n11-XI-84.\n\nCHILPANCINGO. De las 18.25 a las 20.00 horas de\nhoy, en la Plaza \"Nicolás Bravo\" ubicada enfrente al Palacio-\nde Gobierno de esta ciudad, se efectuó un acto político-cultー\nral como parte de la Jornada Nacional por la Libertad de los\nPresos Polifticos\" y Presentación de los Desaparecidos, organis\nzada por la Asociación Civica Nacional Revolucionaria, con\nasistencia de aproximadamente 80 personas, encabezadas por AL--\nFREDO/CASTRO MONDRAGON (a) \"El Capullo\", ARQUIMIDES GARCIA CAS\nTRO, LORENZO AYORA GUZMAN, DEMOSTENES ONOFRE BALLON que se en\ncontrapa exiliado en Cuba y que fue recientemente amnistiado:-/\nARSENIO RIOS LOPEZ (a) \"El Camarón\" y RAMON ALFREDO GARCIDA\nlos que incitaban a los ahí reunidos a luchar en contra del Go\nbierno burgues del Sr. Presidente de la República, Lic. MIGUEL\nDE LA MADRID HURTADO.\nAl hacer uso de la palabra AYORA GUZMAN que fungió\ncomo Maestro de Ceremonias, se manifestó en contra de los cuer\npos policíacos constitucionales y anticonstitucionales, como\nes el Grupo \"Cobra\" que el 15 de noviembre de 1983 a las 3.00-\nhoras, tomó por asalto el campamento de colonos \"13 de Junio\"\nen Acapulco, acción en la que resultaron detenides 9 personas,\nmismas que se encuentran recluidas en el Penal de dicho Puer--\nto y por quienes el 15 del actual visitarán el citado Centro\npara exigir su libertad, que sese la persecución policíaca y\nla presentación de los Profrs. JUAN CARLOS MENDOZA GALOZY\nAUSTRREBERTHA HILDA ESCOBEDO OCAÑA desaparecidos el 30 y 31\nde diciembre de 1981, respectivamente.\nSeñaló que el dinero del pueblo de México y en espe-\ncial del de Guerrero, está siendo robado por el Mandatario de-\nla Nación y la bande de delincuentes que tiene como Secreta---\nrios de Estado.\nPara concluir, invitó a los ahí reunidos a que estén\npendientes de los llamados de la A.C.N.R. y que exijan la li-\nbertad a nivel nacional de todos los \"presos políticos\" de Me-\nxico y el mundo.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "resultaron detenides 9 personas",
+      "fecha": "15 de noviembre de 1983 a las 3.00-horas",
+      "lugar": "campamento de colonos \"13 de Junio\" en Acapulco",
+      "victimas": [
+        "9 personas"
+      ],
+      "victimarios": [
+        "Grupo \"Cobra\""
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "desaparecidos el 30 ... de diciembre de 1981",
+      "fecha": "30 ... de diciembre de 1981",
+      "lugar": null,
+      "victimas": [
+        "JUAN CARLOS MENDOZA GALOZY"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "desaparecidos el ... 31 de diciembre de 1981",
+      "fecha": "31 de diciembre de 1981",
+      "lugar": null,
+      "victimas": [
+        "AUSTRREBERTHA HILDA ESCOBEDO OCAÑA"
+      ],
+      "victimarios": []
+    }
+  ]
+}

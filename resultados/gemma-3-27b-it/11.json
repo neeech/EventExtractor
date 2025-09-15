@@ -1,0 +1,204 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\"D.F.S.-20-IV-75.\n\nESTADO DE NUEVO LEON\nMonterrey.- JESUS PIEDRA IBARRA (a) \"Rafael\", quien fue\nra aprehendido el día de ayer, hizo las siguientes declaraciones\ncon esta fecha:\n\nDijo haber nacido el 17 de febrero de 1954, con domici-\nlio en Flores Magón No. 2339 Norte, Colonia Venustiano Carranza;-\nhijo del Dr. JESUS PIEDRA ROSALES y de MARIA DEL ROSARIO IBARRA\nDE PIEDRA que viven en Guayaquil No. 205, Colonia Altavista; que-\nes originario de esta ciudad.\n\nSus estudios los realizó, en la forma que sigue: Educa-\nción Primaria: 1o. a 3er. año en el Instituto Laurent de este lu-\ngar, de 1959 a 1961 y del 4o. al 6o. año, en la Escuela Simón de-\nla Garza Melo, de 1962 a 1964; Secundaria, 1er. año en 1965, en\nla Escuela No. 5, 2o. y 3er. año de 1966 a 1967 en la Escuela To\nrres Bodet; preparatoria, 1er. año en la No. 8 en 1968 y 2o. año\nen 1969 en la No. 1; posteriormente ingresó a la U.A.N.L.. Facul-\ntad de Medicina, en la que cursó hasta 3er. año de 1970 a 1972,\nactuando además como agitador en las Aulas Anexas de Medicina.\n\nManifestó que \"principié mis actividades políticas en\n1971, de concientización y discusiones, conociendo en la Facultad\nde Medicina a MIGUEL TORRES ENRIQUEZ con quien platicaba de polí-\ntica terrorista y expropiaciones, para que fueran alicientes y el\nproletariado creara conciencia y nos apoyara\".\n\n\"A ALBERTO ZAPATA CASTELLANOS, lo conocí con GILBERTO -\nGUAJARDO cuando estábamos en la preparatoria 1 y la vez que maté-\nal patrullero Guillermo Villarreal andaba con (a) \"Arturo\" en la-\ncamioneta de la organización; que dentro del Movimiento conoció\nprimero a TORRES ENRIQUEZ y luego a ZARATA CASTELLANOS, después a\nEDMUNDO MEDINA FLORES (a) \"Arturo\" y desde ese momento empezamos-\na vigilar el Banco que está frente a la Facultad para efectuar--\nuna acción guerrillera si era bueno el plan\".\n\n\"Los asaltos que tuvieron mi intervención fueron: Al\ntodescuento Tecnológico, en unión de ZAPATA CASTELLANOS, MEDINA\nFLORES y otro al que le decían 'Joel'; en esta acción utilizamos-\nun automóvil que él se robó y luego supe que era del Prof.RAMOS\nLOZANO. En este asalto nos llevamos arriba de $ 200,000.00 los --\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"D.F.S.-20-IV-75\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"ESTADO DE NUEVO LEON\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Monterrey\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"JESUS PIEDRA IBARRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Rafael\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"día de ayer\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"con esta fecha\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"17 de febrero de 1954\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Flores Magón No. 2339 Norte, Colonia Venustiano Carranza\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Dr. JESUS PIEDRA ROSALES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MARIA DEL ROSARIO IBARRA DE PIEDRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Guayaquil No. 205, Colonia Altavista\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Instituto Laurent\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"1959 a 1961\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Escuela Simón de la Garza Melo\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"1962 a 1964\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Escuela No. 5\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"1965\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Escuela Torres Bodet\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"1966 a 1967\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Escuela No. 8\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"1968\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"No. 1\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"1969\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"U.A.N.L.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Facultad de Medicina\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"1970 a 1972\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"MIGUEL TORRES ENRIQUEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"1971\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"ALBERTO ZAPATA CASTELLANOS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"GILBERTO GUAJARDO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Guillermo Villarreal\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Arturo\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"TORRES ENRIQUEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ZARATA CASTELLANOS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"EDMUNDO MEDINA FLORES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Arturo\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Banco\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"todescuento Tecnológico\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ZAPATA CASTELLANOS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MEDINA FLORES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Prof.RAMOS LOZANO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"$ 200,000.00\",\n      \"tipo\": \"FECHA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"JESUS PIEDRA IBARRA (a) \\\"Rafael\\\", quien fue ra aprehendido el día de ayer\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"día de ayer\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"JESUS PIEDRA IBARRA\",\n        \"Rafael\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"maté al patrullero Guillermo Villarreal\",\n      \"tipo\": \"ASESINATO\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [\n        \"Guillermo Villarreal\"\n      ],\n      \"victimarios\": [\n        \"JESUS PIEDRA IBARRA\",\n        \"Arturo\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": "D.F.S.-20-IV-75.\n\nESTADO DE NUEVO LEON\nMonterrey.- JESUS PIEDRA IBARRA (a) \"Rafael\", quien fue\nra aprehendido el día de ayer, hizo las siguientes declaraciones\ncon esta fecha:\n\nDijo haber nacido el 17 de febrero de 1954, con domici-\nlio en Flores Magón No. 2339 Norte, Colonia Venustiano Carranza;-\nhijo del Dr. JESUS PIEDRA ROSALES y de MARIA DEL ROSARIO IBARRA\nDE PIEDRA que viven en Guayaquil No. 205, Colonia Altavista; que-\nes originario de esta ciudad.\n\nSus estudios los realizó, en la forma que sigue: Educa-\nción Primaria: 1o. a 3er. año en el Instituto Laurent de este lu-\ngar, de 1959 a 1961 y del 4o. al 6o. año, en la Escuela Simón de-\nla Garza Melo, de 1962 a 1964; Secundaria, 1er. año en 1965, en\nla Escuela No. 5, 2o. y 3er. año de 1966 a 1967 en la Escuela To\nrres Bodet; preparatoria, 1er. año en la No. 8 en 1968 y 2o. año\nen 1969 en la No. 1; posteriormente ingresó a la U.A.N.L.. Facul-\ntad de Medicina, en la que cursó hasta 3er. año de 1970 a 1972,\nactuando además como agitador en las Aulas Anexas de Medicina.\n\nManifestó que \"principié mis actividades políticas en\n1971, de concientización y discusiones, conociendo en la Facultad\nde Medicina a MIGUEL TORRES ENRIQUEZ con quien platicaba de polí-\ntica terrorista y expropiaciones, para que fueran alicientes y el\nproletariado creara conciencia y nos apoyara\".\n\n\"A ALBERTO ZAPATA CASTELLANOS, lo conocí con GILBERTO -\nGUAJARDO cuando estábamos en la preparatoria 1 y la vez que maté-\nal patrullero Guillermo Villarreal andaba con (a) \"Arturo\" en la-\ncamioneta de la organización; que dentro del Movimiento conoció\nprimero a TORRES ENRIQUEZ y luego a ZARATA CASTELLANOS, después a\nEDMUNDO MEDINA FLORES (a) \"Arturo\" y desde ese momento empezamos-\na vigilar el Banco que está frente a la Facultad para efectuar--\nuna acción guerrillera si era bueno el plan\".\n\n\"Los asaltos que tuvieron mi intervención fueron: Al\ntodescuento Tecnológico, en unión de ZAPATA CASTELLANOS, MEDINA\nFLORES y otro al que le decían 'Joel'; en esta acción utilizamos-\nun automóvil que él se robó y luego supe que era del Prof.RAMOS\nLOZANO. En este asalto nos llevamos arriba de $ 200,000.00 los --\n\n ",
+    "entidades": [
+        {
+            "texto": "D.F.S.-20-IV-75",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "ESTADO DE NUEVO LEON",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Monterrey",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "JESUS PIEDRA IBARRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Rafael",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "día de ayer",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "con esta fecha",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "17 de febrero de 1954",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Flores Magón No. 2339 Norte, Colonia Venustiano Carranza",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Dr. JESUS PIEDRA ROSALES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MARIA DEL ROSARIO IBARRA DE PIEDRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Guayaquil No. 205, Colonia Altavista",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Instituto Laurent",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "1959 a 1961",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Escuela Simón de la Garza Melo",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "1962 a 1964",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Escuela No. 5",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "1965",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Escuela Torres Bodet",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "1966 a 1967",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Escuela No. 8",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "1968",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "No. 1",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "1969",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "U.A.N.L.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Facultad de Medicina",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "1970 a 1972",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "MIGUEL TORRES ENRIQUEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "1971",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "ALBERTO ZAPATA CASTELLANOS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "GILBERTO GUAJARDO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Guillermo Villarreal",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Arturo",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "TORRES ENRIQUEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ZARATA CASTELLANOS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "EDMUNDO MEDINA FLORES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Arturo",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Banco",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "todescuento Tecnológico",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ZAPATA CASTELLANOS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MEDINA FLORES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Prof.RAMOS LOZANO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "$ 200,000.00",
+            "tipo": "FECHA"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "JESUS PIEDRA IBARRA (a) \"Rafael\", quien fue ra aprehendido el día de ayer",
+            "tipo": "CAPTURA",
+            "fecha": "día de ayer",
+            "lugar": null,
+            "victimas": [
+                "JESUS PIEDRA IBARRA",
+                "Rafael"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "maté al patrullero Guillermo Villarreal",
+            "tipo": "ASESINATO",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [
+                "Guillermo Villarreal"
+            ],
+            "victimarios": [
+                "JESUS PIEDRA IBARRA",
+                "Arturo"
+            ]
+        }
+    ]
+}

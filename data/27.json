@@ -1,0 +1,17 @@
+{
+  "texto": "271\n4.\n\"¡No faltes! Te esperamos! ¡Solidaridad con los colonos\nde Iztacalco! ¡Libertad a los presos políticos!\".\n\n\"Alianza Cívica Demócrata Juarense\".\n\nLos detenidos fueron puestos en libertad a las 14.30 ho-\nras debido a que frente al edificio de la Inspección de Policía se\nconcentraron aproximadamente 30 personas, encabezadas por el Dr. -\nROBERTO VAZQUEZ MUÑOZ, dirigente de la citada Alianza y GUSTAVO -\nDE LA ROSA HIKERSON.\n\nSe hace notar que MORA GAMBOA, RODRIGUEZ OROZCO Y DUARTE\nRODRIGUEZ son empleados de la Maquiladora A.M.F. Productos Eléctri\ncos, S.A. de C.V. y DIAZ DEREZ estudiante del 20. año de la Prepa-\nratoria \"Francisco Villa\".\n\nRODRIGUEZ OROZCO es originario de Bachinive, Chih. y tie\nne amistad con ALICIA DE LOS RIOS, quien se encuentra prófuga,\nmiembro de la Liga Comunista \"23 de Septiembre\".\n\nMuy Respetuosamente.\nEL DIRECTOR FEDERAL DE SEGURIDAD\n\nCAP. LUIS DE LA BARREDA MORENO\nLEM/jav.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Los detenidos fueron puestos en libertad a las 14.30 ho-ras debido a que frente al edificio de la Inspección de Policía se concentraron aproximadamente 30 personas",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "MORA GAMBOA",
+        "RODRIGUEZ OROZCO",
+        "DUARTE RODRIGUEZ"
+      ],
+      "victimarios": []
+    }
+  ]
+}

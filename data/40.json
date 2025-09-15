@@ -1,0 +1,31 @@
+{
+  "texto": "4\n-\n-\n-\n-\nотраñехов que resültaren heridos en\nhas acciones y enfrente-\nmientos con le Policía, incluyendo además\"expropiaciones\" a ofi-\ncinas y Escuelas para apoderarse de mimeografos, máquinas de 96-\ncribir y material de impresión dela diversa propaganda propaganda que edita\ny distribuye la repetide Liga. Que se pasata exponen que des\nde la primera reunión dela Coordinadora Nacional, se, planteó la-\nnecesidad de efectuar el secuestro de alguna persona importante-\npara obtener una fuerte cantidad de dinero y la liberación de\ncompañeros revolucionarios presos en diferentes cárceles del País,\npero sin que encontes se determinara y ni siquiera se pensara en\nla persona que se secuestraría, lo cual vino a planearse, discu-\ntirse y aprobarse hasta posteriormente, cuando previo análisis\nde la personalidad, condición económica y posibilidades de éxito,\n-se determinó que la victima sería el señor Eugenio Garza Sada,\n- conocido industrial de Monterrey, N.L., y aunque el de la voz\nasesoró y supervisó los plenes de dicho secuestro, la responsabi\nlidad respecto a la vigilancia de las costumbres de ls víctima\nelegida y la afinación de los planes y ejecución de la acción\nrecayó en los responsables del Comité Coordinador Zonal del nores\nte o sean GARCIA MARTINEZ, TORRES GONZALEZ TORRES GONZALEZ y PIEDRA IBARRA, quie\nnes además también tuvieron la responsabilidad de seleccionar a-\n-los participantes en ese hecho, así como, prepararlos y adiestrar\nlos militarmente para ello; que para le ejecución del secuestro-\nde Garza Sada, el declarante le ordenó a HECTOR ESCAMILLA LIRA,-\n(a) \"Victor\", elemento que militó en los asaltos a los Bancos de\nMonterrey el catorce de octubre de mil novecientos setenta y dos,\n...que se trasladara a dicha ciudad para reforzar a los compañeros-\nque ejecutarían la acción, pero desconoce la actividad concreta-\nque éste haya desarrollado pues esa determinación correspondió a\nlos responsables; que los componentes del. Buró Político acostum-\nbraban reunirse cada dos o tres meses en diferentes lugares, y\nen una de estas juntas efectuada en una casa de la ciudad de Gua\ndalajara, Jal., a la que se citó con motivo del fracaso y conse-\ncuencias del secuestro intentado en la persona de Eugenio Garza-\nSada, en la que se tuvo que lamentar la muerte de dos compañeros\nrevolucionarios, después de analizar las causas del fracaso\n--",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "para le ejecución del secuestro-de Garza Sada",
+      "fecha": null,
+      "lugar": "Monterrey, N.L.",
+      "victimas": [
+        "Garza Sada"
+      ],
+      "victimarios": [
+        "Comité Coordinador Zonal",
+        "GARCIA MARTINEZ",
+        "TORRES GONZALEZ",
+        "PIEDRA IBARRA",
+        "HECTOR ESCAMILLA LIRA"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "la muerte de dos compañeros revolucionarios",
+      "fecha": null,
+      "lugar": "Monterrey, N.L.",
+      "victimas": [
+        "dos personas"
+      ],
+      "victimarios": []
+    }
+  ]
+}

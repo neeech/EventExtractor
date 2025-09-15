@@ -1,0 +1,204 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n27-11-85.\nASOCIACION CIVICA NACIONAL REVOLUCIONARIA\nA las 18.03 horas de hoy, se presentaron a la Secreta\nría de Gobernación, 25 miembros de la A.C.NR. encabezadas por\nGERMAN PINTOR ANGUIANO para solicitar una audiencia con el C.-\nSubsecretario del Ramo, JORGE CARRILLO OLEA, para lo cual se\nnombró una comisión integrada por:\nPINTOR ANGUIANO, ENRIQUE ACEVEDO del M.U.L.T. CON\nCEPCION AVILA del F.N.C.R. Y JUAN LOPEZ, de la C.O.C.E.I.\nA las 18.20 horas, fueron recibidos por el Dr. JA IME\nMUÑOZ DOMINGUEZ Coordinador de Asesores del Sr. CARRILLO OLEA,\nal que solicitaron su intervención para que cese la represión\nen el campo y saber el paradero de los Profrs. JUAN CARLOS MEN-\nDOZA GALOZ HILDA AUSTREBERTA OCAÑA (desaparecidos) y la liber\ntad de LIANA GARCIA, ROSA MARIA GOMEZ, DARWING BATALLAR GOMEZ\nWULFRAMO PINEDA, URIEL LEAL, MARCO ANTONIO LOPEZ Y CRISTINO SA-\nLAS, quienes se encuentran recluidos en Acapulco, Gro.\nA las 19.45 horas, salió la comisión sin dar a cono-\ncer los resultados de la entrevista, por lo que a las 19.50 ho-\nras, se retiraron del lugar.\nLos antes citados portaban una manta con la leyenda;\n\"A UN AÑO DE SU DETENCION EXIGIMOS SU LIBERTAD\".\nY corearon las siguientes consignas:\n\"A 55 AÑOS DE PAZ EN ESTE PAIS ¿QUE HAY MMH? MUERTE\nMISERIA Y HAMBRE\"; \"¿QUE ES LA SECRETARIA DE GOBERNACION? EL\nCENTRO DE LA REPRESION\" y \"REPRESION, REPRESION, LA CONSIGNA DE\nGOBERNACION\".\nEfectuaron pegas y repartieron volantes alusivos a su\nmovimiento e invitando al mitin convocado por la CONAMUP el 8 -\nde marzo próximo frente a la SECOFI.\n\"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"27-11-85\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"ASOCIACION CIVICA NACIONAL REVOLUCIONARIA\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"A.C.NR.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"18.03 horas de hoy\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Secretaría de Gobernación\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"25 miembros\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"GERMAN PINTOR ANGUIANO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"C.-Subsecretario del Ramo\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JORGE CARRILLO OLEA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"PINTOR ANGUIANO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ENRIQUE ACEVEDO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"M.U.L.T.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"CONCEPCION AVILA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"F.N.C.R.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"JUAN LOPEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"C.O.C.E.I.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"18.20 horas\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Dr. JA IME MUÑOZ DOMINGUEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"CARRILLO OLEA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JUAN CARLOS MENDOZA GALOZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"HILDA AUSTREBERTA OCAÑA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"LIANA GARCIA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ROSA MARIA GOMEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"DARWING BATALLAR GOMEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"WULFRAMO PINEDA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"URIEL LEAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MARCO ANTONIO LOPEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"CRISTINO SALAS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Acapulco, Gro.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"19.45 horas\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"19.50 horas\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"A UN AÑO DE SU DETENCION\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"A 55 AÑOS DE PAZ EN ESTE PAIS\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"SECRETARIA DE GOBERNACION\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"CONAMUP\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"8 - de marzo próximo\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"SECOFI\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"se presentaron a la Secretaría de Gobernación, 25 miembros de la A.C.NR. encabezadas por GERMAN PINTOR ANGUIANO para solicitar una audiencia\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"18.03 horas de hoy\",\n      \"lugar\": \"Secretaría de Gobernación\",\n      \"victimas\": [\n        \"GERMAN PINTOR ANGUIANO\",\n        \"25 miembros\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"solicitaron su intervención para que cese la represión en el campo y saber el paradero de los Profrs. JUAN CARLOS MENDOZA GALOZ HILDA AUSTREBERTA OCAÑA (desaparecidos)\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [\n        \"JUAN CARLOS MENDOZA GALOZ\",\n        \"HILDA AUSTREBERTA OCAÑA\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"la libertad de LIANA GARCIA, ROSA MARIA GOMEZ, DARWING BATALLAR GOMEZ WULFRAMO PINEDA, URIEL LEAL, MARCO ANTONIO LOPEZ Y CRISTINO SALAS, quienes se encuentran recluidos en Acapulco, Gro.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"Acapulco, Gro.\",\n      \"victimas\": [\n        \"LIANA GARCIA\",\n        \"ROSA MARIA GOMEZ\",\n        \"DARWING BATALLAR GOMEZ\",\n        \"WULFRAMO PINEDA\",\n        \"URIEL LEAL\",\n        \"MARCO ANTONIO LOPEZ\",\n        \"CRISTINO SALAS\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"A UN AÑO DE SU DETENCION EXIGIMOS SU LIBERTAD\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"A UN AÑO DE SU DETENCION\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"otros\"\n      ],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n27-11-85.\nASOCIACION CIVICA NACIONAL REVOLUCIONARIA\nA las 18.03 horas de hoy, se presentaron a la Secreta\nría de Gobernación, 25 miembros de la A.C.NR. encabezadas por\nGERMAN PINTOR ANGUIANO para solicitar una audiencia con el C.-\nSubsecretario del Ramo, JORGE CARRILLO OLEA, para lo cual se\nnombró una comisión integrada por:\nPINTOR ANGUIANO, ENRIQUE ACEVEDO del M.U.L.T. CON\nCEPCION AVILA del F.N.C.R. Y JUAN LOPEZ, de la C.O.C.E.I.\nA las 18.20 horas, fueron recibidos por el Dr. JA IME\nMUÑOZ DOMINGUEZ Coordinador de Asesores del Sr. CARRILLO OLEA,\nal que solicitaron su intervención para que cese la represión\nen el campo y saber el paradero de los Profrs. JUAN CARLOS MEN-\nDOZA GALOZ HILDA AUSTREBERTA OCAÑA (desaparecidos) y la liber\ntad de LIANA GARCIA, ROSA MARIA GOMEZ, DARWING BATALLAR GOMEZ\nWULFRAMO PINEDA, URIEL LEAL, MARCO ANTONIO LOPEZ Y CRISTINO SA-\nLAS, quienes se encuentran recluidos en Acapulco, Gro.\nA las 19.45 horas, salió la comisión sin dar a cono-\ncer los resultados de la entrevista, por lo que a las 19.50 ho-\nras, se retiraron del lugar.\nLos antes citados portaban una manta con la leyenda;\n\"A UN AÑO DE SU DETENCION EXIGIMOS SU LIBERTAD\".\nY corearon las siguientes consignas:\n\"A 55 AÑOS DE PAZ EN ESTE PAIS ¿QUE HAY MMH? MUERTE\nMISERIA Y HAMBRE\"; \"¿QUE ES LA SECRETARIA DE GOBERNACION? EL\nCENTRO DE LA REPRESION\" y \"REPRESION, REPRESION, LA CONSIGNA DE\nGOBERNACION\".\nEfectuaron pegas y repartieron volantes alusivos a su\nmovimiento e invitando al mitin convocado por la CONAMUP el 8 -\nde marzo próximo frente a la SECOFI.\n",
+    "entidades": [
+        {
+            "texto": "27-11-85",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "ASOCIACION CIVICA NACIONAL REVOLUCIONARIA",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "A.C.NR.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "18.03 horas de hoy",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Secretaría de Gobernación",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "25 miembros",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "GERMAN PINTOR ANGUIANO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "C.-Subsecretario del Ramo",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JORGE CARRILLO OLEA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "PINTOR ANGUIANO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ENRIQUE ACEVEDO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "M.U.L.T.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "CONCEPCION AVILA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "F.N.C.R.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "JUAN LOPEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "C.O.C.E.I.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "18.20 horas",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Dr. JA IME MUÑOZ DOMINGUEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "CARRILLO OLEA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JUAN CARLOS MENDOZA GALOZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "HILDA AUSTREBERTA OCAÑA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "LIANA GARCIA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ROSA MARIA GOMEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "DARWING BATALLAR GOMEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "WULFRAMO PINEDA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "URIEL LEAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MARCO ANTONIO LOPEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "CRISTINO SALAS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Acapulco, Gro.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "19.45 horas",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "19.50 horas",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "A UN AÑO DE SU DETENCION",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "A 55 AÑOS DE PAZ EN ESTE PAIS",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "SECRETARIA DE GOBERNACION",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "CONAMUP",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "8 - de marzo próximo",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "SECOFI",
+            "tipo": "ORGANIZACIÓN"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "se presentaron a la Secretaría de Gobernación, 25 miembros de la A.C.NR. encabezadas por GERMAN PINTOR ANGUIANO para solicitar una audiencia",
+            "tipo": "CAPTURA",
+            "fecha": "18.03 horas de hoy",
+            "lugar": "Secretaría de Gobernación",
+            "victimas": [
+                "GERMAN PINTOR ANGUIANO",
+                "25 miembros"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "solicitaron su intervención para que cese la represión en el campo y saber el paradero de los Profrs. JUAN CARLOS MENDOZA GALOZ HILDA AUSTREBERTA OCAÑA (desaparecidos)",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [
+                "JUAN CARLOS MENDOZA GALOZ",
+                "HILDA AUSTREBERTA OCAÑA"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "la libertad de LIANA GARCIA, ROSA MARIA GOMEZ, DARWING BATALLAR GOMEZ WULFRAMO PINEDA, URIEL LEAL, MARCO ANTONIO LOPEZ Y CRISTINO SALAS, quienes se encuentran recluidos en Acapulco, Gro.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "Acapulco, Gro.",
+            "victimas": [
+                "LIANA GARCIA",
+                "ROSA MARIA GOMEZ",
+                "DARWING BATALLAR GOMEZ",
+                "WULFRAMO PINEDA",
+                "URIEL LEAL",
+                "MARCO ANTONIO LOPEZ",
+                "CRISTINO SALAS"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "A UN AÑO DE SU DETENCION EXIGIMOS SU LIBERTAD",
+            "tipo": "CAPTURA",
+            "fecha": "A UN AÑO DE SU DETENCION",
+            "lugar": null,
+            "victimas": [
+                "otros"
+            ],
+            "victimarios": []
+        }
+    ]
+}

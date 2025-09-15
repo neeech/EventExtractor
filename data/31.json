@@ -1,0 +1,30 @@
+{
+  "texto": "364\nOFICINA TEMICA\nDIVISIÓN NARCOTRÁFICO\nCASO: NARCOTRAFICO NOMBRE APODADO: JOSE LUIS GONZALEZ CASTILLO O\n\"LUIS SANCHEZ CRUZ\", \"BALON \"VICE\"\nEN LA CIUDAD DE MEXICO DISTRITO FEDERAL, niendo las diez hora\ncon quarenta y cinco minutos dol día veintidos de octubre de-\nmil novecientos setenta y tres, miembros de esta División pre-\nsentaron a la persona que arriba se menciona para declarar on-\nrelación con los hechos que se investigan, por lo que al suscri\nto Asesor Jurídico procedió a tomarle dealaración con tacticos\nde asistencia que al final firman:\nDECLARACIÓN DEL PRESENTADO: JOSE LUIS GONZALEZ CASTILLO.\nEn\nseguida presente on el local de esta oficina, o que en su esta\ndo noréal y exhortado que fue en términos de Ley para que se\nconduzca con verdad, por aus generalco dijo: llamarse como que-\ndó escrito, ser de 24 años de edad, soltero, con instrucción,\nsin ocupación actualmonte, originario do Jiquilpan, Estado de-\nMichoacan, con domicilio en esta Capital, en las calles de Hi-\ndalgo 39 Edificio F departamonto 303, en Azcapotzalco; y quien-\n--DECLARC:\nsobre los hechos que se investigan:\nQué es hijo de JOSE CRUZ GONZALEZ ESQUEDA, que es Frofesor de\nPricaria en la Población de Jacona, en el Estado do Nichoacan,-\ny de la señora ANA MARIA CARRILLO OCHOA, dedicada a las labores\ndel hogar y tione ocho hermanos, soia hombres y dos Luieres,\nsiendo una de éstas mayor que el exponente; que todos ellos ó-\nsean sus hermanos estudian con excepción de ARLANDO, quo ha par\nticipado en algunas actividades de tipo político, sionco mich-\nbro de \"la organización\" conocida coro LARósea Dovinionto\nde Acción Revolucionaria, desde el año de 1969, utilizando ol-\nseudónimo de CRUZ y actualmente se encuentra en la República de\nCuba, pues fue una de las personas que, so canjearon cuando el-\n--sequestro del Consul estadounidense en Guadalajara, Jalisco,\nHOR LECARD. HARDY. Que el declarante realizó con José Luis Aaliy",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "EN LA CIUDAD DE MEXICO DISTRITO FEDERAL, niendo las diez hora con quarenta y cinco minutos dol día veintidos de octubre de-mil novecientos setenta y tres, miembros de esta División pre-sentaron a la persona que arriba se menciona",
+      "fecha": "diez hora con quarenta y cinco minutos dol día veintidos de octubre de-mil novecientos setenta y tres",
+      "lugar": "CIUDAD DE MEXICO DISTRITO FEDERAL",
+      "victimas": [
+        "JOSE LUIS GONZALEZ CASTILLO"
+      ],
+      "victimarios": [
+        "DIVISIÓN NARCOTRÁFICO"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "sequestro del Consul estadounidense en Guadalajara, Jalisco, HOR LECARD. HARDY.",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "HOR LECARD. HARDY"
+      ],
+      "victimarios": [
+        "JOSE LUIS GONZALEZ CASTILLO",
+        "José Luis Aaliy"
+      ]
+    }
+  ]
+}

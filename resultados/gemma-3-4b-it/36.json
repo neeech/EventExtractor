@@ -1,0 +1,156 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n11-235\nhora temprana del día 14 de enero de 1972 para apoderarse de un\nautomóvil y se dirigieron al sitio indicado en donde contrataron\na un chofer para que los llevara a un panteón que se ubica por\nla salida a Allende y antes de llegar a ese lugar, sacaron las\npistolas que portaban, que eran una 45 y una 9 mm.\n2-11\n45 y una 9 mm. respectile5\nSALE\nte y con ellas amarraron al chofer, alque una vez controlado\nataron y amordazeron y lo metieron a la cajuela del propio vehícu\nlo en el cual se trasladaron a un lugar cercano a las Institucio\nnes Bancarias que asaltarian, en el que se habían citado con sus\notros compañeros y una vez todos juntos, se dirigieron al Banco-\nComercial Mexicano, quedando al volente del antomóvil en la puer\nta del mismo MORALES PINAL, en tanto que Ramos Zavala, SANCHEZ -\nHIRALES y el declarante, con las pistolas en las manos entraron-\nal Banco y al grito del primero en el sentido de que se trataba-\nde un asalto, controlaron a los presentes, tanto empleados como-\nclientes, correspondiéndole al de la voz recoger el dinero de las\ncajas que ascendió a una cantidad entre ciento ochenta mil pesos-\ny doscientos mil pesos y de inmediato salieron a la calle y aborda\nron el automóvil en el que los esperaba MORALES PINAL y huyeron\nhasta un lugar situado a veinte calles más o menos del Banco asal\ntado, en dondehicieron el \"Trasplante\" a un automivl Renault, de-\ncolor verde, que al parecer babian conseguido prestado con un -\namigo de MORALES PINAL O de RUIZ DIAZ y enseguida se dirigieron al\ndomicilio que ocupaban; mientras tanto sus demás compañeros que\n'formaban el comando \"Carlos Lamarca\", también tuvieron éxito en el\nasalto al Banco Nacional de México, en el que obtuvieron una canti\ndad aproximada a doscientos mil pesos, que después y en atención a\nuna cita que fabía establecido con SANCHEZ HIRALES y como MORALES\natenció a\nPINAL Y AZ DIAZ, que se habían bajado del vehículo en el trayecto\na la casa, no aparecían esa misma noche optaron por cambiarse a la\ncasa de un amigo de Ramos Zavala a la que llevaron el botín obtenido\ny al día siguiente en un automóvil propiedad de otro amigo de Ramos\nZavala, el declarante fue llevado hasta Matehuala, S.L.P. en donde-\ncompró un boleto de autobús y así continuó su viaje hasta esta capi\ntal, trayendo una suma aproximada de veinticinco mil pesos y respec\nto al resto del dinero, desconoce la forma y proporción en que fue-\n-\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"11-235\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"hora temprana del día 14 de enero de 1972\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"14 de enero de 1972\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"automóvil\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"45\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"9 mm.\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"salida a Allende\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"panteón\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"MORALES PINAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Ramos Zavala\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"SANCHEZ -HIRALES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Banco-Comercial Mexicano\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Banco Comercial Mexicano\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"MORALES PINAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Ramos Zavala\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"SANCHEZ -HIRALES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"declarante\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"pistolas\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"cientos ochenta mil pesos\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"doscientos mil pesos\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Banco Nacional de México\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Carlos Lamarca\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"doscientos mil pesos\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"MORALES PINAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"AZ DIAZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Renault\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"MORALES PINAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"RUIZ DIAZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Matehuala, S.L.P.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"boleto de autobús\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"veinticinco mil pesos\",\n      \"tipo\": \"FECHA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"11-235 hora temprana del día 14 de enero de 1972 para apoderarse de un automóvil y se dirigieron al sitio indicado en donde contrataron a un chofer para que los llevara a un panteón que se ubica por la salida a Allende y antes de llegar a ese lugar, sacaron las pistolas que portaban, que eran una 45 y una 9 mm.\",\n      \"tipo\": \"ASESINATO\",\n      \"fecha\": \"14 de enero de 1972\",\n      \"lugar\": \"salida a Allende, panteón\",\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Ramos Zavala\",\n        \"SANCHEZ -HIRALES\"\n      ]\n    },\n    {\n      \"descripcion\": \"con ellas amarraron al chofer, alque una vez controlado ataron y amordazaron y lo metieron a la cajuela del propio vehíclo en el que se trasladaron a un lugar cercano a las Institucio nes Bancarias que asaltarian, en el que se habían citado con sus otros compañeros y una vez todos juntos, se dirigieron al Banco-Comercial Mexicano, quedando al volente del antomóvil en la puerta del mismo MORALES PINAL, en tanto que Ramos Zavala, SANCHEZ -HIRALES y el declarante, con las pistolas en las manos entraron al Banco y al grito del primero en el sentido de que se trataba de un asalto, controlaron a los presentes, tanto empleados como clientes, correspondiéndole al de la voz recoger el dinero de las cajas que ascendió a una cantidad entre ciento ochenta mil pesos-y doscientos mil pesos y de inmediato salieron a la calle y abordaron el automóvil en el que los esperaba MORALES PINAL y huyeron hasta un lugar situado a veinte calles más o menos del Banco asal tado, en dondehicieron el \\\"Trasplante\\\" a un automivl Renault, de color verde, que al parecer babian conseguido prestado con un amigo de MORALES PINAL O de RUIZ DIAZ y enseguida se dirigieron al domicilio que ocupaban; mientras tanto sus demás compañeros que formaban el comando \\\"Carlos Lamarca\\\", también tuvieron éxito en el asalto al Banco Nacional de México, en el que obtuvieron una cantidad aproximada a doscientos mil pesos, que después y en atención a una cita que fabía establecido con SANCHEZ HIRALES y como MORALES atendió a MORALES PINAL Y AZ DIAZ, que se habían bajado del vehículo en el trayecto a la casa, no aparecían esa misma noche optaron por cambiarse a la casa de un amigo de Ramos Zavala a la que llevaron el botín obtenido y al día siguiente en un automóvil propiedad de otro amigo de Ramos Zavala, el declarante fue llevado hasta Matehuala, S.L.P. en donde compró un boleto de autobús y así continuó su viaje hasta esta capi tal, trayendo una suma aproximada de veinticinco mil pesos y respecto al resto del dinero, desconoce la forma y proporción en que fue -\",\n      \"tipo\": \"ASESINATO\",\n      \"fecha\": \"11-235 hora temprana del día 14 de enero de 1972\",\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Ramos Zavala\",\n        \"SANCHEZ -HIRALES\",\n        \"MORALES PINAL\",\n        \"RUIZ DIAZ\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n11-235\nhora temprana del día 14 de enero de 1972 para apoderarse de un\nautomóvil y se dirigieron al sitio indicado en donde contrataron\na un chofer para que los llevara a un panteón que se ubica por\nla salida a Allende y antes de llegar a ese lugar, sacaron las\npistolas que portaban, que eran una 45 y una 9 mm.\n2-11\n45 y una 9 mm. respectile5\nSALE\nte y con ellas amarraron al chofer, alque una vez controlado\nataron y amordazeron y lo metieron a la cajuela del propio vehícu\nlo en el cual se trasladaron a un lugar cercano a las Institucio\nnes Bancarias que asaltarian, en el que se habían citado con sus\notros compañeros y una vez todos juntos, se dirigieron al Banco-\nComercial Mexicano, quedando al volente del antomóvil en la puer\nta del mismo MORALES PINAL, en tanto que Ramos Zavala, SANCHEZ -\nHIRALES y el declarante, con las pistolas en las manos entraron-\nal Banco y al grito del primero en el sentido de que se trataba-\nde un asalto, controlaron a los presentes, tanto empleados como-\nclientes, correspondiéndole al de la voz recoger el dinero de las\ncajas que ascendió a una cantidad entre ciento ochenta mil pesos-\ny doscientos mil pesos y de inmediato salieron a la calle y aborda\nron el automóvil en el que los esperaba MORALES PINAL y huyeron\nhasta un lugar situado a veinte calles más o menos del Banco asal\ntado, en dondehicieron el \"Trasplante\" a un automivl Renault, de-\ncolor verde, que al parecer babian conseguido prestado con un -\namigo de MORALES PINAL O de RUIZ DIAZ y enseguida se dirigieron al\ndomicilio que ocupaban; mientras tanto sus demás compañeros que\n'formaban el comando \"Carlos Lamarca\", también tuvieron éxito en el\nasalto al Banco Nacional de México, en el que obtuvieron una canti\ndad aproximada a doscientos mil pesos, que después y en atención a\nuna cita que fabía establecido con SANCHEZ HIRALES y como MORALES\natenció a\nPINAL Y AZ DIAZ, que se habían bajado del vehículo en el trayecto\na la casa, no aparecían esa misma noche optaron por cambiarse a la\ncasa de un amigo de Ramos Zavala a la que llevaron el botín obtenido\ny al día siguiente en un automóvil propiedad de otro amigo de Ramos\nZavala, el declarante fue llevado hasta Matehuala, S.L.P. en donde-\ncompró un boleto de autobús y así continuó su viaje hasta esta capi\ntal, trayendo una suma aproximada de veinticinco mil pesos y respec\nto al resto del dinero, desconoce la forma y proporción en que fue-\n-\n ",
+    "entidades": [
+        {
+            "texto": "11-235",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "hora temprana del día 14 de enero de 1972",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "14 de enero de 1972",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "automóvil",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "45",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "9 mm.",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "salida a Allende",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "panteón",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "MORALES PINAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Ramos Zavala",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "SANCHEZ -HIRALES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Banco-Comercial Mexicano",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Banco Comercial Mexicano",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "MORALES PINAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Ramos Zavala",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "SANCHEZ -HIRALES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "declarante",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "pistolas",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "cientos ochenta mil pesos",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "doscientos mil pesos",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Banco Nacional de México",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Carlos Lamarca",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "doscientos mil pesos",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "MORALES PINAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "AZ DIAZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Renault",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "MORALES PINAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "RUIZ DIAZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Matehuala, S.L.P.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "boleto de autobús",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "veinticinco mil pesos",
+            "tipo": "FECHA"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "11-235 hora temprana del día 14 de enero de 1972 para apoderarse de un automóvil y se dirigieron al sitio indicado en donde contrataron a un chofer para que los llevara a un panteón que se ubica por la salida a Allende y antes de llegar a ese lugar, sacaron las pistolas que portaban, que eran una 45 y una 9 mm.",
+            "tipo": "ASESINATO",
+            "fecha": "14 de enero de 1972",
+            "lugar": "salida a Allende, panteón",
+            "victimas": [],
+            "victimarios": [
+                "Ramos Zavala",
+                "SANCHEZ -HIRALES"
+            ]
+        },
+        {
+            "descripcion": "con ellas amarraron al chofer, alque una vez controlado ataron y amordazaron y lo metieron a la cajuela del propio vehíclo en el que se trasladaron a un lugar cercano a las Institucio nes Bancarias que asaltarian, en el que se habían citado con sus otros compañeros y una vez todos juntos, se dirigieron al Banco-Comercial Mexicano, quedando al volente del antomóvil en la puerta del mismo MORALES PINAL, en tanto que Ramos Zavala, SANCHEZ -HIRALES y el declarante, con las pistolas en las manos entraron al Banco y al grito del primero en el sentido de que se trataba de un asalto, controlaron a los presentes, tanto empleados como clientes, correspondiéndole al de la voz recoger el dinero de las cajas que ascendió a una cantidad entre ciento ochenta mil pesos-y doscientos mil pesos y de inmediato salieron a la calle y abordaron el automóvil en el que los esperaba MORALES PINAL y huyeron hasta un lugar situado a veinte calles más o menos del Banco asal tado, en dondehicieron el \"Trasplante\" a un automivl Renault, de color verde, que al parecer babian conseguido prestado con un amigo de MORALES PINAL O de RUIZ DIAZ y enseguida se dirigieron al domicilio que ocupaban; mientras tanto sus demás compañeros que formaban el comando \"Carlos Lamarca\", también tuvieron éxito en el asalto al Banco Nacional de México, en el que obtuvieron una cantidad aproximada a doscientos mil pesos, que después y en atención a una cita que fabía establecido con SANCHEZ HIRALES y como MORALES atendió a MORALES PINAL Y AZ DIAZ, que se habían bajado del vehículo en el trayecto a la casa, no aparecían esa misma noche optaron por cambiarse a la casa de un amigo de Ramos Zavala a la que llevaron el botín obtenido y al día siguiente en un automóvil propiedad de otro amigo de Ramos Zavala, el declarante fue llevado hasta Matehuala, S.L.P. en donde compró un boleto de autobús y así continuó su viaje hasta esta capi tal, trayendo una suma aproximada de veinticinco mil pesos y respecto al resto del dinero, desconoce la forma y proporción en que fue -",
+            "tipo": "ASESINATO",
+            "fecha": "11-235 hora temprana del día 14 de enero de 1972",
+            "lugar": null,
+            "victimas": [],
+            "victimarios": [
+                "Ramos Zavala",
+                "SANCHEZ -HIRALES",
+                "MORALES PINAL",
+                "RUIZ DIAZ"
+            ]
+        }
+    ]
+}

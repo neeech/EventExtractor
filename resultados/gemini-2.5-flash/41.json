@@ -1,0 +1,129 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nHome\n-\n-\nle decisión de que en el futura, nadie, ni los miembros\nde le Coordinadora Factors se enterario de los plan\ngos previos a le pertinción de une acción, que\nciños por los responsables y los elementos que tuvieran perticip\nción personal en ella, aunque si abería informarse a dicha Coop-\ndinadora Nacional y el Buré de Dimoción que se estaba planeando-\nun hecho indeterminado y también la obligación posterior de infog\nmer acere del resultado de la acción. Que la tentative de secues\ntro y homicidio del señor Garza Sada y sus acompañantes ocurrió\nel diecisiete de septiembre de mil novecientos setenta y tres -\nen razón del fracaso que se tubo, se planeo efectuar en la ciudad\nde Guadalajara dos secuestros simultáneas y con tal motivo el de-\nclarante viajó a dicha ciudad y estivo presente en una reunión\nque se celebró en la casa de José Ignacio Olivares Torres (a) \"El\nSetar en la que estfrieron presentes érte, el que habla, Pedro\nOffico Guzmán y EMILIO RUBIO (a) \"El Pacholo\" y los responsables-\ndel Comité Total expusieron que ya habían investigado y seleccio-\nnado com victimas para ser secuestrains al Cónsy Honorario Brita\nnico AHONY DUNCAN WILLIAMS y al industrial Termanio Aranguren -\nCastiello y una vez sometido a la consideración del Buró, repre-\nsentado en ese momento por el declarante, quien en su carácter de\nCoordinator General y en virtud del acuerdo tomado por la Coordi-\nnadora Nacional, tenía autoridad y poder para aprober es planes\nles dié el visto bueno y le orden de adelante\", entonces Oroz-\nco Guzmán y 10 RUBIO, encargados de la parte militar de la -\nacción, manifestaron que necesitaban que necesitaban un poco de\ntiempo para afinar detalles, para rentar una casa en la cual ocul\ntar & los secuestrados, porque ya disponían de una para ese objeto\ny conseguir automóviles mediante expropiaciones\", porque respecto\n* elementos para que actuaran en la ejecución del plan ya los te-\naian y también disponían de las armas u municiones necesarios para\nsubos secuestros; que una vez decidida la realización de esta acción,\nel dicente regresó a México y desde luego, los responsables de\n-\n-\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"Coordinadora Factors\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Coop-dinadora Nacional\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Buré de Dimoción\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Garza Sada\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"el diecisiete de septiembre de mil novecientos setenta y tres\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"ciudad de Guadalajara\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"la casa de José Ignacio Olivares Torres\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"José Ignacio Olivares Torres\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"(a) \\\"El Setar\\\"\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Pedro Offico Guzmán\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"EMILIO RUBIO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"(a) \\\"El Pacholo\\\"\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Comité Total\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"AHONY DUNCAN WILLIAMS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Termanio Aranguren Castiello\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Buró\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Coordinadora Nacional\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Oroz-co Guzmán\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"10 RUBIO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"México\",\n      \"tipo\": \"LUGAR\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"la tentative de secues-tro del señor Garza Sada y sus acompañantes ocurrió el diecisiete de septiembre de mil novecientos setenta y tres\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"el diecisiete de septiembre de mil novecientos setenta y tres\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"Garza Sada\",\n        \"sus acompañantes\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"homicidio del señor Garza Sada y sus acompañantes ocurrió el diecisiete de septiembre de mil novecientos setenta y tres\",\n      \"tipo\": \"ASESINATO\",\n      \"fecha\": \"el diecisiete de septiembre de mil novecientos setenta y tres\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"Garza Sada\",\n        \"sus acompañantes\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"se planeo efectuar en la ciudad de Guadalajara dos secuestros simultáneas y con tal motivo el declarante viajó a dicha ciudad y estivo presente en una reunión que se celebró en la casa de José Ignacio Olivares Torres (a) \\\"El Setar en la que estfrieron presentes érte, el que habla, Pedro Offico Guzmán y EMILIO RUBIO (a) \\\"El Pacholo\\\" y los responsables-del Comité Total expusieron que ya habían investigado y seleccio-nado com victimas para ser secuestrains al Cónsy Honorario Brita-nico AHONY DUNCAN WILLIAMS y al industrial Termanio Aranguren -Castiello y una vez sometido a la consideración del Buró, repre-sentado en ese momento por el declarante, quien en su carácter de Coordinator General y en virtud del acuerdo tomado por la Coordi-nadora Nacional, tenía autoridad y poder para aprober es planes les dié el visto bueno y le orden de adelante', entonces Oroz-co Guzmán y 10 RUBIO, encargados de la parte militar de la -acción, manifestaron que necesitaban que necesitaban un poco de tiempo para afinar detalles, para rentar una casa en la cual ocul-tar & los secuestrados, porque ya disponían de una para ese objeto y conseguir automóviles mediante expropiaciones', porque respecto * elementos para que actuaran en la ejecución del plan ya los te-nian y también disponían de las armas u municiones necesarios para subos secuestros\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"ciudad de Guadalajara\",\n      \"victimas\": [\n        \"AHONY DUNCAN WILLIAMS\",\n        \"Termanio Aranguren Castiello\"\n      ],\n      \"victimarios\": [\n        \"el declarante\",\n        \"José Ignacio Olivares Torres\",\n        \"Pedro Offico Guzmán\",\n        \"EMILIO RUBIO\",\n        \"Comité Total\",\n        \"Oroz-co Guzmán\",\n        \"10 RUBIO\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nHome\n-\n-\nle decisión de que en el futura, nadie, ni los miembros\nde le Coordinadora Factors se enterario de los plan\ngos previos a le pertinción de une acción, que\nciños por los responsables y los elementos que tuvieran perticip\nción personal en ella, aunque si abería informarse a dicha Coop-\ndinadora Nacional y el Buré de Dimoción que se estaba planeando-\nun hecho indeterminado y también la obligación posterior de infog\nmer acere del resultado de la acción. Que la tentative de secues\ntro y homicidio del señor Garza Sada y sus acompañantes ocurrió\nel diecisiete de septiembre de mil novecientos setenta y tres -\nen razón del fracaso que se tubo, se planeo efectuar en la ciudad\nde Guadalajara dos secuestros simultáneas y con tal motivo el de-\nclarante viajó a dicha ciudad y estivo presente en una reunión\nque se celebró en la casa de José Ignacio Olivares Torres (a) \"El\nSetar en la que estfrieron presentes érte, el que habla, Pedro\nOffico Guzmán y EMILIO RUBIO (a) \"El Pacholo\" y los responsables-\ndel Comité Total expusieron que ya habían investigado y seleccio-\nnado com victimas para ser secuestrains al Cónsy Honorario Brita\nnico AHONY DUNCAN WILLIAMS y al industrial Termanio Aranguren -\nCastiello y una vez sometido a la consideración del Buró, repre-\nsentado en ese momento por el declarante, quien en su carácter de\nCoordinator General y en virtud del acuerdo tomado por la Coordi-\nnadora Nacional, tenía autoridad y poder para aprober es planes\nles dié el visto bueno y le orden de adelante\", entonces Oroz-\nco Guzmán y 10 RUBIO, encargados de la parte militar de la -\nacción, manifestaron que necesitaban que necesitaban un poco de\ntiempo para afinar detalles, para rentar una casa en la cual ocul\ntar & los secuestrados, porque ya disponían de una para ese objeto\ny conseguir automóviles mediante expropiaciones\", porque respecto\n* elementos para que actuaran en la ejecución del plan ya los te-\naian y también disponían de las armas u municiones necesarios para\nsubos secuestros; que una vez decidida la realización de esta acción,\nel dicente regresó a México y desde luego, los responsables de\n-\n-\n ",
+    "entidades": [
+        {
+            "texto": "Coordinadora Factors",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Coop-dinadora Nacional",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Buré de Dimoción",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Garza Sada",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "el diecisiete de septiembre de mil novecientos setenta y tres",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "ciudad de Guadalajara",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "la casa de José Ignacio Olivares Torres",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "José Ignacio Olivares Torres",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "(a) \"El Setar\"",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Pedro Offico Guzmán",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "EMILIO RUBIO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "(a) \"El Pacholo\"",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Comité Total",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "AHONY DUNCAN WILLIAMS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Termanio Aranguren Castiello",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Buró",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Coordinadora Nacional",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Oroz-co Guzmán",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "10 RUBIO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "México",
+            "tipo": "LUGAR"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "la tentative de secues-tro del señor Garza Sada y sus acompañantes ocurrió el diecisiete de septiembre de mil novecientos setenta y tres",
+            "tipo": "CAPTURA",
+            "fecha": "el diecisiete de septiembre de mil novecientos setenta y tres",
+            "lugar": null,
+            "victimas": [
+                "Garza Sada",
+                "sus acompañantes"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "homicidio del señor Garza Sada y sus acompañantes ocurrió el diecisiete de septiembre de mil novecientos setenta y tres",
+            "tipo": "ASESINATO",
+            "fecha": "el diecisiete de septiembre de mil novecientos setenta y tres",
+            "lugar": null,
+            "victimas": [
+                "Garza Sada",
+                "sus acompañantes"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "se planeo efectuar en la ciudad de Guadalajara dos secuestros simultáneas y con tal motivo el declarante viajó a dicha ciudad y estivo presente en una reunión que se celebró en la casa de José Ignacio Olivares Torres (a) \"El Setar en la que estfrieron presentes érte, el que habla, Pedro Offico Guzmán y EMILIO RUBIO (a) \"El Pacholo\" y los responsables-del Comité Total expusieron que ya habían investigado y seleccio-nado com victimas para ser secuestrains al Cónsy Honorario Brita-nico AHONY DUNCAN WILLIAMS y al industrial Termanio Aranguren -Castiello y una vez sometido a la consideración del Buró, repre-sentado en ese momento por el declarante, quien en su carácter de Coordinator General y en virtud del acuerdo tomado por la Coordi-nadora Nacional, tenía autoridad y poder para aprober es planes les dié el visto bueno y le orden de adelante', entonces Oroz-co Guzmán y 10 RUBIO, encargados de la parte militar de la -acción, manifestaron que necesitaban que necesitaban un poco de tiempo para afinar detalles, para rentar una casa en la cual ocul-tar & los secuestrados, porque ya disponían de una para ese objeto y conseguir automóviles mediante expropiaciones', porque respecto * elementos para que actuaran en la ejecución del plan ya los te-nian y también disponían de las armas u municiones necesarios para subos secuestros",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "ciudad de Guadalajara",
+            "victimas": [
+                "AHONY DUNCAN WILLIAMS",
+                "Termanio Aranguren Castiello"
+            ],
+            "victimarios": [
+                "el declarante",
+                "José Ignacio Olivares Torres",
+                "Pedro Offico Guzmán",
+                "EMILIO RUBIO",
+                "Comité Total",
+                "Oroz-co Guzmán",
+                "10 RUBIO"
+            ]
+        }
+    ]
+}

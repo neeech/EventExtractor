@@ -1,0 +1,127 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n-3-\n11-235\nL-11\n--\nIntegrantes del grupo, que en esa actividad de estudio del mar-\nxismo y preparación política militar, transcurrió mucho tiempo sin\nque el de la voz interviniera en ninguna acción militar, eunque\nsuponía que éstas se llevaban a cabo, por la existencia de ding\nro en cantidades altas, pero fue hasta el mes de noviembre o di\nciembre de mil novecientos setenta y uno cuando Hano Lavala le\nindicó al que habla que debía iniciarse en acciones militares,-\npara lo cual participaría en un asalto simultáneo a tres Bancos\nde la ciudad de Monterrey, N.L., que estaban preparando, lo cual\naceptó, por lo que en los primeros días de enero de mil nove\ncientos setenta y dos viajó en autobús a dicha ciudad, al igual\n- que también lo hicieron LOADOLFO HIRALES MORAN, SERGIO\nDIONISIO HIRALES MORAN, JORGE ALBERTO SANCHEZ HIRALES Y JOCE\nLUIS SIERRA VILLARREAL y una vez en la ciudad de Monterrey, fue\nllevado por Ramos Zavala, quien ya lo esperaba, a una casa en la\nque se reunió con SANCHEZ HIRALES Y LUIS ANGEL GARZA VILLARREAL,\ny posteriormente los tres fugten llevados a otro domicilio en el\nque ya se encontraban JOSE LUIS RHI SAUCE GALENDO, JOBE ANGEL\nGARCIA MARTINEZ, HESTOR ESCAMILLA LIRA, JONGE RUIZ DIAZ, RICARDO\nRICARDO\nMORALES PINAL y Jesús Rodolfo Rivera Gámiz; que una vez todos\nreunidos, como se esperaba la llegada de otros compañeros proce-\ndentes del Distrito Federal, se dediceron a vigilar los movimien\ntos del personal y público y el manejo de dinero de las Sucursa-\nles del Banco de Comercio y del Banco Comercial Mexicano ubicadas\nen las calles de Guerrero de la misma ciudad de Monterrey, N.L.,\ny la del Banco Regional del Norte cuya dirección no recuerda y\nque fueron las Instituciones elegidas para realizar los asaltos у\n\"expropiaciones\", pero como a última hora no llegaron los compa-\nñeros que esperaban, decidieron asaltar únicamente los dos bancos\nprimeramente citados y para ese efecto formaron dos comandos a\nlos que llamaron \"Carlos Lamarca\" y \"Pablo alvarado\", quedando\nel de la voz integrado a este último junto con Ramos Zavala, MOKA\nLEE PINAL y SANCHEZ HIRALES, correspondiéndoles asaltar el Banco\nComercial Mexicano, pero previamente a la acción acordaron apode\nrarse de automóviles de alquiler del sitio del Instituto Tecnolo\ngico y el de la voz y SAEZ HIRALES salieron del domicilio a\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"Hano Lavala\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"noviembre o diciembre de mil novecientos setenta y uno\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Monterrey, N.L.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"enero de mil novecientos setenta y dos\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"LOADOLFO HIRALES MORAN\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"SERGIO DIONISIO HIRALES MORAN\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JORGE ALBERTO SANCHEZ HIRALES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JOCE LUIS SIERRA VILLARREAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Ramos Zavala\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"SANCHEZ HIRALES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"LUIS ANGEL GARZA VILLARREAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JOSE LUIS RHI SAUCE GALENDO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JOBE ANGEL GARCIA MARTINEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"HESTOR ESCAMILLA LIRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JONGE RUIZ DIAZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"RICARDO MORALES PINAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Jesús Rodolfo Rivera Gámiz\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Distrito Federal\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Sucursales del Banco de Comercio\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Banco de Comercio\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Banco Comercial Mexicano\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"calles de Guerrero de la misma ciudad de Monterrey, N.L.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Banco Regional del Norte\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Carlos Lamarca\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Pablo alvarado\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Ramos Zavala\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MOKA LEE PINAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"SANCHEZ HIRALES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Instituto Tecnologico\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"SAEZ HIRALES\",\n      \"tipo\": \"PERSONA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": []\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n-3-\n11-235\nL-11\n--\nIntegrantes del grupo, que en esa actividad de estudio del mar-\nxismo y preparación política militar, transcurrió mucho tiempo sin\nque el de la voz interviniera en ninguna acción militar, eunque\nsuponía que éstas se llevaban a cabo, por la existencia de ding\nro en cantidades altas, pero fue hasta el mes de noviembre o di\nciembre de mil novecientos setenta y uno cuando Hano Lavala le\nindicó al que habla que debía iniciarse en acciones militares,-\npara lo cual participaría en un asalto simultáneo a tres Bancos\nde la ciudad de Monterrey, N.L., que estaban preparando, lo cual\naceptó, por lo que en los primeros días de enero de mil nove\ncientos setenta y dos viajó en autobús a dicha ciudad, al igual\n- que también lo hicieron LOADOLFO HIRALES MORAN, SERGIO\nDIONISIO HIRALES MORAN, JORGE ALBERTO SANCHEZ HIRALES Y JOCE\nLUIS SIERRA VILLARREAL y una vez en la ciudad de Monterrey, fue\nllevado por Ramos Zavala, quien ya lo esperaba, a una casa en la\nque se reunió con SANCHEZ HIRALES Y LUIS ANGEL GARZA VILLARREAL,\ny posteriormente los tres fugten llevados a otro domicilio en el\nque ya se encontraban JOSE LUIS RHI SAUCE GALENDO, JOBE ANGEL\nGARCIA MARTINEZ, HESTOR ESCAMILLA LIRA, JONGE RUIZ DIAZ, RICARDO\nRICARDO\nMORALES PINAL y Jesús Rodolfo Rivera Gámiz; que una vez todos\nreunidos, como se esperaba la llegada de otros compañeros proce-\ndentes del Distrito Federal, se dediceron a vigilar los movimien\ntos del personal y público y el manejo de dinero de las Sucursa-\nles del Banco de Comercio y del Banco Comercial Mexicano ubicadas\nen las calles de Guerrero de la misma ciudad de Monterrey, N.L.,\ny la del Banco Regional del Norte cuya dirección no recuerda y\nque fueron las Instituciones elegidas para realizar los asaltos у\n\"expropiaciones\", pero como a última hora no llegaron los compa-\nñeros que esperaban, decidieron asaltar únicamente los dos bancos\nprimeramente citados y para ese efecto formaron dos comandos a\nlos que llamaron \"Carlos Lamarca\" y \"Pablo alvarado\", quedando\nel de la voz integrado a este último junto con Ramos Zavala, MOKA\nLEE PINAL y SANCHEZ HIRALES, correspondiéndoles asaltar el Banco\nComercial Mexicano, pero previamente a la acción acordaron apode\nrarse de automóviles de alquiler del sitio del Instituto Tecnolo\ngico y el de la voz y SAEZ HIRALES salieron del domicilio a\n ",
+    "entidades": [
+        {
+            "texto": "Hano Lavala",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "noviembre o diciembre de mil novecientos setenta y uno",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Monterrey, N.L.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "enero de mil novecientos setenta y dos",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "LOADOLFO HIRALES MORAN",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "SERGIO DIONISIO HIRALES MORAN",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JORGE ALBERTO SANCHEZ HIRALES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JOCE LUIS SIERRA VILLARREAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Ramos Zavala",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "SANCHEZ HIRALES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "LUIS ANGEL GARZA VILLARREAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JOSE LUIS RHI SAUCE GALENDO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JOBE ANGEL GARCIA MARTINEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "HESTOR ESCAMILLA LIRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JONGE RUIZ DIAZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "RICARDO MORALES PINAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Jesús Rodolfo Rivera Gámiz",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Distrito Federal",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Sucursales del Banco de Comercio",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Banco de Comercio",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Banco Comercial Mexicano",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "calles de Guerrero de la misma ciudad de Monterrey, N.L.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Banco Regional del Norte",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Carlos Lamarca",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Pablo alvarado",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Ramos Zavala",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MOKA LEE PINAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "SANCHEZ HIRALES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Instituto Tecnologico",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "SAEZ HIRALES",
+            "tipo": "PERSONA"
+        }
+    ],
+    "eventos": []
+}

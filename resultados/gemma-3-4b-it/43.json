@@ -1,0 +1,153 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n\n11-235\nQio\ncuerdo de cinco puntos básicos que son: el ya apuntado de ajus-\nticiaziento de miembros de le Folicía y del Ejército; realizar\nactividades militares para apoyar el movimiento de masas; recupe\nrar u obtener ermas; \"expropiar\" todos los recursos materiales y\nmonetarios necesarios para la lucha y libera que asi\npuede mencionar un encuentro que se suscitó diciem\nbre de mil novecientos setente y tres la 1. Moctezuma, entre\ncuatro individuos miembros de la \"Enigede Roja que se balacearon\ncon Policías de una patrulla resultando muerto el Cabo León\nJaeso y neridos el Agente EZECHIEL HUGO OLMOS y un particular de\nnombre-JUAN-AMERIZ y al huir sus compañeros, dejaron abandonada-\nuna maleta en la que llevaban armas y parque, enterándose de ese\nhecho el declarante por informes de los responsables de la men-\ncionada \"Brigada\", los que también le informaron que otro encuen\ntro sostenido por elementos de la propia Brigada con el personal\nde una patrulla en la Col. Campestre Churubusco, en el que resul\ntaron fuertos dos policías, cuyas acciones era aprobadas por el-\nde la voz en los particular y por los integrantes del Euró en lo\ngeneral; que el día dieciséis de enero del año en curso el Comi-\nté Político Militar \"Arturo Génié\" que opera en la sierra Sonora-\nChihuahua bajo el mando de SALOMON GAYTAN (a) \"Don Chuy\" secues\ntró en la población de San Bernardo, del Muncipio de Alamo, Son.\na JOSE HERNEGILDO SAENZ CANO, por cuyo rescate recibieron la\nsuma de un millón de pesos y aunque comunicaron al Buró de Direc\nción esa acción y sus resultados, conservaron en su poder el pro\nducto del rescate. Que al ocurrir unos disturbios en la pobla--\nción de Pinotepa Nacional, Oax., a mediados del años pasado en\nque gentes del pueblo se anotinaron contra los caciques de la re\ngión, el Buró Político Militar de la Liga envió a ese lugar a\nJOSE GARCIA WENCESLAO (a) \"Sam\", como responsale, auxiliado por\notros compañeros a los que sólo conoce por sus caras\ncon la orden de formar en esa zona otra brigada, lo cual hicie--\nron y a la que denominaron \"Emiliano Zapata\", que la fecha está-\nineegrada por alrededor de treinta elementos, mismos que el\nveinte de enero último secuestraron Raymundo Soberanes Otero en-\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"Folicía\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Ejército\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"movimiento de masas\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ermas\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"expropiar\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"1. Moctezuma\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Cabo León Jaeso\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Agente EZECHIEL HUGO OLMOS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JUAN-AMERIZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Brigada\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Comité Político Militar \\\"Arturo Génié\\\"\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"sierra Sonora-Chihuahua\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"SALOMON GAYTAN\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"\\\"Don Chuy\\\"\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Jose Hernegildo Saenz Cano\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Buró de Direc\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"un millón de pesos\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Pinotepa Nacional, Oax.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"JOSE GARCIA WENCESLAO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"\\\"Sam\\\"\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Emiliano Zapata\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Raymundo Soberanes Otero\",\n      \"tipo\": \"PERSONA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"el ya apuntado de ajusticiamiento de miembros de le Folicía y del Ejército\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Policía\",\n        \"Ejército\"\n      ]\n    },\n    {\n      \"descripcion\": \"realizar actividades militares para apoyar el movimiento de masas\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": [\n        \"movimiento de masas\"\n      ]\n    },\n    {\n      \"descripcion\": \"recuperar u obtener ermas\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"ermas\",\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"expropiar todos los recursos materiales y monetarios necesarios para la lucha y libera que asi puede mencionar un encuentro que se suscitó diciem bre de mil novecientos setente y tres la 1. Moctezuma, entre cuatro individuos miembros de la \\\"Enigede Roja que se balacearon con Policías de una patrulla resultando muerto el Cabo León Jaeso y neridos el Agente EZECHIEL HUGO OLMOS y un particular de nombre-JUAN-AMERIZ y al huir sus compañeros, dejaron abandonada- una maleta en la que llevaban armas y parque, enterándose de ese hecho el declarante por informes de los responsables de la men- cionada \\\"Brigada\\\", los que también le informaron que otro encuentro sostenido por elementos de la propia Brigada con el personal de una patrulla en la Col. Campestre Churubusco, en el que resultaron fuertes dos policías, cuyas acciones era aprobadas por el- de la voz en los particular y por los integrantes del Euró en lo general; que el día dieciséis de enero del año en curso el Comité Político Militar \\\"Arturo Génié\\\" que opera en la sierra Sonora-Chihuahua bajo el mando de SALOMON GAYTAN (a) \\\"Don Chuy\\\" secues tró en la población de San Bernardo, del Muncipio de Alamo, Son. a JOSE HERNEGILDO SAENZ CANO, por cuyo rescate recibieron la suma de un millón de pesos y aunque comunicaron al Buró de Direc ción esa acción y sus resultados, conservaron en su poder el pro ducto del rescate. Que al ocurrir unos disturbios en la pobla-- ción de Pinotepa Nacional, Oax., a mediados del años pasado en que gentes del pueblo se anotinaron contra los caciques de la re gión, el Buró Político Militar de la Liga envió a ese lugar a JOSE GARCIA WENCESLAO (a) \\\"Sam\\\", como responsale, auxiliado por otros compañeros a los que sólo conoce por sus caras con la orden de formar en esa zona otra brigada, lo cual hicie ron y a la que denominaron \\\"Emiliano Zapata\\\", que la fecha está-ineegrada por alrededor de treinta elementos, mismos que el veinte de enero último secuestraron Raymundo Soberanes Otero en-\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"diciem bre de mil novecientos setente y tres\",\n      \"lugar\": \"1. Moctezuma\",\n      \"victimas\": [\n        \"Cabo León Jaeso\",\n        \"Agente EZECHIEL HUGO OLMOS\",\n        \"JUAN-AMERIZ\"\n      ],\n      \"victimarios\": [\n        \"Policía\",\n        \"Enigede Roja\",\n        \"Brigada\"\n      ]\n    },\n    {\n      \"descripcion\": \"secuestraron Raymundo Soberanes Otero\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"veinte de enero último\",\n      \"lugar\": \"Pinotepa Nacional, Oax.\",\n      \"victimas\": [\n        \"Raymundo Soberanes Otero\"\n      ],\n      \"victimarios\": [\n        \"Emiliano Zapata\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n\n11-235\nQio\ncuerdo de cinco puntos básicos que son: el ya apuntado de ajus-\nticiaziento de miembros de le Folicía y del Ejército; realizar\nactividades militares para apoyar el movimiento de masas; recupe\nrar u obtener ermas; \"expropiar\" todos los recursos materiales y\nmonetarios necesarios para la lucha y libera que asi\npuede mencionar un encuentro que se suscitó diciem\nbre de mil novecientos setente y tres la 1. Moctezuma, entre\ncuatro individuos miembros de la \"Enigede Roja que se balacearon\ncon Policías de una patrulla resultando muerto el Cabo León\nJaeso y neridos el Agente EZECHIEL HUGO OLMOS y un particular de\nnombre-JUAN-AMERIZ y al huir sus compañeros, dejaron abandonada-\nuna maleta en la que llevaban armas y parque, enterándose de ese\nhecho el declarante por informes de los responsables de la men-\ncionada \"Brigada\", los que también le informaron que otro encuen\ntro sostenido por elementos de la propia Brigada con el personal\nde una patrulla en la Col. Campestre Churubusco, en el que resul\ntaron fuertos dos policías, cuyas acciones era aprobadas por el-\nde la voz en los particular y por los integrantes del Euró en lo\ngeneral; que el día dieciséis de enero del año en curso el Comi-\nté Político Militar \"Arturo Génié\" que opera en la sierra Sonora-\nChihuahua bajo el mando de SALOMON GAYTAN (a) \"Don Chuy\" secues\ntró en la población de San Bernardo, del Muncipio de Alamo, Son.\na JOSE HERNEGILDO SAENZ CANO, por cuyo rescate recibieron la\nsuma de un millón de pesos y aunque comunicaron al Buró de Direc\nción esa acción y sus resultados, conservaron en su poder el pro\nducto del rescate. Que al ocurrir unos disturbios en la pobla--\nción de Pinotepa Nacional, Oax., a mediados del años pasado en\nque gentes del pueblo se anotinaron contra los caciques de la re\ngión, el Buró Político Militar de la Liga envió a ese lugar a\nJOSE GARCIA WENCESLAO (a) \"Sam\", como responsale, auxiliado por\notros compañeros a los que sólo conoce por sus caras\ncon la orden de formar en esa zona otra brigada, lo cual hicie--\nron y a la que denominaron \"Emiliano Zapata\", que la fecha está-\nineegrada por alrededor de treinta elementos, mismos que el\nveinte de enero último secuestraron Raymundo Soberanes Otero en-\n ",
+    "entidades": [
+        {
+            "texto": "Folicía",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Ejército",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "movimiento de masas",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ermas",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "expropiar",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "1. Moctezuma",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Cabo León Jaeso",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Agente EZECHIEL HUGO OLMOS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JUAN-AMERIZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Brigada",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Comité Político Militar \"Arturo Génié\"",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "sierra Sonora-Chihuahua",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "SALOMON GAYTAN",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "\"Don Chuy\"",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Jose Hernegildo Saenz Cano",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Buró de Direc",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "un millón de pesos",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Pinotepa Nacional, Oax.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "JOSE GARCIA WENCESLAO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "\"Sam\"",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Emiliano Zapata",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Raymundo Soberanes Otero",
+            "tipo": "PERSONA"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "el ya apuntado de ajusticiamiento de miembros de le Folicía y del Ejército",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [],
+            "victimarios": [
+                "Policía",
+                "Ejército"
+            ]
+        },
+        {
+            "descripcion": "realizar actividades militares para apoyar el movimiento de masas",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [],
+            "victimarios": [
+                "movimiento de masas"
+            ]
+        },
+        {
+            "descripcion": "recuperar u obtener ermas",
+            "tipo": "CAPTURA",
+            "fecha": "ermas",
+            "lugar": null,
+            "victimas": [],
+            "victimarios": []
+        },
+        {
+            "descripcion": "expropiar todos los recursos materiales y monetarios necesarios para la lucha y libera que asi puede mencionar un encuentro que se suscitó diciem bre de mil novecientos setente y tres la 1. Moctezuma, entre cuatro individuos miembros de la \"Enigede Roja que se balacearon con Policías de una patrulla resultando muerto el Cabo León Jaeso y neridos el Agente EZECHIEL HUGO OLMOS y un particular de nombre-JUAN-AMERIZ y al huir sus compañeros, dejaron abandonada- una maleta en la que llevaban armas y parque, enterándose de ese hecho el declarante por informes de los responsables de la men- cionada \"Brigada\", los que también le informaron que otro encuentro sostenido por elementos de la propia Brigada con el personal de una patrulla en la Col. Campestre Churubusco, en el que resultaron fuertes dos policías, cuyas acciones era aprobadas por el- de la voz en los particular y por los integrantes del Euró en lo general; que el día dieciséis de enero del año en curso el Comité Político Militar \"Arturo Génié\" que opera en la sierra Sonora-Chihuahua bajo el mando de SALOMON GAYTAN (a) \"Don Chuy\" secues tró en la población de San Bernardo, del Muncipio de Alamo, Son. a JOSE HERNEGILDO SAENZ CANO, por cuyo rescate recibieron la suma de un millón de pesos y aunque comunicaron al Buró de Direc ción esa acción y sus resultados, conservaron en su poder el pro ducto del rescate. Que al ocurrir unos disturbios en la pobla-- ción de Pinotepa Nacional, Oax., a mediados del años pasado en que gentes del pueblo se anotinaron contra los caciques de la re gión, el Buró Político Militar de la Liga envió a ese lugar a JOSE GARCIA WENCESLAO (a) \"Sam\", como responsale, auxiliado por otros compañeros a los que sólo conoce por sus caras con la orden de formar en esa zona otra brigada, lo cual hicie ron y a la que denominaron \"Emiliano Zapata\", que la fecha está-ineegrada por alrededor de treinta elementos, mismos que el veinte de enero último secuestraron Raymundo Soberanes Otero en-",
+            "tipo": "CAPTURA",
+            "fecha": "diciem bre de mil novecientos setente y tres",
+            "lugar": "1. Moctezuma",
+            "victimas": [
+                "Cabo León Jaeso",
+                "Agente EZECHIEL HUGO OLMOS",
+                "JUAN-AMERIZ"
+            ],
+            "victimarios": [
+                "Policía",
+                "Enigede Roja",
+                "Brigada"
+            ]
+        },
+        {
+            "descripcion": "secuestraron Raymundo Soberanes Otero",
+            "tipo": "CAPTURA",
+            "fecha": "veinte de enero último",
+            "lugar": "Pinotepa Nacional, Oax.",
+            "victimas": [
+                "Raymundo Soberanes Otero"
+            ],
+            "victimarios": [
+                "Emiliano Zapata"
+            ]
+        }
+    ]
+}

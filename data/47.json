@@ -1,0 +1,30 @@
+{
+  "texto": "MARTING2\n2-16\nD.F.S.-6-VI-74\nESTADO DE CHIHUAHUA\n206\n310\nCd. Juárez.- Elementos de la Policía Judicial del Esta\ndo detuvieron el día de ayer a CECILIA LOPEZ LOPEZ, con motivo -\nde los sucesos ocurridos recientemente en los que resultó muerto\nel policía José Godínez García a manos de MIGUEL LERMA CAMARGO-\nmiembro de la \"Liga Comunista 23 de Septiembre\".\n\nLa detenida dijo ser originaria de Gómez Palacio, Dgo.\nen donde nació hace 22 años, hija de DAVID LOPEZ ZARATE Y ANTO--\nNIA LOPEZ VILLA, con domicilio en las calles de Juan N. Subirán-\nN° 2,347 de su lugar de origen.\n\nSus estudios primarios los cursó en la Escuela \"Revolu\nción\"; la secundaria, preparatoria y carrera profesional las sus\ntentó en el Instituto Tecnológico Regional de cd. Juárez, Chih.,\nhabiendo terminado el curso de Contador Público sin haber recibi\ndo el título respectivo, debido a que reprobó las materias de 4º\nafio.\n\nQue desempeñó el trabajo de secretaria en las empresas\n\"Camisas de Juárez\"; maquiladora \"Allen Bradley\" y \"Gas Natural-\nde Juárez\", con duración de 30 días, 6 meses y 30 días, en su or\nden, habiendo sido despedida de su primer empleo por tener ante-\ncedentes políticos y de la segunda renunció debido a que \"tenía-\nque asistir a la escuela\".\n\nDijo que sus inquietudes políticas se iniciaron cuando\ncursaba el 3/er. año de la carrera profesional, \"al darse cuenta\nde las injusticias que había en el medio social\" y por ello par-\nticipó en la primera huelga del Instituto Tecnológico Regional -\nde cd. Juárez, Chih., en donde estableció contacto con los alum-\nnos VICTOR HUGO SALIDO, JAIME DELGADO, ADRIAN SERRANO asi como\ncon los hermanos GARCIA CORRAL Y MIGUEL LERMA CAMARGO.\n-\n-\nQue a últimas fechas se coordinó con los principales\nmiembros de la \"Alianza Cívico Demócrata Juarense\", mencionando-\nal Dr. ROBERTO VAZQUEZ MUÑOZ\nde quienes recibía propaganda subversiva para distribuírla en\nNOZ y a la Profa. MARTHA DE LOS RIOS,\nla ciudad y en las empresas maquiladoras.\n--\n\nQue MIGUEL LERMA CAMARGO la invitó a abandonar su domi",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Cd. Juárez.- Elementos de la Policía Judicial del Estado detuvieron el día de ayer a CECILIA LOPEZ LOPEZ",
+      "fecha": "día de ayer",
+      "lugar": "Cd. Juárez.",
+      "victimas": [
+        "CECILIA LOPEZ LOPEZ"
+      ],
+      "victimarios": [
+        "Policía Judicial del Estado"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "con motivo -de los sucesos ocurridos recientemente en los que resultó muerto el policía José Godínez García a manos de MIGUEL LERMA CAMARGO-miembro de la \"Liga Comunista 23 de Septiembre\"",
+      "fecha": "recientemente",
+      "lugar": null,
+      "victimas": [
+        "José Godínez García"
+      ],
+      "victimarios": [
+        "MIGUEL LERMA CAMARGO",
+        "Liga Comunista 23 de Septiembre"
+      ]
+    }
+  ]
+}

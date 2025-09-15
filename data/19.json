@@ -1,0 +1,41 @@
+{
+  "texto": "LOCALIDAD: MONTERREY, N.L.\nFECHA: 14-MAYO-80\nHORA: 09:35\nASUNTO: PUBLICACION SOBRE EL PARECIDO\nDEL COMANDANTE 1 CON JESUS\nPIEDRA IBARRA.\n\nINFORME:\nEn el Periódico \"Norte\" del día de la fecha, se publica un\nartículo titulado \"INQUIETA EL COMANDANTE 1 A LA SRA. PIEDRA. DICE\nINVESTIGAR SI ES SU HIJO\"\nDicho Artículo tiene el siguiente texto:\n\"El parecido fotográfico del Comandante 1 con su hijo Jesús\ninquietó a Doña ROSARIO IBARRA DE PIEDRA, quien hace años cambió la\ntranquilidad de una vida hogareña por un incesante peregrinar que\nlo mismo la ha llevado a Cd. Madera Chih., que hasta las puertas de\nla ONU, en Nueva, York.\nPIEDRA IBARRA, a quien se le atribuye el aşalto, homicidios\nde policías y otros delitos consumados por supuestos móviles políti\ncos, al parecer decidió actuar clandestinamente el 25 de Noviembre\nde 1973.\nUnos dos años mas tarde, el 18 de Abril de 1975, fue captura\ndo a pocos metros del antiguo edificio de la Policía Judicial, se--\ngún informes confidenciales, ignorándose desde entonces su paradero.\nAunque Doña ROSARIO, se ha encontrado con frecuentes desilu\nsiones durante la busqueda de PIEDRA IBARRA, no descartó ayer la\nposibilidad de que el Dirigente del Secuestro de Diplomáticos en la\nEmbajada Dominicana en Bogotá, fuera su propio hijo.\nRefiriendose a la comparación fotográfica de su hijo con\nel Comandante 1 del grupo guerrillero M-19 que publicó este periódi-\nco el domingo pasado, dijo que varias de sus amistades le telefonea-\nron para felicitarla por la aparición de su hijo Jesús.\nDijo haber respondido con insertidumbre a esas felicitaciones",
+  "eventos": [
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "PIEDRA IBARRA, a quien se le atribuye el aşalto, homicidiosde policías y otros delitos consumados por supuestos móviles políticos",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "policías"
+      ],
+      "victimarios": [
+        "PIEDRA IBARRA"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Unos dos años mas tarde, el 18 de Abril de 1975, fue captura do a pocos metros del antiguo edificio de la Policía Judicial",
+      "fecha": "18 de Abril de 1975",
+      "lugar": "a pocos metros del antiguo edificio de la Policía Judicial",
+      "victimas": [
+        "PIEDRA IBARRA"
+      ],
+      "victimarios": [
+        "Policía Judicial"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "no descartó ayer la posibilidad de que el Dirigente del Secuestro de Diplomáticos en la Embajada Dominicana en Bogotá, fuera su propio hijol",
+      "fecha": null,
+      "lugar": "Embajada Dominicana en Bogotá",
+      "victimas": [
+        "Diplomáticos"
+      ],
+      "victimarios": [
+        "PIEDRA IBARRA"
+      ]
+    }
+  ]
+}

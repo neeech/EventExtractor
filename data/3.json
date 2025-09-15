@@ -1,0 +1,40 @@
+{
+  "texto": "DIRECCION FEDERAL DE SEGURIDAD\nDEPARTAMENTO DE INFORMACION E INVESTIGACION LOCAL\nSECTOR: ESTUDIANTIL.\nLOCALIDAD: MEXICO, D.F.\nFECHA: 13-ENE-83.\nHORA: 16:15.\nASUNTO: MITIN-FESTIVAL EN SOLIDARIDAD\nCON EL MOVIMIENTO OBRERO.\nINFORME:\nEl dia de la fecha de las 12:15 a las 14:30 horas, en\nla Sala de usos multiples del Colegio de Ciencias y Humanidades\nplantel Oriente, se efectuó un Mitin-Festival en Solidaridad con\nel Movimiento Obrero; con una asistencia aproximada de 100 perso-\nnas, donde participo la cantante de música Folklorica JUDITH RE--\nYES, quién manifestó que el actual Presidente de la República\nLic. MIGUEL DE LA MADRID, está planeando acabar con el Movimiento\nObrero Independiente en el pais y que la crisis que actualmente\nvive es por culpa de Funcionarios \"rateros\" y que tratan de hacer\ncaer la crisis en la Clase Obrera. Continuó cantando música Fol--\nklorica y Revolucionaria.\n\nPosteriormente se presento un Prof., de la Escuela\nPrimaria \"Rafael Ramirez\" de Xalostoc; no identificado el cual ma\nnifestó que actualmente se encuentran desaparecidos 2 profesores\nde nombres JUAN CARLOS MENDOZA GALOZ, detenido y desaparecido por\nelementos de la DGPyT el día 30 de diciembre de 1981 y la profeso\nra HILDA ESCOBEDO, desaparecida el dia 31 del mismo mes y año.\nQue responsabilizan al Actual Gobierno de la integre-\ndad Fisica y Moral de estos 2 profesores. Ya que no puede haber re\nnovación moral mientras en el pais se golpee, encarcele y torture.\na la clase proletariada.\n\nPosteriormente se presento un grupo de 20 estudiantes\nde la Prepa Popular Tacuba y un alumno de está tomo la palabra pa\nra informar que en días pasados füeron detenidos 2 estudiantes de\nese Plantel de nombres JAIME LAGUNAS y GERARDO GURROLA, e invita-\nron a los estudiantes a que se solidaricen con estos 2 compañeros\nexigiendo su Libertad.\n\nPara concluir se presentó un trabajador del Sindicato\nIndependiente de Trabajadores de SERVI el cual mencionó que se en\ncuentran en huelga desde el pasado 26 de noviembre por exigir el\n60% de aumento salarial y un alto a los despidos y respeto a su\nSindicato Independiente de estos Trabajadores, que estan ubicados\nen la calle Santa Teresa No. 64 de la Colonia Tepalcates. E invitó\na los estudiantes a que se solidaricen con su movimiento.\n\nSe hace notar que concluyo este acto cantando JUDITH\nREYES, música Folklorica. Sin suscitarse incidente alguno.\n\nRESPETUOSAMENTE.\nSECCION \"A\"\nCARLOS AUGUSTO SILVA JUAREZ.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JUAN CARLOS MENDOZA GALOZ, detenido y desaparecido por elementos de la DGPyT el día 30 de diciembre de 1981",
+      "fecha": "30 de diciembre de 1981",
+      "lugar": null,
+      "victimas": [
+        "JUAN CARLOS MENDOZA GALOZ"
+      ],
+      "victimarios": [
+        "DGPyT"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "la profeso ra HILDA ESCOBEDO, desaparecida el dia 31 del mismo mes y año",
+      "fecha": "31 del mismo mes y año",
+      "lugar": null,
+      "victimas": [
+        "HILDA ESCOBEDO"
+      ],
+      "victimarios": [
+        "Actual Gobierno"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "füeron detenidos 2 estudiantes de ese Plantel de nombres JAIME LAGUNAS y GERARDO GURROLA",
+      "fecha": "días pasados",
+      "lugar": null,
+      "victimas": [
+        "JAIME LAGUNAS",
+        "GERARDO GURROLA"
+      ],
+      "victimarios": []
+    }
+  ]
+}

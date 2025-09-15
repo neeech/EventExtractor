@@ -1,0 +1,17 @@
+{
+  "texto": "apodado \"Lape\" y uno más que usaba el nombre \"Grupo\", el-\ncual resultó muerto en un enfrentamiento que recientemente tuvo\ncon elementos de la Policía en la esquina que forman las calles\nde Av. Río del Consulado y Calzada de los Misterios; que en el\nasalto a la I.E.M. obtuvieron un millón setecientos mil sos que\nse distribuyeron entre los Comités Coordinadores Zonales, sumados\nal producto de la expropiación al Banco de Monterrey antes mencio\nnada y aunque no puede precisar la proporción en que se repartió-\nel dinero, si sabe y le consta que las mayores cantidades fueron-\npara los Comités Zonales del noroeste y occidente, aunque también\nse les participó a los del noreste, de esta capital y al del sur-\ny además el Buró de Dirección conservé trescientos mil pesos que-\nfueron repartidos entre sus miembros para rentar casas, comprar -\nautomóviles, adquirir papel y material para impresión, medicinas,\narmas y cartuchos y respecto a estos últimos los obtienen en el\nmercado negro de Guadalajara, Jal. y en algunas poblaciones fron-\nterizas de los Estados de Sonora y Tamaulipas; que estas acciones\nse desarrollaron el asalto a la I.E.M. el día 12 de abril de mil-\nnovecientos setenta y tres y el asalto al Banco de Monterrey, que\nahora fue la Sucursal Cuauhtémoc del Banco General de Monterrey-\nal día siguiente, o sea el trece de abril citado. Que después de\nestas operaciones se celebraron reuniones del Buró Político de Di\nrección en las que se hizo una revisión del trabajo organizativo-\ny político-militar desarrollado por la liga Comunista 23 de Sep-\ntiembre, habiendo llegado a la conclusión de que cada Comité Coor\ndinador Zonal debería ejecutar sus propias acciones para obtener-\nfondos para sus subsistencia, incluyendo\" expropiaciones\" que aun-\nque produjeran escasas cantidades de dinero, se consideran útiles\npara los fines que persigue la organización, como algunas realiza\ndas en la ciudad de Guadalajara a diversos cajeros ambulantes que\nconducen dinero de Bancos, el asalto a Industrias GESTHENERSA y -\nel asalto a la Proveedora de Instrumental Quirúrgico en la propia\nciudad de Guadalajara, que tuvo como finalidad específica la de ob\ntener esa instrumental para instalar una clínica en ese lugar y -\n-en otras poblaciones en la que opera la Liga, para curar a los\n-",
+  "eventos": [
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "resultó muerto en un enfrentamiento que recientemente tuvo con elementos de la Policía",
+      "fecha": "recientemente",
+      "lugar": "Av. Río del Consulado y Calzada de los Misterios",
+      "victimas": [
+        "Grupo"
+      ],
+      "victimarios": [
+        "Policía"
+      ]
+    }
+  ]
+}

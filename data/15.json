@@ -1,0 +1,74 @@
+{
+  "texto": "JACOBO GAMIZ GARCIA\nDetenido en marzo de 1974\nen Acapulco, Gro, por la poli-\ncía y el ejército. Herido en\nuna pierna, Identificado ple-\nnamente por su esposa. Fue\nconducido al Campo Militar\nNo. 1 de la Cd. de México.\nJESUS PIEDRA IBARRA\nSecuestrado por la Policia el\n18 de Abril de 1975 en la co-\nlle Zaragoza en Monterrey,\nN. L, según testigo y notas\nperiodísticas. Tras str salva-\njemente torturado fus condu-\ncido al Compo Militar No. 1\nde la Ciudad de México.\nIGNACIO ARTURO SALAS\nOBREGON\nCapturado herido en Tlalne-\npantia, en 1974, fué conduci-\ndo al Hospital Militar en don-\nde fué visto por un compañe-\nro que lo manifestó pública-\nmente por medio de una carta\na \"Foro de Excelsior\".\nLIC. CESAR YAÑEZ MUÑOZ\nVisto por última vez en Oco-\nsingo, Chiapas, según datos\nde la Procuraduría General de\nla República en febrero de\n1974. Se cree que fue captu-\nrado y se teme por su vida.\nPROFR. JACOB N. JERA\nHERNANDEZ\nDESTACADO LIDER DEL MO\nVIMIENTO REVOLUCIONA-\nRIO DEL MAGISTERIO\nFue sacado de su casa en San\nJerónimo, Gro. el 2 de sep-\ntiembre de 1974. Entre los\nagentes judiciales que lo se-\nJOSE DE JESUS AVILA\nGONZALEZ\nDesaparecido desde el 5 de\nabril de 1974. Secuestrado\nfuera de su casa en México,\nD. F. por agentes de la Direc-\nción Federal de Seguridad.\nEstudiante de la Escuela Su-\nperior de Economia del IPN.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JACOBO GAMIZ GARCIA Detenido en marzo de 1974 en Acapulco, Gro, por la policía y el ejército.",
+      "fecha": "marzo de 1974",
+      "lugar": "Acapulco, Gro",
+      "victimas": [
+        "JACOBO GAMIZ GARCIA"
+      ],
+      "victimarios": [
+        "policía",
+        "ejército"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JESUS PIEDRA IBARRA Secuestrado por la Policia el 18 de Abril de 1975 en la colle Zaragoza en Monterrey, N. L",
+      "fecha": "18 de Abril de 1975",
+      "lugar": "colle Zaragoza en Monterrey, N. L",
+      "victimas": [
+        "JESUS PIEDRA IBARRA"
+      ],
+      "victimarios": [
+        "Policia"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "IGNACIO ARTURO SALAS OBREGON Capturado herido en Tlalne-pantia, en 1974",
+      "fecha": "1974",
+      "lugar": "Tlalnepantia",
+      "victimas": [
+        "IGNACIO ARTURO SALAS OBREGON"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "LIC. CESAR YAÑEZ MUÑOZ Visto por última vez en Ocosingo, Chiapas",
+      "fecha": "febrero de 1974",
+      "lugar": "Ocosingo, Chiapas",
+      "victimas": [
+        "CESAR YAÑEZ MUÑOZ"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Fue sacado de su casa en San Jerónimo, Gro.",
+      "fecha": "2 de septiembre de 1974",
+      "lugar": "su casa en San Jerónimo, Gro.",
+      "victimas": [
+        "JACOB N. JERA HERNANDEZ"
+      ],
+      "victimarios": [
+        "agentes judiciales"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JOSE DE JESUS AVILA GONZALEZ Desaparecido desde el 5 de abril de 1974. Secuestrado fuera de su casa en México, D. F. por agentes de la Direc-ción Federal de Seguridad",
+      "fecha": "5 de abril de 1974",
+      "lugar": "fuera de su casa en México, D. F.",
+      "victimas": [
+        "JOSE DE JESUS AVILA GONZALEZ"
+      ],
+      "victimarios": [
+        "Dirección Federal de Seguridad"
+      ]
+    }
+  ]
+}

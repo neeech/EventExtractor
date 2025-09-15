@@ -1,0 +1,26 @@
+{
+  "texto": "Al fallar el secuestro, Piedra Ibarra se esconde en Tampico en la casa de ESCAMILLA LIRA, quien por acuerdo de la Coordinadora Nacional de la Liga Comunista \"23 de Septiembre\" dejaba de ser responsable del Comité Regional de Tampico y se le traslada a Culiacán, Sin.\n\nEl 29 de abril de 1974, HECTOR ESCAMILLA LIRA en conferencia de prensa efectuada el 27 del mismo mes y año en Monterrey, N.L. dijo que Piedra Ibarra le informó que Rodolfo Garza Montemayor y Joel Rojo Hernández fueron asesinados por ser \"policías Políticos\".\n\nEl 1o. de mayo de 1974, Piedra Ibarra participó en el asalto al Auto-Descuento Tecnológico de Monterrey.\n\nEl elemento citado auxilió a otros de la Liga Comunista \"23 de Septiembre\" que asaltaron la Sucursal \"Obispado\" del Banco Regional del Norte. Asimismo robaron en las panaderías en Pernambuco y Tecnológico en la ciudad de Monterrey.\n\nQue para el día 13 de mayo de 1974, se tenía planeada la \"expropiación\" en el Banco que se localiza en la \"Y\".\n\nPiedra Ibarra participó en el asalto a la Escuela \"Jaime Torres Bodet\" e intervino en el robo cometido contra la Zapatería \"Tres Hermanos\" ubicada en Cuauhtémoc y F. I. Madero en Monterrey, N.L.\n\nEl 14 de mayo de 1974, se tuvo conocimiento que este elemento es del Comité Coordinador de la Liga Comunista \"23 de Septiembre\" en Nuevo León y Tamaulipas.\n\nEl 13 de mayo del mismo año, sostuvieron un enfrentamiento a balazos con elementos de la Policía Judicial del Estado de Nuevo León, resultando dos de los Agentes heridos de gravedad escapando los guerrilleros.\n\nQue en junio de 1974, se trasladó al D.F. a la III Reunión Nacional de la Liga, donde acordaron desarrollar jornadas nacionales de agitación y combate.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Al fallar el secuestro, Piedra Ibarra se esconde en Tampico en la casa de ESCAMILLA LIRA",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [],
+      "victimarios": [
+        "Piedra Ibarra"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "Rodolfo Garza Montemayor y Joel Rojo Hernández fueron asesinados",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "Rodolfo Garza Montemayor",
+        "Joel Rojo Hernández"
+      ],
+      "victimarios": []
+    }
+  ]
+}

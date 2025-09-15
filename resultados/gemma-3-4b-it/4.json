@@ -1,0 +1,98 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n\nHILDA AUSTREBERTA ESCOBEDO.\nΟ\nHILDA AUSTREBERTA ESCOBEDO OCAÑA.\n\nEN VOLANTE DISTRIBUIDO EL PASADO 2 DE SEP-\nTIEMBRE DEL AÑO EN CURSO, SE DICE QUE EL 30 DE DIC.-\nDE 1981, ESTA PERSONA ESTUDIANTE DE LA ESCUELA SUPE-\nRIOR DE ECONOMIA (ESE) DEL INSTITUTO POLITECNICO NA-\nCIONAL (IPN), COLABORADORA ACTIVA DE LA COORDINADORA\nNACIONAL \"PLAN DE AYALA\" (CNPA), FUE \"DESAPARECIDA\"-\nPOR ALGUNA CORPORACION POLICIACA, DESCONOCIENDOSE\nHASTA LA FECHA SU PARADERO.\nFAMILIARES Y AMIGOS DE HILDA AUSTREBERTA\nESCOBEDO OCAÑA, RESPONSABILIZAN A LAS AUTORIDADES FE\nDERALES DE SU INTEGRIDAD FISICA Y MENTAL, ARGUMENTAN\nDO QUE ESTE ACTO ATENTA CONTRA LAS MAS ELEMENTALES\nNORMAS DEMOCRATICAS Y DE VIDA DE NUESTRO PAIS.\nEL ING. MARGARITO MONTES PARRA, MIEMBRO\nDEL PARTIDO REVOLUCIONARIO DE LOS TRABAJADORES (PRT),\nY DE LA CNPA, ENCABEZANDO A 4 PERSONAS, EL 3 DE SEP-\nTIEMBRE DE ESTE MISMO AÑO, SE DAN A LA TAREA DE FI--\nJAR UNOS ENGOMADOS EN LOS QUE APARECE LA FOTOGRAFIA-\nDE ESTA PERSONA, EXIGIENDO SU PRESENTACION.\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"HILDA AUSTREBERTA ESCOBEDO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"HILDA AUSTREBERTA ESCOBEDO OCAÑA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"2 de septiembre del año en curso\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"30 de diciembre de 1981\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"ESCUELA SUPERIOR DE ECONOMIA (ESE)\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Instituto Politcnico Nacional (IPN)\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"PLAN DE AYALA\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"CORPORACION POLICIACA\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"FAMILIARES Y AMIGOS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"AUTORIDADES FE DERALES\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"NORMAS DEMOCRATICAS\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"PARTIDO REVOLUCIONARIO DE LOS TRABAJADORES (PRT)\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"CNPA\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Margarito Montes Parra\",\n      \"tipo\": \"PERSONA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"ESTA PERSONA ESTUDIANTE DE LA ESCUELA SUPERIOR DE ECONOMIA (ESE) DEL INSTITUTO POLITECNICO NACIONAL (IPN), COLABORADORA ACTIVA DE LA COORDINADORA NACIONAL \\\"PLAN DE AYALA\\\" (CNPA), FUE \\\"DESAPARECIDA\\\"- POR ALGUNA CORPORACION POLICIACA, DESCONOCIENDOSE HASTA LA FECHA SU PARADERO.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"30 de diciembre de 1981\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"HILDA AUSTREBERTA ESCOBEDO\"\n      ],\n      \"victimarios\": [\n        \"CORPORACION POLICIACA\"\n      ]\n    },\n    {\n      \"descripcion\": \"FAMILIARES Y AMIGOS DE HILDA AUSTREBERTA ESCOBEDO OCAÑA, RESPONSABILIZAN A LAS AUTORIDADES FE DERALES DE SU INTEGRIDAD FISICA Y MENTAL, ARGUMENTAN DO QUE ESTE ACTO ATENTA CONTRA LAS MAS ELEMENTALES NORMAS DEMOCRATICAS Y DE VIDA DE NUESTRO PAIS.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [\n        \"FAMILIARES Y AMIGOS\"\n      ],\n      \"victimarios\": [\n        \"AUTORIDADES FE DERALES\"\n      ]\n    },\n    {\n      \"descripcion\": \"EL ING. MARGARITO MONTES PARRA, MIEMBRO DEL PARTIDO REVOLUCIONARIO DE LOS TRABAJADORES (PRT), Y DE LA CNPA, ENCABEZANDO A 4 PERSONAS, EL 3 DE SEPTIEMBRE DE ESTE MISMO AÑO, SE DAN A LA TAREA DE FI JAR UNOS ENGOMADOS EN LOS QUE APARECE LA FOTOGRAFIA- DE ESTA PERSONA, EXIGIENDO SU PRESENTACION.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"3 de septiembre de este mismo año\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"HILDA AUSTREBERTA ESCOBEDO\"\n      ],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n\nHILDA AUSTREBERTA ESCOBEDO.\nΟ\nHILDA AUSTREBERTA ESCOBEDO OCAÑA.\n\nEN VOLANTE DISTRIBUIDO EL PASADO 2 DE SEP-\nTIEMBRE DEL AÑO EN CURSO, SE DICE QUE EL 30 DE DIC.-\nDE 1981, ESTA PERSONA ESTUDIANTE DE LA ESCUELA SUPE-\nRIOR DE ECONOMIA (ESE) DEL INSTITUTO POLITECNICO NA-\nCIONAL (IPN), COLABORADORA ACTIVA DE LA COORDINADORA\nNACIONAL \"PLAN DE AYALA\" (CNPA), FUE \"DESAPARECIDA\"-\nPOR ALGUNA CORPORACION POLICIACA, DESCONOCIENDOSE\nHASTA LA FECHA SU PARADERO.\nFAMILIARES Y AMIGOS DE HILDA AUSTREBERTA\nESCOBEDO OCAÑA, RESPONSABILIZAN A LAS AUTORIDADES FE\nDERALES DE SU INTEGRIDAD FISICA Y MENTAL, ARGUMENTAN\nDO QUE ESTE ACTO ATENTA CONTRA LAS MAS ELEMENTALES\nNORMAS DEMOCRATICAS Y DE VIDA DE NUESTRO PAIS.\nEL ING. MARGARITO MONTES PARRA, MIEMBRO\nDEL PARTIDO REVOLUCIONARIO DE LOS TRABAJADORES (PRT),\nY DE LA CNPA, ENCABEZANDO A 4 PERSONAS, EL 3 DE SEP-\nTIEMBRE DE ESTE MISMO AÑO, SE DAN A LA TAREA DE FI--\nJAR UNOS ENGOMADOS EN LOS QUE APARECE LA FOTOGRAFIA-\nDE ESTA PERSONA, EXIGIENDO SU PRESENTACION.\n\n ",
+    "entidades": [
+        {
+            "texto": "HILDA AUSTREBERTA ESCOBEDO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "HILDA AUSTREBERTA ESCOBEDO OCAÑA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "2 de septiembre del año en curso",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "30 de diciembre de 1981",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "ESCUELA SUPERIOR DE ECONOMIA (ESE)",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Instituto Politcnico Nacional (IPN)",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "PLAN DE AYALA",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "CORPORACION POLICIACA",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "FAMILIARES Y AMIGOS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "AUTORIDADES FE DERALES",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "NORMAS DEMOCRATICAS",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "PARTIDO REVOLUCIONARIO DE LOS TRABAJADORES (PRT)",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "CNPA",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Margarito Montes Parra",
+            "tipo": "PERSONA"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "ESTA PERSONA ESTUDIANTE DE LA ESCUELA SUPERIOR DE ECONOMIA (ESE) DEL INSTITUTO POLITECNICO NACIONAL (IPN), COLABORADORA ACTIVA DE LA COORDINADORA NACIONAL \"PLAN DE AYALA\" (CNPA), FUE \"DESAPARECIDA\"- POR ALGUNA CORPORACION POLICIACA, DESCONOCIENDOSE HASTA LA FECHA SU PARADERO.",
+            "tipo": "CAPTURA",
+            "fecha": "30 de diciembre de 1981",
+            "lugar": null,
+            "victimas": [
+                "HILDA AUSTREBERTA ESCOBEDO"
+            ],
+            "victimarios": [
+                "CORPORACION POLICIACA"
+            ]
+        },
+        {
+            "descripcion": "FAMILIARES Y AMIGOS DE HILDA AUSTREBERTA ESCOBEDO OCAÑA, RESPONSABILIZAN A LAS AUTORIDADES FE DERALES DE SU INTEGRIDAD FISICA Y MENTAL, ARGUMENTAN DO QUE ESTE ACTO ATENTA CONTRA LAS MAS ELEMENTALES NORMAS DEMOCRATICAS Y DE VIDA DE NUESTRO PAIS.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [
+                "FAMILIARES Y AMIGOS"
+            ],
+            "victimarios": [
+                "AUTORIDADES FE DERALES"
+            ]
+        },
+        {
+            "descripcion": "EL ING. MARGARITO MONTES PARRA, MIEMBRO DEL PARTIDO REVOLUCIONARIO DE LOS TRABAJADORES (PRT), Y DE LA CNPA, ENCABEZANDO A 4 PERSONAS, EL 3 DE SEPTIEMBRE DE ESTE MISMO AÑO, SE DAN A LA TAREA DE FI JAR UNOS ENGOMADOS EN LOS QUE APARECE LA FOTOGRAFIA- DE ESTA PERSONA, EXIGIENDO SU PRESENTACION.",
+            "tipo": "CAPTURA",
+            "fecha": "3 de septiembre de este mismo año",
+            "lugar": null,
+            "victimas": [
+                "HILDA AUSTREBERTA ESCOBEDO"
+            ],
+            "victimarios": []
+        }
+    ]
+}

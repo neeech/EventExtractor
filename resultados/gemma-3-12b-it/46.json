@@ -1,0 +1,169 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nPARRA;\nSONTO FREDO TECLA PARRAAL\nBERNARDEL\nRAFAEL RAMOS EUSEBIO (a) \"Fernando\"; CALDERON ESQUIVEL VICI\nTOR MANUEL VELASCO DAIJAN NERGIO FINALDO HAVARRETE, MARIA EUGE\n17\n-\n- -\nNIA CALMADA FLORES; (a) \"Gertrudis\"; (a) \"Femando\"; (2) \"Javier\";\n(a) \"Seni\", \"BENITO\" o \"El Immoral\"; (a) Mario\"; (a) Mariano\";\n(a) \"Salvedor\"; (a) \"La Papa\"; (a) Pana\"; (a) \"Manuel\"; (a) \"C\ny (a) \"Nora\" o \"Fe\".- Que quiere aclarar que JOSE DOMINGUEZ RODRI\nGUEZ (a) \"El Chaparro\", se encuentra asimilado a la Brigada \"Emilia\nno_Zapata\" en el sur.- Que los grupos aglutinados que formaron la\nLiga Comunista 23 de Septiembre son los siguientes: los que quedaron\ndel grupo que encabezaba Raúl Ramos Zavala; los que quedaron del\nnucleo guerrillero de Diego Lucero Martínez, del \"Frente Estudiantil\nRevolucionario\" de Guadalajara, Jal.; del \"Ilovimiento 23 de Septiem\nbre de Chihuahua\"; de la Liga leninista Espartaco de Monterrey, N.L.;\ny de los \"Lacandones\" del Distrito Federal y del \"Movimiento de\nAcción Revolucionaria\" entrenados en Corea del Norte, contando la Li\nga con un cuerpo de servicios para asuntos secretariales, alquiler-\nde casas de seguridad, control de las mismas, contacto y trasлados-\nde militantes clandestinamente sin que conozcan la dirección de los\nlugares a los que llegan, formado por (a) Ricardo\", (a) \"El Guero\",\n(a) \"Hara\" y (a) \"La Flaca\", éstas dos últimas que vivían con el de\nclarante y RODOLFO GOMEZ GARCIA en la casa número cuarenta y uno al\ntos de las calles de Puebla en la Colonia Valle de Ceylan del Muni-\ncipio de Tlanepantla, Méx., último domicilio que habitó el declaran\nte.- Que en este acto recuerda los hechos ocurridos en Popo Park,-\nMéx., por el mes de septiembre u octubre del año pasado, a la que\nasistieron entre diez y doce compañeros y que tenía por objeto dar-\ninstrucción político militar aelementos procedentes de los diferen-\ntes comités zonales, para que éstos a su vez transmitieran los cono\ncimientos que adquiriesen a los compañeros de sus respectivas bases\npero como es sabido, fueron descubiertos por la Policía y resultaron\nmuertos Ernesto Rojas Días y otro compañero cuyo nombre no recuerda\ny herido el militante de la Brigada Roja que usa el seudónimo de\n\"Fernando\", precisando que esos hechos ocurrieron el cinco de octu-\nbre citado y aún cuando en la Prensa se mencionó que se trataba del\ngrupo de \"Los Guajiros\", tal cosa era falsa, pues como dijo se tra-\n--\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"PARRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"SONTO FREDO TECLA PARRAAL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"BERNARDEL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"RAFAEL RAMOS EUSEBIO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"CALDERON ESQUIVEL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"VICI TOR MANUEL VELASCO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"DAIJAN NERGIO FINALDO HAVARRETE\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MARIA EUGENIA CALMADA FLORES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"septiembre u octubre del año pasado\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Popo Park, Méx.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"cinco de octubre\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Ernesto Rojas Días\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Fernando\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Los Guajiros\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Raúl Ramos Zavala\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Diego Lucero Martínez\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Frente Estudiantil Revolucionario\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Guadalajara, Jal.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Ilovimiento 23 de Septiembre de Chihuahua\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Liga leninista Espartaco\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Monterrey, N.L.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Lacandones\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Distrito Federal\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Movimiento de Acción Revolucionaria\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Corea del Norte\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Ricardo\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"El Guero\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Hara\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"La Flaca\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"RODOLFO GOMEZ GARCIA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"calle Puebla\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Colonia Valle de Ceylan\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Tlanepantla, Méx.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Brigada \\\"Emiliano_Zapata\\\"\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Liga Comunista 23 de Septiembre\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"José Dominguez Rodriguez\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"El Chaparro\",\n      \"tipo\": \"PERSONA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"fueron descubiertos por la Policía y resultaron muertos Ernesto Rojas Días y otro compañero cuyo nombre no recuerda y herido el militante de la Brigada Roja que usa el seudónimo de \\\"Fernando\\\"\",\n      \"tipo\": \"ASESINATO\",\n      \"fecha\": \"cinco de octubre\",\n      \"lugar\": \"Popo Park, Méx.\",\n      \"victimas\": [\n        \"Ernesto Rojas Días\",\n        \"otro compañero\"\n      ],\n      \"victimarios\": [\n        \"Policía\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nPARRA;\nSONTO FREDO TECLA PARRAAL\nBERNARDEL\nRAFAEL RAMOS EUSEBIO (a) \"Fernando\"; CALDERON ESQUIVEL VICI\nTOR MANUEL VELASCO DAIJAN NERGIO FINALDO HAVARRETE, MARIA EUGE\n17\n-\n- -\nNIA CALMADA FLORES; (a) \"Gertrudis\"; (a) \"Femando\"; (2) \"Javier\";\n(a) \"Seni\", \"BENITO\" o \"El Immoral\"; (a) Mario\"; (a) Mariano\";\n(a) \"Salvedor\"; (a) \"La Papa\"; (a) Pana\"; (a) \"Manuel\"; (a) \"C\ny (a) \"Nora\" o \"Fe\".- Que quiere aclarar que JOSE DOMINGUEZ RODRI\nGUEZ (a) \"El Chaparro\", se encuentra asimilado a la Brigada \"Emilia\nno_Zapata\" en el sur.- Que los grupos aglutinados que formaron la\nLiga Comunista 23 de Septiembre son los siguientes: los que quedaron\ndel grupo que encabezaba Raúl Ramos Zavala; los que quedaron del\nnucleo guerrillero de Diego Lucero Martínez, del \"Frente Estudiantil\nRevolucionario\" de Guadalajara, Jal.; del \"Ilovimiento 23 de Septiem\nbre de Chihuahua\"; de la Liga leninista Espartaco de Monterrey, N.L.;\ny de los \"Lacandones\" del Distrito Federal y del \"Movimiento de\nAcción Revolucionaria\" entrenados en Corea del Norte, contando la Li\nga con un cuerpo de servicios para asuntos secretariales, alquiler-\nde casas de seguridad, control de las mismas, contacto y trasлados-\nde militantes clandestinamente sin que conozcan la dirección de los\nlugares a los que llegan, formado por (a) Ricardo\", (a) \"El Guero\",\n(a) \"Hara\" y (a) \"La Flaca\", éstas dos últimas que vivían con el de\nclarante y RODOLFO GOMEZ GARCIA en la casa número cuarenta y uno al\ntos de las calles de Puebla en la Colonia Valle de Ceylan del Muni-\ncipio de Tlanepantla, Méx., último domicilio que habitó el declaran\nte.- Que en este acto recuerda los hechos ocurridos en Popo Park,-\nMéx., por el mes de septiembre u octubre del año pasado, a la que\nasistieron entre diez y doce compañeros y que tenía por objeto dar-\ninstrucción político militar aelementos procedentes de los diferen-\ntes comités zonales, para que éstos a su vez transmitieran los cono\ncimientos que adquiriesen a los compañeros de sus respectivas bases\npero como es sabido, fueron descubiertos por la Policía y resultaron\nmuertos Ernesto Rojas Días y otro compañero cuyo nombre no recuerda\ny herido el militante de la Brigada Roja que usa el seudónimo de\n\"Fernando\", precisando que esos hechos ocurrieron el cinco de octu-\nbre citado y aún cuando en la Prensa se mencionó que se trataba del\ngrupo de \"Los Guajiros\", tal cosa era falsa, pues como dijo se tra-\n--\n ",
+    "entidades": [
+        {
+            "texto": "PARRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "SONTO FREDO TECLA PARRAAL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "BERNARDEL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "RAFAEL RAMOS EUSEBIO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "CALDERON ESQUIVEL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "VICI TOR MANUEL VELASCO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "DAIJAN NERGIO FINALDO HAVARRETE",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MARIA EUGENIA CALMADA FLORES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "septiembre u octubre del año pasado",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Popo Park, Méx.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "cinco de octubre",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Ernesto Rojas Días",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Fernando",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Los Guajiros",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Raúl Ramos Zavala",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Diego Lucero Martínez",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Frente Estudiantil Revolucionario",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Guadalajara, Jal.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Ilovimiento 23 de Septiembre de Chihuahua",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Liga leninista Espartaco",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Monterrey, N.L.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Lacandones",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Distrito Federal",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Movimiento de Acción Revolucionaria",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Corea del Norte",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Ricardo",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "El Guero",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Hara",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "La Flaca",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "RODOLFO GOMEZ GARCIA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "calle Puebla",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Colonia Valle de Ceylan",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Tlanepantla, Méx.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Brigada \"Emiliano_Zapata\"",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Liga Comunista 23 de Septiembre",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "José Dominguez Rodriguez",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "El Chaparro",
+            "tipo": "PERSONA"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "fueron descubiertos por la Policía y resultaron muertos Ernesto Rojas Días y otro compañero cuyo nombre no recuerda y herido el militante de la Brigada Roja que usa el seudónimo de \"Fernando\"",
+            "tipo": "ASESINATO",
+            "fecha": "cinco de octubre",
+            "lugar": "Popo Park, Méx.",
+            "victimas": [
+                "Ernesto Rojas Días",
+                "otro compañero"
+            ],
+            "victimarios": [
+                "Policía"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+  "texto": "27-11-85.\nASOCIACION CIVICA NACIONAL REVOLUCIONARIA\nA las 18.03 horas de hoy, se presentaron a la Secreta\nría de Gobernación, 25 miembros de la A.C.NR. encabezadas por\nGERMAN PINTOR ANGUIANO para solicitar una audiencia con el C.-\nSubsecretario del Ramo, JORGE CARRILLO OLEA, para lo cual se\nnombró una comisión integrada por:\nPINTOR ANGUIANO, ENRIQUE ACEVEDO del M.U.L.T. CON\nCEPCION AVILA del F.N.C.R. Y JUAN LOPEZ, de la C.O.C.E.I.\nA las 18.20 horas, fueron recibidos por el Dr. JA IME\nMUÑOZ DOMINGUEZ Coordinador de Asesores del Sr. CARRILLO OLEA,\nal que solicitaron su intervención para que cese la represión\nen el campo y saber el paradero de los Profrs. JUAN CARLOS MEN-\nDOZA GALOZ HILDA AUSTREBERTA OCAÑA (desaparecidos) y la liber\ntad de LIANA GARCIA, ROSA MARIA GOMEZ, DARWING BATALLAR GOMEZ\nWULFRAMO PINEDA, URIEL LEAL, MARCO ANTONIO LOPEZ Y CRISTINO SA-\nLAS, quienes se encuentran recluidos en Acapulco, Gro.\nA las 19.45 horas, salió la comisión sin dar a cono-\ncer los resultados de la entrevista, por lo que a las 19.50 ho-\nras, se retiraron del lugar.\nLos antes citados portaban una manta con la leyenda;\n\"A UN AÑO DE SU DETENCION EXIGIMOS SU LIBERTAD\".\nY corearon las siguientes consignas:\n\"A 55 AÑOS DE PAZ EN ESTE PAIS ¿QUE HAY MMH? MUERTE\nMISERIA Y HAMBRE\"; \"¿QUE ES LA SECRETARIA DE GOBERNACION? EL\nCENTRO DE LA REPRESION\" y \"REPRESION, REPRESION, LA CONSIGNA DE\nGOBERNACION\".\nEfectuaron pegas y repartieron volantes alusivos a su\nmovimiento e invitando al mitin convocado por la CONAMUP el 8 -\nde marzo próximo frente a la SECOFI.",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "(desaparecidos)",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "JUAN CARLOS MEN-DOZA GALOZ",
+        "HILDA AUSTREBERTA OCAÑA"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "quienes se encuentran recluidos en Acapulco, Gro.",
+      "fecha": "A UN AÑO",
+      "lugar": "Acapulco, Gro.",
+      "victimas": [
+        "LIANA GARCIA",
+        "ROSA MARIA GOMEZ",
+        "DARWING BATALLAR GOMEZ",
+        "WULFRAMO PINEDA",
+        "URIEL LEAL",
+        "MARCO ANTONIO LOPEZ",
+        "CRISTINO SA-LAS"
+      ],
+      "victimarios": []
+    }
+  ]
+}

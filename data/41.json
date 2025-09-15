@@ -1,0 +1,43 @@
+{
+  "texto": "Home\n-\n-\nle decisión de que en el futura, nadie, ni los miembros\nde le Coordinadora Factors se enterario de los plan\ngos previos a le pertinción de une acción, que\nciños por los responsables y los elementos que tuvieran perticip\nción personal en ella, aunque si abería informarse a dicha Coop-\ndinadora Nacional y el Buré de Dimoción que se estaba planeando-\nun hecho indeterminado y también la obligación posterior de infog\nmer acere del resultado de la acción. Que la tentative de secues\ntro y homicidio del señor Garza Sada y sus acompañantes ocurrió\nel diecisiete de septiembre de mil novecientos setenta y tres -\nen razón del fracaso que se tubo, se planeo efectuar en la ciudad\nde Guadalajara dos secuestros simultáneas y con tal motivo el de-\nclarante viajó a dicha ciudad y estivo presente en una reunión\nque se celebró en la casa de José Ignacio Olivares Torres (a) \"El\nSetar en la que estfrieron presentes érte, el que habla, Pedro\nOffico Guzmán y EMILIO RUBIO (a) \"El Pacholo\" y los responsables-\ndel Comité Total expusieron que ya habían investigado y seleccio-\nnado com victimas para ser secuestrains al Cónsy Honorario Brita\nnico AHONY DUNCAN WILLIAMS y al industrial Termanio Aranguren -\nCastiello y una vez sometido a la consideración del Buró, repre-\nsentado en ese momento por el declarante, quien en su carácter de\nCoordinator General y en virtud del acuerdo tomado por la Coordi-\nnadora Nacional, tenía autoridad y poder para aprober es planes\nles dié el visto bueno y le orden de adelante\", entonces Oroz-\nco Guzmán y 10 RUBIO, encargados de la parte militar de la -\nacción, manifestaron que necesitaban que necesitaban un poco de\ntiempo para afinar detalles, para rentar una casa en la cual ocul\ntar & los secuestrados, porque ya disponían de una para ese objeto\ny conseguir automóviles mediante expropiaciones\", porque respecto\n* elementos para que actuaran en la ejecución del plan ya los te-\naian y también disponían de las armas u municiones necesarios para\nsubos secuestros; que una vez decidida la realización de esta acción,\nel dicente regresó a México y desde luego, los responsables de\n-\n-",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "la tentative de secuestro y homicidio del señor Garza Sada y sus acompañantes ocurrió el diecisiete de septiembre de mil novecientos setenta y tres",
+      "fecha": "diecisiete de septiembre de mil novecientos setenta y tres",
+      "lugar": null,
+      "victimas": [
+        "Garza Sada",
+        "sus acompañantes"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "la tentative de secuestro y homicidio del señor Garza Sada y sus acompañantes ocurrió el diecisiete de septiembre de mil novecientos setenta y tres",
+      "fecha": "diecisiete de septiembre de mil novecientos setenta y tres",
+      "lugar": null,
+      "victimas": [
+        "Garza Sada",
+        "sus acompañantes"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "se planeo efectuar en la ciudadde Guadalajara dos secuestros simultáneas",
+      "fecha": null,
+      "lugar": "ciudad de Guadalajara",
+      "victimas": [
+        "AHONY DUNCAN WILLIAMS",
+        "Termanio Aranguren -Castiello"
+      ],
+      "victimarios": [
+        "declarante",
+        "Pedro Offico Guzmán",
+        "EMILIO RUBIO",
+        "Comité Total"
+      ]
+    }
+  ]
+}

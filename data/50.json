@@ -1,0 +1,37 @@
+{
+  "texto": "D.F.S. -II-76. L-41\n\n53\n\nESTADO DE CHIHUAHUA\n\nCd. Juárez.- A las 8.50 horas de hoy, en la maquiladora \"Sub-Ensambles Electrónicos\", S.A., sita en el Parque Industrial Juárez, elementos identificados como de la Liga Comunista \"23 de Septiembre\", al intentar repartir el periódico clandestino \"Madera\", asesinaron al Ing. José Barradez Viesca, de 24 años de edad, quien tenía su domicilio en las calles de Saltillo No. 938 Sur de esta ciudad y prestaba sus servicios en dicha maquiladora.\n\nAlejandro Gómez Compean, de 22 años de edad, domiciliada en Vicente Guerrero No. 3701 de esta población, trabajado-\nra de la maquiladora citada, soltera, manifestó que se presenta-\nron 2 hombres y 2 mujeres al interior de la factoría empezando\na repartir el periódico \"Madera\" No. 26, que posteriormente oyó\nuna voz a través de un altoparlante que incitaba a los obreros\na declararse en huelga, que alguien arrebataba el micrófono al-\nque hablaba y escucho una detonación.\n\nPosteriormente los trabajadores se dieron cuenta que había sido herido el Ing. Hernández Flores, huyendo los guerrilleros en un automóvil marca Chevrolet Nova, modelo 1966 6- 1966, color rojo.\n\nEl vigilante de la fábrica, Domingo Barragán Urias, expre-\nso que una mujer no identificada le arrojó con un pisto-\nla y lo introdujo a la caseta de vigilancia, diciéndole que no-\nse moviera para que pudieran repartir el periódico \"Madera\".\n\nAl mostrarles un álbum fotográfico de la Liga Comunista \"23 de Septiembre\" a los obreros, éstos identificaron a quie-\nnes se presentaron a la empresa como Antonia De Los Rios Montoya,\nMario Opelia Contreras Ortiz y Luis Miguel Corral Garcia, sin saber precisar quién fue la persona que disparó.\n\nEl Ing. Hernández Flores falleció aproximadamente a las 9.30 horas por herida de arma de fuego, con orificio de entrada en la región frontal y orificio de salida en la región oc-cipital, producida, al parecer, por bala calibre .45.",
+  "eventos": [
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "Cd. Juárez.- A las 8.50 horas de hoy, en la maquiladora \"Sub-Ensambles Electrónicos\", S.A., sita en el Parque Industrial Juárez, elementos identificados como de la Liga Comunista \"23 de Septiembre\", al intentar repartir el periódico clandestino \"Madera\", asesinaron al Ing. José Barradez Viesca, de 24 años de edad, quien tenía su domicilio en las calles de Saltillo No. 938 Sur de esta ciudad y prestaba sus servicios en dicha maquiladora.",
+      "fecha": "8.50 horas de hoy",
+      "lugar": "maquiladora \"Sub-Ensambles Electrónicos\", S.A.",
+      "victimas": [
+        "José Barradez Viesca"
+      ],
+      "victimarios": [
+        "Liga Comunista \"23 de Septiembre\"",
+        "Antonia De Los Rios Montoya",
+        "Mario Opelia Contreras Ortiz",
+        "Luis Miguel Corral Garcia",
+        "mujer"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "Al mostrarles un álbum fotográfico de la Liga Comunista \"23 de Septiembre\" a los obreros, éstos identificaron a quie-nes se presentaron a la empresa como Antonia De Los Rios Montoya,Mario Opelia Contreras Ortiz y Luis Miguel Corral Garcia, sin saber precisar quién fue la persona que disparó.El Ing. Hernández Flores falleció aproximadamente a las 9.30 horas por herida de arma de fuego, con orificio de entrada en la región frontal y orificio de salida en la región oc-cipital, producida, al parecer, por bala calibre .45.",
+      "fecha": "9.30 horas",
+      "lugar": "maquiladora \"Sub-Ensambles Electrónicos\", S.A.",
+      "victimas": [
+        "Hernández Flores"
+      ],
+      "victimarios": [
+        "Liga Comunista \"23 de Septiembre\"",
+        "Antonia De Los Rios Montoya",
+        "Mario Opelia Contreras Ortiz",
+        "Luis Miguel Corral Garcia",
+        "mujer"
+      ]
+    }
+  ]
+}

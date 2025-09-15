@@ -1,0 +1,18 @@
+{
+  "texto": "Casi puedo asegurar que se trata de la misma persona\nexpresó, pero es necesario poseer fotografías idóneas para una\ncomparación mas minuciosa.\nAl preguntarse que, en caso de ser PIEDRA IBARRA, como se\nexplicaría que tuviera que participar en una acción fuera de su\npropio país, GARZA GUZMAN, respondió:\nActúan con una ideología que según ellos no tiene fronte-\nras, TOMAS OKUSONO, también de Monterrey, se alió a un grupo terro\nrista de Europa, que trató de secuestrar a una Diplomática en Ho-\nlanda en Junio de 1977.\nOKUSONO, fue uno de los activistas que volaron a Cuba en\nun Avión de Mexicana de Aviación secuestrado aquí por un comando\nque presuntamente dirigió el ahora anmistiado GERMAN SEGOVIA\"\nRESPETUOSAMENTE.\nMIGUEL ANGEL CASTRO PRADO.\nMVP/",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "TOMAS OKUSONO, también de Monterrey, se alió a un grupo terrorista de Europa, que trató de secuestrar a una Diplomática en Ho-landa en Junio de 1977",
+      "fecha": "junio de 1977",
+      "lugar": "Holanda",
+      "victimas": [
+        "Diplomática"
+      ],
+      "victimarios": [
+        "grupo terrorista de Europa",
+        "TOMAS OKUSONO"
+      ]
+    }
+  ]
+}

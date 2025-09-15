@@ -1,0 +1,15 @@
+{
+  "texto": "SECTOR ESPECIAL\nFECHA 18-MAYO-80\nLOCALIDAD MONTERREY, N.L.\nHORA 10.30\n\nASUNTO: PUBLICACION PERIODISTICA -\nSEÑALA QUE EL \" COMANDANTE UNO Y JE\nSUS PIEDRA IBARRA SON LA MISMA PERSO-\nNA \"\n\nINFORME\n\nEn la columna periodística denominada \" M.A.Kiavelo \"\nque se publica diariamente en el periódico \" El Norte \" de esta\nciudad, el día de hoy se menciona lo siguiente:\n\n1.- Dos personas llegadas de Bogotá confirmaron -\nayer que el Comandante Uno del M-19 (de Abril), quien afirma lla-\nmarse ROSENBERG PAVON PAVON, Y JESUS PIEDRA IBARRA, son la misma-\npersona. Este periódico publicó hace días el extraordinario pare-\ncido entre las fotos de uno y otro....\n\n2. Doña ROSARIO IBARRA DE PIEDRA asegura, por su par\nte, que dos años después de que su hijo fue capturado en Monterrey\n(abril de 1975) y llevado muy golpeado al Campo Militar No. 1 -,\nfue visto (1977) vivo y sano por dos testigos que a ella le mere\ncen absoluta confianza.... \"\n\n RESPETUOSAMENTE\n\nMIGUEL ANGEL CASTRO PRADO\n(ARMANDO NIÑO ECHEAGARAY)",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "Doña ROSARIO IBARRA DE PIEDRA asegura, por su parte, que dos años después de que su hijo fue capturado en Monterrey (abril de 1975) y llevado muy golpeado al Campo Militar No. 1",
+      "fecha": "abril de 1975",
+      "lugar": "Monterrey",
+      "victimas": [
+        "JESUS PIEDRA IBARRA"
+      ],
+      "victimarios": []
+    }
+  ]
+}

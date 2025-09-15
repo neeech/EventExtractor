@@ -1,0 +1,66 @@
+{
+  "texto": "zepertiio y sólo sabe que una parte del mismo se cuedó en la ca\npital Regionontexe; que a su regresa a esta ciudad se fue a vi-\nvir en con SANCHEZ HIRALES y GRACIELA MARIA MIJARES LOPEZ\n(ε) \"Maco\" o \"Alejandre\", ansia del dicente a las calles de ->\nAstrónomos número 33 Departamento 3 de la 0619;\naclarando que su citade anasie continuo militando dentro de la-\nLige Comuniste 23 de Septiembre y actualmente se encuentra desta\ncada en la ciudad de Guadalajara, Jal., que en este acto aclara\nque su salida de licnterrey fue al día siguiente de la balacera ->\nocurrida entre sus compañeros y elementos de la Policía Local en\nlos Edificios del Condominio Constitución, en el cual resultó\nmuerto Ko Rivera Gániz y detenidos varios de sus compañeros;\nque cuando ya se encontraba en esta capital, el día dos de febre\nro del mismo año Raz Zavala le indicó el declarante que debía-\ntrasladaree a Cd. Juárez, Chih., para establecer contacto median\nte uns contraseña con unos compañeros a los que sólo identificó-\ncomo \"El Ingeniero\" y \"Maria\", con objeto de ver las posibilida-\ndes de reclutar y politisar gentes de aquella región para asimi-\nlar_los al grupo y una vez hecho el contacto y transmitidas las-\ninstrucciones respecto a que se reclutars y politizara el mayor\nnúmero posible de nuevos militantes para la organización, el die\nseis del propio mes el deponente regresó a esta capital, por-ha-\nberse enterado por los periódicos y la radio que a Raiz Ranos Za\nvala había resultado muerto en un enfrentamiento con lapolicía\nocurrido por el Parque México de esta misma ciudad y que además-\nestaba lesionado y detenido CoSGE ALBERTO SANCHEZ HIRALES y en\nlos días subsecuentes, también fueron detenidos JOSE LUIS SIERRA\nVILLARREAL y LUIS ANGEL GARZA VILLARREAL; que a su llegada trató-\nde bezér contacto con JOSE ANGEL GARCIA MARTINEZ (a) \"El Gordo\"-\nGUSTAVO ADOLFO HIRALES MORAN (a) \"Fermín\", lo que logró por\nconducto de un estudiante de la Escuela de Filosofía y Letras de\nle Epiversidad Autónoma de Puebla, al que sólo conoce como \"El\nMaco\" y al que buscó en su Escuela en dicha Ciudad, el cual pos\nteriormente se separó del grupo, y una vez que el que habla con-\n-\n-",
+  "eventos": [
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "resultó muerto Ko Rivera Gániz",
+      "fecha": null,
+      "lugar": "Edificios del Condominio Constitución",
+      "victimas": [
+        "Ko Rivera Gániz"
+      ],
+      "victimarios": [
+        "Policía Local"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "detenidos varios de sus compañeros",
+      "fecha": null,
+      "lugar": "Condominio Constitución",
+      "victimas": [
+        "personas"
+      ],
+      "victimarios": [
+        "Policía Local"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "Raiz Ranos Za vala había resultado muerto en un enfrentamiento con lapolicía",
+      "fecha": null,
+      "lugar": "Parque México",
+      "victimas": [
+        "Raiz Ranos Za vala"
+      ],
+      "victimarios": [
+        "policía"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "detenido CoSGE ALBERTO SANCHEZ HIRALES",
+      "fecha": null,
+      "lugar": "Parque México",
+      "victimas": [
+        "CoSGE ALBERTO SANCHEZ HIRALES"
+      ],
+      "victimarios": [
+        "policía"
+      ]
+    },
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "fueron detenidos JOSE LUIS SIERRA VILLARREAL LUIS ANGEL GARZA VILLARREAL",
+      "fecha": "días subsecuentes",
+      "lugar": null,
+      "victimas": [
+        "JOSE LUIS SIERRA VILLARREAL",
+        "LUIS ANGEL GARZA VILLARREAL"
+      ],
+      "victimarios": [
+        "policía"
+      ]
+    }
+  ]
+}

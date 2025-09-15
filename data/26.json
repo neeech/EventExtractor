@@ -1,0 +1,20 @@
+{
+  "texto": "275\nDe las 17.30 a las 19.00 horas de hoy, una brigada polí\ntica del Comité Directivo Estatal del P.C.M., integrada por 6 ele\nmentos, encabezada por MARIO LOYA, se instaló en la esquina de --\nlas calles 4a. y Doblado de esta ciudad, para realizar labor de -\nproselitismo en favor de VALENTIN CAMPA SALAZAR, candidato de ese\nPartido a la Presidencia de la República.\nManifestaron que el P.C.M. realiza una campaña de mora-\nlización electoral a fin de que se respete el voto popular; que\nCAMPA SALAZAR es el líder obrero que lucha por la clase oprimida\nde México y no hace promesas que no puede cumplir.\nExhortaron a la ciudadanía a que ingrese al P.C.M., úni\nco organismo político de lucha.\nNo se registraron incidentes.\nCiudad Juárez.- A las 14.00 horas de hoy, fueron deteni\ndos en el Parque Industrial \"Antonio J. Bermudez\", ROGEI NORA GAM\nBOA, RUBEN DIAZ PEREZ, ARMANDO RODRIGUEZ OROZCO Y LORENZA DUARTE\nRODRIGUEZ, por elementos de Radio Patrullas de la Policia mici-\npal, por repartir un volante con el siguiente texto:\n\"Para celebrar su llo. aniversario de lucha, la Alianza\nCívica Demócrate Juarense te invita a participar en un mitin popu\nlar que se llevará a efecto este domingo 21 de marzo en la Plaza\nde Armas, a las 12.00 horas\".\n-\n\"Ante la gran ventaja que la burguesía tiene sobre el\nproletariado debido a que cuenta con el Ejército, la policía, la\nprensa, radio y televisión, los jueces y además todos los impues-\ntos directos o indirectos de los obreros, para el proletariado --\nsólo queda como único camino la unidad consciente de todos los --\ntrabajadores, pues solo así será posible terminar con la explota-\nción que cada día la demagogia burguesa pretende disfrazar, pero\nque al final de cuentas cada día es más cruel y profunda\".\n\"En esta ocasión se analizarán los problemas nacionales\nmás importantes, el qué hacer de los obreros ante las elecciones_\ny la lucha sindical independiente\".",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "fueron deteni dos en el Parque Industrial \"Antonio J. Bermudez\", ROGEI NORA GAM BOA, RUBEN DIAZ PEREZ, ARMANDO RODRIGUEZ OROZCO Y LORENZA DUARTE RODRIGUEZ, por elementos de Radio Patrullas de la Policia mici-pal",
+      "fecha": "14.00 horas de hoy",
+      "lugar": "Parque Industrial \"Antonio J. Bermudez\"",
+      "victimas": [
+        "ROGEI NORA GAM BOA",
+        "RUBEN DIAZ PEREZ",
+        "ARMANDO RODRIGUEZ OROZCO",
+        "LORENZA DUARTE RODRIGUEZ"
+      ],
+      "victimarios": [
+        "Radio Patrullas de la Policia mici-pal"
+      ]
+    }
+  ]
+}

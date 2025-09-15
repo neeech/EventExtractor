@@ -1,0 +1,157 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n\nJESUS PIEDRA IBARRA cuya detención\nse realizó el 18 de abril de 1975, en las calles de Zara-\ngoza de la Ciudad de Monterrey, F.L. Se sabe que después\nfue conducido al Campo Militar No. 1, en la Ciudad de\nMéxico, D.F.\n\n RAFAEL RAMIREZ DUARTE detenido el 9\nde junio de 1977, por elementos que se hicieron llamar\nde la Brigada Blanca. Sus hermanos que también fueron\ndetenidos y puestos en libertad posteriormente, aseguran\nhaberlo visto en el Campo Militar No.1.\nPrófogo JESUS AVILA GONZALEZ deterido el 5 de\nabril de 1974 en la Ciudad de México. Este era estudian-\nte de la ESE del I.PN\nPresa DOLORES AMEZDITA VALADEZ, quien fue\ndetenida junto con EDUARDO MANZANO en 1976 en la Ciudad\nde Guadalajara, Jal.; su madre MA. DE JESUS VALADEZ DE\nAMEZDITA asegura que no se sigue ningún juicio en su\ncontra, pero que está presa en la citada ciudad. Esta\ntiene su domicilio en las calles de Cruces y Ojo Zarco\nCol. Oblatos, Sector Libertad, Guadalajara, Jal.\nFor otra parte también se presentó\nel Sr. JOSE LUIS MORENO VILLELA padre de JOSE LUIS MORE\nNO. BORBOLLA a pedir se permita que un médico particular-\nhage examen al citado, mismo que se encuentra recluído\nen el Reclusorio Criente, de esta Ciudad, por actos sub--\nversivos, ya que debido a un tumor en el brazo izquierdo,\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"JESUS PIEDRA IBARRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"18 de abril de 1975\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"calles de Zaragoza\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Ciudad de Monterrey\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Campo Militar No. 1\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Ciudad de México, D.F.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"RAFAEL RAMIREZ DUARTE\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"9 de junio de 1977\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Brigada Blanca\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Campo Militar No.1\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"JESUS AVILA GONZALEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"5 de abril de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Ciudad de México\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"ESE del I.PN\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"DOLORES AMEZDITA VALADEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"EDUARDO MANZANO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"1976\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Ciudad de Guadalajara, Jal.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"MA. DE JESUS VALADEZ DE AMEZDITA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"calles de Cruces y Ojo Zarco Col. Oblatos, Sector Libertad, Guadalajara, Jal.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"JOSE LUIS MORENO VILLELA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"JOSE LUIS MORENO. BORBOLLA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Reclusorio Criente\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Ciudad\",\n      \"tipo\": \"LUGAR\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"JESUS PIEDRA IBARRA cuya detención se realizó el 18 de abril de 1975, en las calles de Zaragoza de la Ciudad de Monterrey, F.L.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"18 de abril de 1975\",\n      \"lugar\": \"calles de Zaragoza de la Ciudad de Monterrey\",\n      \"victimas\": [\n        \"JESUS PIEDRA IBARRA\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"RAFAEL RAMIREZ DUARTE detenido el 9 de junio de 1977, por elementos que se hicieron llamar de la Brigada Blanca.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"9 de junio de 1977\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"RAFAEL RAMIREZ DUARTE\"\n      ],\n      \"victimarios\": [\n        \"Brigada Blanca\"\n      ]\n    },\n    {\n      \"descripcion\": \"Prófogo JESUS AVILA GONZALEZ deterido el 5 de abril de 1974 en la Ciudad de México.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"5 de abril de 1974\",\n      \"lugar\": \"Ciudad de México\",\n      \"victimas\": [\n        \"JESUS AVILA GONZALEZ\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"DOLORES AMEZDITA VALADEZ, quien fue detenida junto con EDUARDO MANZANO en 1976 en la Ciudad de Guadalajara, Jal.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"1976\",\n      \"lugar\": \"Ciudad de Guadalajara, Jal.\",\n      \"victimas\": [\n        \"DOLORES AMEZDITA VALADEZ\",\n        \"EDUARDO MANZANO\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"mismo que se encuentra recluído en el Reclusorio Criente, de esta Ciudad, por actos sub--versivos\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"Reclusorio Criente\",\n      \"victimas\": [\n        \"JOSE LUIS MORENO. BORBOLLA\"\n      ],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n\nJESUS PIEDRA IBARRA cuya detención\nse realizó el 18 de abril de 1975, en las calles de Zara-\ngoza de la Ciudad de Monterrey, F.L. Se sabe que después\nfue conducido al Campo Militar No. 1, en la Ciudad de\nMéxico, D.F.\n\n RAFAEL RAMIREZ DUARTE detenido el 9\nde junio de 1977, por elementos que se hicieron llamar\nde la Brigada Blanca. Sus hermanos que también fueron\ndetenidos y puestos en libertad posteriormente, aseguran\nhaberlo visto en el Campo Militar No.1.\nPrófogo JESUS AVILA GONZALEZ deterido el 5 de\nabril de 1974 en la Ciudad de México. Este era estudian-\nte de la ESE del I.PN\nPresa DOLORES AMEZDITA VALADEZ, quien fue\ndetenida junto con EDUARDO MANZANO en 1976 en la Ciudad\nde Guadalajara, Jal.; su madre MA. DE JESUS VALADEZ DE\nAMEZDITA asegura que no se sigue ningún juicio en su\ncontra, pero que está presa en la citada ciudad. Esta\ntiene su domicilio en las calles de Cruces y Ojo Zarco\nCol. Oblatos, Sector Libertad, Guadalajara, Jal.\nFor otra parte también se presentó\nel Sr. JOSE LUIS MORENO VILLELA padre de JOSE LUIS MORE\nNO. BORBOLLA a pedir se permita que un médico particular-\nhage examen al citado, mismo que se encuentra recluído\nen el Reclusorio Criente, de esta Ciudad, por actos sub--\nversivos, ya que debido a un tumor en el brazo izquierdo,\n ",
+    "entidades": [
+        {
+            "texto": "JESUS PIEDRA IBARRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "18 de abril de 1975",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "calles de Zaragoza",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Ciudad de Monterrey",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Campo Militar No. 1",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Ciudad de México, D.F.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "RAFAEL RAMIREZ DUARTE",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "9 de junio de 1977",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Brigada Blanca",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Campo Militar No.1",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "JESUS AVILA GONZALEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "5 de abril de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Ciudad de México",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "ESE del I.PN",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "DOLORES AMEZDITA VALADEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "EDUARDO MANZANO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "1976",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Ciudad de Guadalajara, Jal.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "MA. DE JESUS VALADEZ DE AMEZDITA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "calles de Cruces y Ojo Zarco Col. Oblatos, Sector Libertad, Guadalajara, Jal.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "JOSE LUIS MORENO VILLELA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "JOSE LUIS MORENO. BORBOLLA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Reclusorio Criente",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Ciudad",
+            "tipo": "LUGAR"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "JESUS PIEDRA IBARRA cuya detención se realizó el 18 de abril de 1975, en las calles de Zaragoza de la Ciudad de Monterrey, F.L.",
+            "tipo": "CAPTURA",
+            "fecha": "18 de abril de 1975",
+            "lugar": "calles de Zaragoza de la Ciudad de Monterrey",
+            "victimas": [
+                "JESUS PIEDRA IBARRA"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "RAFAEL RAMIREZ DUARTE detenido el 9 de junio de 1977, por elementos que se hicieron llamar de la Brigada Blanca.",
+            "tipo": "CAPTURA",
+            "fecha": "9 de junio de 1977",
+            "lugar": null,
+            "victimas": [
+                "RAFAEL RAMIREZ DUARTE"
+            ],
+            "victimarios": [
+                "Brigada Blanca"
+            ]
+        },
+        {
+            "descripcion": "Prófogo JESUS AVILA GONZALEZ deterido el 5 de abril de 1974 en la Ciudad de México.",
+            "tipo": "CAPTURA",
+            "fecha": "5 de abril de 1974",
+            "lugar": "Ciudad de México",
+            "victimas": [
+                "JESUS AVILA GONZALEZ"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "DOLORES AMEZDITA VALADEZ, quien fue detenida junto con EDUARDO MANZANO en 1976 en la Ciudad de Guadalajara, Jal.",
+            "tipo": "CAPTURA",
+            "fecha": "1976",
+            "lugar": "Ciudad de Guadalajara, Jal.",
+            "victimas": [
+                "DOLORES AMEZDITA VALADEZ",
+                "EDUARDO MANZANO"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "mismo que se encuentra recluído en el Reclusorio Criente, de esta Ciudad, por actos sub--versivos",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "Reclusorio Criente",
+            "victimas": [
+                "JOSE LUIS MORENO. BORBOLLA"
+            ],
+            "victimarios": []
+        }
+    ]
+}

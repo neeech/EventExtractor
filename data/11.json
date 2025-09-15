@@ -1,0 +1,27 @@
+{
+  "texto": "D.F.S.-20-IV-75.\n\nESTADO DE NUEVO LEON\nMonterrey.- JESUS PIEDRA IBARRA (a) \"Rafael\", quien fue\nra aprehendido el día de ayer, hizo las siguientes declaraciones\ncon esta fecha:\n\nDijo haber nacido el 17 de febrero de 1954, con domici-\nlio en Flores Magón No. 2339 Norte, Colonia Venustiano Carranza;-\nhijo del Dr. JESUS PIEDRA ROSALES y de MARIA DEL ROSARIO IBARRA\nDE PIEDRA que viven en Guayaquil No. 205, Colonia Altavista; que-\nes originario de esta ciudad.\n\nSus estudios los realizó, en la forma que sigue: Educa-\nción Primaria: 1o. a 3er. año en el Instituto Laurent de este lu-\ngar, de 1959 a 1961 y del 4o. al 6o. año, en la Escuela Simón de-\nla Garza Melo, de 1962 a 1964; Secundaria, 1er. año en 1965, en\nla Escuela No. 5, 2o. y 3er. año de 1966 a 1967 en la Escuela To\nrres Bodet; preparatoria, 1er. año en la No. 8 en 1968 y 2o. año\nen 1969 en la No. 1; posteriormente ingresó a la U.A.N.L.. Facul-\ntad de Medicina, en la que cursó hasta 3er. año de 1970 a 1972,\nactuando además como agitador en las Aulas Anexas de Medicina.\n\nManifestó que \"principié mis actividades políticas en\n1971, de concientización y discusiones, conociendo en la Facultad\nde Medicina a MIGUEL TORRES ENRIQUEZ con quien platicaba de polí-\ntica terrorista y expropiaciones, para que fueran alicientes y el\nproletariado creara conciencia y nos apoyara\".\n\n\"A ALBERTO ZAPATA CASTELLANOS, lo conocí con GILBERTO -\nGUAJARDO cuando estábamos en la preparatoria 1 y la vez que maté-\nal patrullero Guillermo Villarreal andaba con (a) \"Arturo\" en la-\ncamioneta de la organización; que dentro del Movimiento conoció\nprimero a TORRES ENRIQUEZ y luego a ZARATA CASTELLANOS, después a\nEDMUNDO MEDINA FLORES (a) \"Arturo\" y desde ese momento empezamos-\na vigilar el Banco que está frente a la Facultad para efectuar--\nuna acción guerrillera si era bueno el plan\".\n\n\"Los asaltos que tuvieron mi intervención fueron: Al\ntodescuento Tecnológico, en unión de ZAPATA CASTELLANOS, MEDINA\nFLORES y otro al que le decían 'Joel'; en esta acción utilizamos-\nun automóvil que él se robó y luego supe que era del Prof.RAMOS\nLOZANO. En este asalto nos llevamos arriba de $ 200,000.00 los --",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "JESUS PIEDRA IBARRA (a) \"Rafael\", quien fuera aprehendido el día de ayer",
+      "fecha": "día de ayer",
+      "lugar": null,
+      "victimas": [
+        "JESUS PIEDRA IBARRA"
+      ],
+      "victimarios": []
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "maté al patrullero Guillermo Villarreal",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "Guillermo Villarreal"
+      ],
+      "victimarios": [
+        "JESUS PIEDRA IBARRA"
+      ]
+    }
+  ]
+}

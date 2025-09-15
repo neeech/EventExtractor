@@ -1,0 +1,170 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\"SECTOR: ESPECIAL\nFECHA:  15-VIII-82\nLOCALIDAD: MONTERREY, N.L.\nHORA:  14.26\nASUNTO: XVII REUNION PLENARIA DEL FRENTE\nNACIONAL CONTRA LA REPRESION EN\nESTA LOCALIDAD.\nIbara\nINFORME:\nEl día de la fecha, de las 11.30 a las 13.30 hrs.,\nse llevó a cabo la XVII Reunión Plenaria del Frente Nacional con\ntra la represión en el Auditorio de la Escuela Normal Superior-\ndel Estado, ubicada en la Av. Venustiano Carranza y Ruperto Mar-\ntinez de esta localidad.\nA esta reunión asistieron 30 personas aproximada-\nmente y fué presidida por la Sra. ROSARIO IBARRA DE PIEDRA,\nAGUSTIN ACOSTA ZAVALA del PRT, PEDRO PEÑALOZA, del PRT, ROSALINDA\nHERNANDEZ, del Movimiento Revolucionario del Pueblo, MARGARITO\nMONTES PARRA de la Coordinadora Nacional Plan de Ayala, CECILIA-\nLORIA del Estado de Morelos, y MINERVA ARMENDARIZ Del Comité\npro-defensa de Chihuahua, hubo 16 delegaciones de los diferentes-\nComités de defensa de presos políticos incluidos en esas delega-\nciones, representantes del PSUM y del PRT.\nLos asuntos principales que se trataron fueron:\nOrganización de actos públicos con paradas, mítines\netc., en los diferentes Estados de la República para seguir exi-\ngiendo la Presentación de los desaparecidos, así como la amnistía\npara los presos políticos del País señalaron en particular la\nrepresión existente en los estados de Nuevo León, Oaxaca, Durango\nChihuahua, Sonora, Morelos, Chiapas, Guerrero, Veracruz, Estado-\nde México y México, D.F..\nSe acordo participar en la reunión del grupo de\ntrabajo sobre los desaparecidos forzados involuntarios que se\ncelebrará en Ginebra Suiza, a finales del mes de Septiembre pro-\nximo.\nSe acordó también constituir en fecha próxima un\nfrente Nacional contra la Política de Austeridad, en donde se\nAgruparan los distintos grupos nacionales que vienen luchando\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"15-VIII-82\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"MONTERREY, N.L.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"14.26\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"FRENTE NACIONAL CONTRA LA REPRESION\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ESTA LOCALIDAD\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"El día de la fecha\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"11.30 a las 13.30 hrs.\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Frente Nacional contra la represión\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Auditorio de la Escuela Normal Superior del Estado\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Escuela Normal Superior del Estado\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Av. Venustiano Carranza y Ruperto Martinez\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"esta localidad\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"ROSARIO IBARRA DE PIEDRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"AGUSTIN ACOSTA ZAVALA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"PRT\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"PEDRO PEÑALOZA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"PRT\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ROSALINDA HERNANDEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Movimiento Revolucionario del Pueblo\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"MARGARITO MONTES PARRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Coordinadora Nacional Plan de Ayala\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"CECILIA LORIA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Estado de Morelos\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"MINERVA ARMENDARIZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Comité pro-defensa de Chihuahua\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Chihuahua\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Comités de defensa de presos políticos\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"PSUM\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"PRT\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Estados de la República\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"País\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Nuevo León, Oaxaca, Durango Chihuahua, Sonora, Morelos, Chiapas, Guerrero, Veracruz, Estado de México y México, D.F.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"grupo de trabajo sobre los desaparecidos forzados involuntarios\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Ginebra Suiza\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"finales del mes de Septiembre proximo\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"fecha próxima\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"frente Nacional contra la Política de Austeridad\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"grupos nacionales\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"seguir exigiendo la Presentación de los desaparecidos\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [\n        \"los desaparecidos\"\n      ],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": "SECTOR: ESPECIAL\nFECHA:  15-VIII-82\nLOCALIDAD: MONTERREY, N.L.\nHORA:  14.26\nASUNTO: XVII REUNION PLENARIA DEL FRENTE\nNACIONAL CONTRA LA REPRESION EN\nESTA LOCALIDAD.\nIbara\nINFORME:\nEl día de la fecha, de las 11.30 a las 13.30 hrs.,\nse llevó a cabo la XVII Reunión Plenaria del Frente Nacional con\ntra la represión en el Auditorio de la Escuela Normal Superior-\ndel Estado, ubicada en la Av. Venustiano Carranza y Ruperto Mar-\ntinez de esta localidad.\nA esta reunión asistieron 30 personas aproximada-\nmente y fué presidida por la Sra. ROSARIO IBARRA DE PIEDRA,\nAGUSTIN ACOSTA ZAVALA del PRT, PEDRO PEÑALOZA, del PRT, ROSALINDA\nHERNANDEZ, del Movimiento Revolucionario del Pueblo, MARGARITO\nMONTES PARRA de la Coordinadora Nacional Plan de Ayala, CECILIA-\nLORIA del Estado de Morelos, y MINERVA ARMENDARIZ Del Comité\npro-defensa de Chihuahua, hubo 16 delegaciones de los diferentes-\nComités de defensa de presos políticos incluidos en esas delega-\nciones, representantes del PSUM y del PRT.\nLos asuntos principales que se trataron fueron:\nOrganización de actos públicos con paradas, mítines\netc., en los diferentes Estados de la República para seguir exi-\ngiendo la Presentación de los desaparecidos, así como la amnistía\npara los presos políticos del País señalaron en particular la\nrepresión existente en los estados de Nuevo León, Oaxaca, Durango\nChihuahua, Sonora, Morelos, Chiapas, Guerrero, Veracruz, Estado-\nde México y México, D.F..\nSe acordo participar en la reunión del grupo de\ntrabajo sobre los desaparecidos forzados involuntarios que se\ncelebrará en Ginebra Suiza, a finales del mes de Septiembre pro-\nximo.\nSe acordó también constituir en fecha próxima un\nfrente Nacional contra la Política de Austeridad, en donde se\nAgruparan los distintos grupos nacionales que vienen luchando\n\n ",
+    "entidades": [
+        {
+            "texto": "15-VIII-82",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "MONTERREY, N.L.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "14.26",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "FRENTE NACIONAL CONTRA LA REPRESION",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ESTA LOCALIDAD",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "El día de la fecha",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "11.30 a las 13.30 hrs.",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Frente Nacional contra la represión",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Auditorio de la Escuela Normal Superior del Estado",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Escuela Normal Superior del Estado",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Av. Venustiano Carranza y Ruperto Martinez",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "esta localidad",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "ROSARIO IBARRA DE PIEDRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "AGUSTIN ACOSTA ZAVALA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "PRT",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "PEDRO PEÑALOZA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "PRT",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ROSALINDA HERNANDEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Movimiento Revolucionario del Pueblo",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "MARGARITO MONTES PARRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Coordinadora Nacional Plan de Ayala",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "CECILIA LORIA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Estado de Morelos",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "MINERVA ARMENDARIZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Comité pro-defensa de Chihuahua",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Chihuahua",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Comités de defensa de presos políticos",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "PSUM",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "PRT",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Estados de la República",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "País",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Nuevo León, Oaxaca, Durango Chihuahua, Sonora, Morelos, Chiapas, Guerrero, Veracruz, Estado de México y México, D.F.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "grupo de trabajo sobre los desaparecidos forzados involuntarios",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Ginebra Suiza",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "finales del mes de Septiembre proximo",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "fecha próxima",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "frente Nacional contra la Política de Austeridad",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "grupos nacionales",
+            "tipo": "ORGANIZACIÓN"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "seguir exigiendo la Presentación de los desaparecidos",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [
+                "los desaparecidos"
+            ],
+            "victimarios": []
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+  "texto": "235\n2-11\nquel Comité Coordinador quedaron a cargo de la ejecución del\nplan, habiéndose llevado a cabo el secuestro de NWILLIAMS\ny Aranguren Castiello el diez de octubre del año pasado, pero\nantes de la consumación de los secuestros, el de le voz elaboró\n-los comunicados generales a los que debía darse publicidad a\ntravés de la Prensa, Radio y Televisión\nción de presos cuya libertad se exigi a cambio de la libera---\nción de los secuestrados, la elaboraron los miembros del Buró\nDireccional, habiendo intervenido en ello desde luego el decla-\n:rante en su carácter de Coordinador de dicho Buró con el Comité\n20\nla rela-\n-\n-\n-\n- -\nZonal; que desde un principio los miembros de la Coordinadora\nNacional de la Liga tomaron el acuerdo de que para el caso de\nsecuestros en los que el Gobierno no accediera a las exigencias\nde la Liga, el secuestrado debería ser ajusticiado y en el caso\nespecífico de que se está tratando, o sea en los secuestros de-\nCONCAN WILLIAMS fueron los responsables del Comité Zonal de\nOccidente los que determinaron dejar en libertad al primero y\nejecutar al segundo, y es por eso que tanto el dicente como los\ndemás miembros del Buró se informaron a través de laprensa de\nesa decisión y en la siguiente reunión que tavieron en la ciu--\ndad de Guadalajara, a la que asistieron Olivares Torres, OROZCO\nGuzmán, EMILIO RUBIO y el declarante, los tres le informaron al\nque habla que de acuerdo con sus investigaciones personales ha-\n-bían llegado a la convicción de que DUNCAN WILLIAMS no era bur-\ngués, en tanto que Franguren si lo era, por lo que resolvieron-\nel asunto en la forma narrada, y aunque no se comentó acerca de\nquien quienes habían sido los ejecutores materiales de Arangu\nren, posteriormente,, por indiscreciones se supo que fue Pedro\nOrozco Guzmán quien le ejecutó y no como se dijo en un princi--\npio que había sido JOSE LUIS ANDALON VALLE (a) \"Miguel Angel\".-\nQue desde que se creó el Comité Coordinador Zonal del Distrito-\nFederal, teniendo como responsable al de la voz, éste empezó a-\nsostenen pláticas con DIMENEZ SARMIENTO, JOLE BONFILIO\nCEDES TAVERA y RAHO ALEJANDRO RIVAS JIMENEZ y así nació\nel grupo denominado \"Brigada Roja\", del cual eran responsables-",
+  "eventos": [
+    {
+      "tipo": "CAPTURA",
+      "descripcion": "el secuestro de NWILLIAMS",
+      "fecha": "diez de octubre del año pasado",
+      "lugar": null,
+      "victimas": [
+        "NWILLIAMS",
+        "Aranguren Castiello"
+      ],
+      "victimarios": [
+        "Comité Coordinador"
+      ]
+    },
+    {
+      "tipo": "ASESINATO",
+      "descripcion": "ejecutar al segundo",
+      "fecha": null,
+      "lugar": null,
+      "victimas": [
+        "Aranguren Castiello"
+      ],
+      "victimarios": [
+        "Coordinadora Nacional de la Liga",
+        "Olivares Torres",
+        "OROZCO Guzmán",
+        "EMILIO RUBIO",
+        "declarante",
+        "Pedro Orozco Guzmán"
+      ]
+    }
+  ]
+}

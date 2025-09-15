@@ -1,0 +1,124 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nORIGINAL\nEZ FOLLE 11-207\nDIRECCIONIRAL\nOLICIA Y\nTRANSITO\nDISTRITO FEDERAL.\nDIVISION DE INVESTIGACIONES PARA\nLA PREVENCION DE LA DELINCUENCIA.\nOFICINA JURIDICA.\n356\nASUNTO: DECLARACION DE LA PRESENTADA: ALMA GOMEZ CABA-\nLLERO.\n\nEN LA CIUDAD DE MEXICO DISTRITO FEDERAL, sien-\ndo las 20.30 veinte horas con treinta minutos del día 22 vein\ntidós de octubre de mil novecientos setenta y tres, miembros\nde la División de Investigaciones Para la Prevención de la De-\nlincuencia, presentaron a la que dijo llamarse ALMA GOMEZ CABA\nLLERO, quien se encuentra relacionada con los hechos que se in\nvestigan, por lo que el suscrito Asesor Jurídico de esta Depen\ndencia quien actúa con los testigos de asistencia que al final\nfirman, procedió a interrogarla.-\n\nDECLARA LA PRESENTADA.- En seguida presente en el local de ca-\nta Oficina la que en su estado normal dijo llamarse ALMA GOMEZ\nCABALLERO uien exhortada en los términos de Ley para que se\nproduzca con verdad, por sus generales dijo: llamarse como se\nha escrito, ser de 22 años de edad, unión libre, Maestra de -\nInstrucción Primaria, originaria de esta Capital y con domici\nlio en las calles de Aldama 1506-A, Chihuahua, Chih, y quien\nsobre los hechos que se investigan,\n\nDECLARA\n\nQue por motivos de táctica política ha usado\n-\ndiversos pseudónimos, como los de \"CARMEN\", \"BEATRIZ #MARTA\nLUISA\" Y \"ANGELE\" que son tabs y en el orden cronológico men\ncionados; que en el mes de mayo inició relaciones sexuales\nen unión libre con OCTAVIO MARQUEZ VAZQUEZ quien usa 100\nalias de \"CESAR\" y \"ANTONIO\", pero antes estuvo unida con HO-\nRACIO ARROYO SOUZA y \"CONRADO\": que desde niña y tal vez -\ncontando con once años de edad se inició en actividades poli-\nticas pues recibía influencia de su padre que participó en el\nComité Regional de la Unión General de Obreros y Campesinos -\nde Mexico U.G.O.C.M., en el Estado de Chihuahua y miembro del\n\nVuelta.\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"DIRECCIONIRAL OLICIA Y TRANSITO DISTRITO FEDERAL\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"DISTRITO FEDERAL\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"DIVISION DE INVESTIGACIONES PARA LA PREVENCION DE LA DELINCUENCIA\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ALMA GOMEZ CABALLERO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"CIUDAD DE MEXICO\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"DISTRITO FEDERAL\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"20.30 veinte horas con treinta minutos del día 22 veintidós de octubre de mil novecientos setenta y tres\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"División de Investigaciones Para la Prevención de la Delincuencia\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ALMA GOMEZ CABALLERO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ALMA GOMEZ CABALLERO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Capital\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"calles de Aldama 1506-A, Chihuahua, Chih\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Chihuahua, Chih\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"CARMEN\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"BEATRIZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"#MARTA LUISA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ANGELE\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"mes de mayo\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"OCTAVIO MARQUEZ VAZQUEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"CESAR\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ANTONIO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"HORACIO ARROYO SOUZA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"CONRADO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Comité Regional de la Unión General de Obreros y Campesinos de Mexico\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"U.G.O.C.M.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Estado de Chihuahua\",\n      \"tipo\": \"LUGAR\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"miembros de la División de Investigaciones Para la Prevención de la Delincuencia, presentaron a la que dijo llamarse ALMA GOMEZ CABALLERO\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"20.30 veinte horas con treinta minutos del día 22 veintidós de octubre de mil novecientos setenta y tres\",\n      \"lugar\": \"CIUDAD DE MEXICO DISTRITO FEDERAL\",\n      \"victimas\": [\n        \"ALMA GOMEZ CABALLERO\"\n      ],\n      \"victimarios\": [\n        \"División de Investigaciones Para la Prevención de la Delincuencia\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nORIGINAL\nEZ FOLLE 11-207\nDIRECCIONIRAL\nOLICIA Y\nTRANSITO\nDISTRITO FEDERAL.\nDIVISION DE INVESTIGACIONES PARA\nLA PREVENCION DE LA DELINCUENCIA.\nOFICINA JURIDICA.\n356\nASUNTO: DECLARACION DE LA PRESENTADA: ALMA GOMEZ CABA-\nLLERO.\n\nEN LA CIUDAD DE MEXICO DISTRITO FEDERAL, sien-\ndo las 20.30 veinte horas con treinta minutos del día 22 vein\ntidós de octubre de mil novecientos setenta y tres, miembros\nde la División de Investigaciones Para la Prevención de la De-\nlincuencia, presentaron a la que dijo llamarse ALMA GOMEZ CABA\nLLERO, quien se encuentra relacionada con los hechos que se in\nvestigan, por lo que el suscrito Asesor Jurídico de esta Depen\ndencia quien actúa con los testigos de asistencia que al final\nfirman, procedió a interrogarla.-\n\nDECLARA LA PRESENTADA.- En seguida presente en el local de ca-\nta Oficina la que en su estado normal dijo llamarse ALMA GOMEZ\nCABALLERO uien exhortada en los términos de Ley para que se\nproduzca con verdad, por sus generales dijo: llamarse como se\nha escrito, ser de 22 años de edad, unión libre, Maestra de -\nInstrucción Primaria, originaria de esta Capital y con domici\nlio en las calles de Aldama 1506-A, Chihuahua, Chih, y quien\nsobre los hechos que se investigan,\n\nDECLARA\n\nQue por motivos de táctica política ha usado\n-\ndiversos pseudónimos, como los de \"CARMEN\", \"BEATRIZ #MARTA\nLUISA\" Y \"ANGELE\" que son tabs y en el orden cronológico men\ncionados; que en el mes de mayo inició relaciones sexuales\nen unión libre con OCTAVIO MARQUEZ VAZQUEZ quien usa 100\nalias de \"CESAR\" y \"ANTONIO\", pero antes estuvo unida con HO-\nRACIO ARROYO SOUZA y \"CONRADO\": que desde niña y tal vez -\ncontando con once años de edad se inició en actividades poli-\nticas pues recibía influencia de su padre que participó en el\nComité Regional de la Unión General de Obreros y Campesinos -\nde Mexico U.G.O.C.M., en el Estado de Chihuahua y miembro del\n\nVuelta.\n\n ",
+    "entidades": [
+        {
+            "texto": "DIRECCIONIRAL OLICIA Y TRANSITO DISTRITO FEDERAL",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "DISTRITO FEDERAL",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "DIVISION DE INVESTIGACIONES PARA LA PREVENCION DE LA DELINCUENCIA",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ALMA GOMEZ CABALLERO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "CIUDAD DE MEXICO",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "DISTRITO FEDERAL",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "20.30 veinte horas con treinta minutos del día 22 veintidós de octubre de mil novecientos setenta y tres",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "División de Investigaciones Para la Prevención de la Delincuencia",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ALMA GOMEZ CABALLERO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ALMA GOMEZ CABALLERO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Capital",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "calles de Aldama 1506-A, Chihuahua, Chih",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Chihuahua, Chih",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "CARMEN",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "BEATRIZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "#MARTA LUISA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ANGELE",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "mes de mayo",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "OCTAVIO MARQUEZ VAZQUEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "CESAR",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ANTONIO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "HORACIO ARROYO SOUZA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "CONRADO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Comité Regional de la Unión General de Obreros y Campesinos de Mexico",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "U.G.O.C.M.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Estado de Chihuahua",
+            "tipo": "LUGAR"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "miembros de la División de Investigaciones Para la Prevención de la Delincuencia, presentaron a la que dijo llamarse ALMA GOMEZ CABALLERO",
+            "tipo": "CAPTURA",
+            "fecha": "20.30 veinte horas con treinta minutos del día 22 veintidós de octubre de mil novecientos setenta y tres",
+            "lugar": "CIUDAD DE MEXICO DISTRITO FEDERAL",
+            "victimas": [
+                "ALMA GOMEZ CABALLERO"
+            ],
+            "victimarios": [
+                "División de Investigaciones Para la Prevención de la Delincuencia"
+            ]
+        }
+    ]
+}

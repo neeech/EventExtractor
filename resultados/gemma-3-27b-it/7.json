@@ -1,0 +1,112 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nDEPARTAMENTO DE INVESTIGACION E INFORMACION FORANEA\nSECTOR: POPULAR\nFECHA:21-JUN-83.\n\nLOCALIDAD:NAUCALPAN DE JUAREZ, HORA: 20,10\nMEX\nASUNTO:-MARCHA MITIN DE MIEMBROS DE LA UNION\nDE COLONIAS POPULARES DE NAUCALPAN A.c.\nINFORME:\nEl día de hoy de las 18.00 a las 19.30 horas,-\nse llevó a cabo una marcha mitin en forma conjunta por parte de -\nmiembros activos del PSUM, y de la Unión de Colonias Populares de\nNaucalpan, A.C., encabezados por MARIA GALICIA N., Y ANSELMO GAR-\nCIA GOMEZ, el primero de ellos miembro activo del PSUM en el Valle\nde México y el segundo Diputado Federal suplente del partido en\ncuestión así como la C. ROSALIA REYES RAMOS, dirigente de la ci\ntada Unión conformándose un conti_ngente aproximado de 200 perso-\nnas. y la que partió del Mercado Municipal de esta localidad con-\ndestino al Palacio Municipal de Naucalpan habiendo recorrido las-\nprincipales avenidas de éste Municipio para llegar a la explanada\ndel citado Palacio, lugar donde efectuaron un mitin.\n\nEl motivo de la marcha mitin fue el de protes-\ntar por la detención de la C. profesora HILDA ESCOBEDO LOZANO,\nquien es miembro activo del. PSUM, y la que desapareció en dias\npasados (según ellos), misma que se encuentra detenida por algún-\ncuerpo policiaco acreditado en el D.F. (se ignora cual).\n\nAsimismo los CC. MARIA GALICIA, ANSELMO GAR\nCIA Y ROSALIA REYES, quienes fungieron como únicos oradores del\nacto se pronunciaron en contra de las autoridades Municipales Es-\ntatales y Federales para el efecto de que se haga la presentación\nde la de referencia por las autoridades que correspondan o que de\nlo contrario seguirán efectuando actos públicos de protesta hasta\nque una vez las autoridades judiciales hagan caso a sus demandas.\n\nAl término del acto los ahí reunidos se disgre\ngaron sin haberse registrado incidentes.\n\"RESPETUOSAMENTE\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"DEPARTAMENTO DE INVESTIGACION E INFORMACION FORANEA\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"SECTOR: POPULAR\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"21-JUN-83\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"NAUCALPAN DE JUAREZ\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"20,10\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"MEX\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"UNION DE COLONIAS POPULARES DE NAUCALPAN A.c.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"PSUM\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"MARIA GALICIA N.\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ANSELMO GARCIA GOMEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Valle de México\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Diputado Federal\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ROSALIA REYES RAMOS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Mercado Municipal de esta localidad\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Palacio Municipal de Naucalpan\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Municipio\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"HILDA ESCOBEDO LOZANO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"D.F.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"MARIA GALICIA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ANSELMO GARCIA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ROSALIA REYES\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"autoridades Municipales Estatales y Federales\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"dias pasados\",\n      \"tipo\": \"FECHA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"El motivo de la marcha mitin fue el de protestar por la detención de la C. profesora HILDA ESCOBEDO LOZANO, quien es miembro activo del. PSUM, y la que desapareció en dias pasados (según ellos), misma que se encuentra detenida por algún-cuerpo policiaco acreditado en el D.F. (se ignora cual).\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"dias pasados\",\n      \"lugar\": \"D.F.\",\n      \"victimas\": [\n        \"HILDA ESCOBEDO LOZANO\"\n      ],\n      \"victimarios\": [\n        \"algún-cuerpo policiaco\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nDEPARTAMENTO DE INVESTIGACION E INFORMACION FORANEA\nSECTOR: POPULAR\nFECHA:21-JUN-83.\n\nLOCALIDAD:NAUCALPAN DE JUAREZ, HORA: 20,10\nMEX\nASUNTO:-MARCHA MITIN DE MIEMBROS DE LA UNION\nDE COLONIAS POPULARES DE NAUCALPAN A.c.\nINFORME:\nEl día de hoy de las 18.00 a las 19.30 horas,-\nse llevó a cabo una marcha mitin en forma conjunta por parte de -\nmiembros activos del PSUM, y de la Unión de Colonias Populares de\nNaucalpan, A.C., encabezados por MARIA GALICIA N., Y ANSELMO GAR-\nCIA GOMEZ, el primero de ellos miembro activo del PSUM en el Valle\nde México y el segundo Diputado Federal suplente del partido en\ncuestión así como la C. ROSALIA REYES RAMOS, dirigente de la ci\ntada Unión conformándose un conti_ngente aproximado de 200 perso-\nnas. y la que partió del Mercado Municipal de esta localidad con-\ndestino al Palacio Municipal de Naucalpan habiendo recorrido las-\nprincipales avenidas de éste Municipio para llegar a la explanada\ndel citado Palacio, lugar donde efectuaron un mitin.\n\nEl motivo de la marcha mitin fue el de protes-\ntar por la detención de la C. profesora HILDA ESCOBEDO LOZANO,\nquien es miembro activo del. PSUM, y la que desapareció en dias\npasados (según ellos), misma que se encuentra detenida por algún-\ncuerpo policiaco acreditado en el D.F. (se ignora cual).\n\nAsimismo los CC. MARIA GALICIA, ANSELMO GAR\nCIA Y ROSALIA REYES, quienes fungieron como únicos oradores del\nacto se pronunciaron en contra de las autoridades Municipales Es-\ntatales y Federales para el efecto de que se haga la presentación\nde la de referencia por las autoridades que correspondan o que de\nlo contrario seguirán efectuando actos públicos de protesta hasta\nque una vez las autoridades judiciales hagan caso a sus demandas.\n\nAl término del acto los ahí reunidos se disgre\ngaron sin haberse registrado incidentes.\n\"RESPETUOSAMENTE\n\n ",
+    "entidades": [
+        {
+            "texto": "DEPARTAMENTO DE INVESTIGACION E INFORMACION FORANEA",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "SECTOR: POPULAR",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "21-JUN-83",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "NAUCALPAN DE JUAREZ",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "20,10",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "MEX",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "UNION DE COLONIAS POPULARES DE NAUCALPAN A.c.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "PSUM",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "MARIA GALICIA N.",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ANSELMO GARCIA GOMEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Valle de México",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Diputado Federal",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ROSALIA REYES RAMOS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Mercado Municipal de esta localidad",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Palacio Municipal de Naucalpan",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Municipio",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "HILDA ESCOBEDO LOZANO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "D.F.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "MARIA GALICIA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ANSELMO GARCIA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ROSALIA REYES",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "autoridades Municipales Estatales y Federales",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "dias pasados",
+            "tipo": "FECHA"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "El motivo de la marcha mitin fue el de protestar por la detención de la C. profesora HILDA ESCOBEDO LOZANO, quien es miembro activo del. PSUM, y la que desapareció en dias pasados (según ellos), misma que se encuentra detenida por algún-cuerpo policiaco acreditado en el D.F. (se ignora cual).",
+            "tipo": "CAPTURA",
+            "fecha": "dias pasados",
+            "lugar": "D.F.",
+            "victimas": [
+                "HILDA ESCOBEDO LOZANO"
+            ],
+            "victimarios": [
+                "algún-cuerpo policiaco"
+            ]
+        }
+    ]
+}

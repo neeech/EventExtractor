@@ -1,0 +1,243 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n\nAl fallar el secuestro, Piedra Ibarra se esconde en Tampico en la casa de ESCAMILLA LIRA, quien por acuerdo de la Coordinadora Nacional de la Liga Comunista \"23 de Septiembre\" dejaba de ser responsable del Comité Regional de Tampico y se le traslada a Culiacán, Sin.\n\nEl 29 de abril de 1974, HECTOR ESCAMILLA LIRA en conferencia de prensa efectuada el 27 del mismo mes y año en Monterrey, N.L. dijo que Piedra Ibarra le informó que Rodolfo Garza Montemayor y Joel Rojo Hernández fueron asesinados por ser \"policías Políticos\".\n\nEl 1o. de mayo de 1974, Piedra Ibarra participó en el asalto al Auto-Descuento Tecnológico de Monterrey.\n\nEl elemento citado auxilió a otros de la Liga Comunista \"23 de Septiembre\" que asaltaron la Sucursal \"Obispado\" del Banco Regional del Norte. Asimismo robaron en las panaderías en Pernambuco y Tecnológico en la ciudad de Monterrey.\n\nQue para el día 13 de mayo de 1974, se tenía planeada la \"expropiación\" en el Banco que se localiza en la \"Y\".\n\nPiedra Ibarra participó en el asalto a la Escuela \"Jaime Torres Bodet\" e intervino en el robo cometido contra la Zapatería \"Tres Hermanos\" ubicada en Cuauhtémoc y F. I. Madero en Monterrey, N.L.\n\nEl 14 de mayo de 1974, se tuvo conocimiento que este elemento es del Comité Coordinador de la Liga Comunista \"23 de Septiembre\" en Nuevo León y Tamaulipas.\n\nEl 13 de mayo del mismo año, sostuvieron un enfrentamiento a balazos con elementos de la Policía Judicial del Estado de Nuevo León, resultando dos de los Agentes heridos de gravedad escapando los guerrilleros.\n\nQue en junio de 1974, se trasladó al D.F. a la III Reunión Nacional de la Liga, donde acordaron desarrollar jornadas nacionales de agitación y combate.\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"Piedra Ibarra\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Tampico\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"ESCAMILLA LIRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Coordinadora Nacional de la Liga Comunista \\\"23 de Septiembre\\\"\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Culiacán, Sin.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"29 de abril de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"HECTOR ESCAMILLA LIRA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Monterrey, N.L.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Rodolfo Garza Montemayor\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Joel Rojo Hernández\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"policías Políticos\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"1o. de mayo de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Auto-Descuento Tecnológico\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Monterrey\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Sucursal \\\"Obispado\\\" del Banco Regional del Norte\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Pernambuco\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Tecnológico\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Monterrey\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"13 de mayo de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"expropiación\",\n      \"tipo\": \"EVENTO\"\n    },\n    {\n      \"texto\": \"Banco\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Y\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Piedra Ibarra\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Escuela \\\"Jaime Torres Bodet\\\"\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Zapatería \\\"Tres Hermanos\\\"\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Cuauhtémoc y F. I. Madero\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Monterrey, N.L.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"14 de mayo de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Comité Coordinador de la Liga Comunista \\\"23 de Septiembre\\\"\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Nuevo León y Tamaulipas\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"13 de mayo del mismo año\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Policía Judicial del Estado de Nuevo León\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"junio de 1974\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"D.F.\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"III Reunión Nacional de la Liga\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"Piedra Ibarra se esconde en Tampico en la casa de ESCAMILLA LIRA, quien por acuerdo de la Coordinadora Nacional de la Liga Comunista \\\"23 de Septiembre\\\" dejaba de ser responsable del Comité Regional de Tampico y se le traslada a Culiacán, Sin.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"Tampico\",\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Coordinadora Nacional de la Liga Comunista \\\"23 de Septiembre\\\"\",\n        \"ESCAMILLA LIRA\"\n      ]\n    },\n    {\n      \"descripcion\": \"El 29 de abril de 1974, HECTOR ESCAMILLA LIRA en conferencia de prensa efectuada el 27 del mismo mes y año en Monterrey, N.L. dijo que Piedra Ibarra le informó que Rodolfo Garza Montemayor y Joel Rojo Hernández fueron asesinados por ser \\\"policías Políticos\\\".\",\n      \"tipo\": \"ASESINATO\",\n      \"fecha\": \"29 de abril de 1974\",\n      \"lugar\": \"Monterrey, N.L.\",\n      \"victimas\": [\n        \"Rodolfo Garza Montemayor\",\n        \"Joel Rojo Hernández\"\n      ],\n      \"victimarios\": [\n        \"policías Políticos\"\n      ]\n    },\n    {\n      \"descripcion\": \"El 1o. de mayo de 1974, Piedra Ibarra participó en el asalto al Auto-Descuento Tecnológico de Monterrey.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"1o. de mayo de 1974\",\n      \"lugar\": \"Monterrey\",\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Auto-Descuento Tecnológico\"\n      ]\n    },\n    {\n      \"descripcion\": \"El elemento citado auxilió a otros de la Liga Comunista \\\"23 de Septiembre\\\" que asaltaron la Sucursal \\\"Obispado\\\" del Banco Regional del Norte. Asimismo robaron en las panaderías en Pernambuco y Tecnológico en la ciudad de Monterrey.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"Monterrey\",\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Banco Regional del Norte\",\n        \"Liga Comunista \\\"23 de Septiembre\\\"\",\n        \"panaderías\",\n        \"Tecnológico\"\n      ]\n    },\n    {\n      \"descripcion\": \"Que para el día 13 de mayo de 1974, se tenía planeada la \\\"expropiación\\\" en el Banco que se localiza en la \\\"Y\\\".\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"13 de mayo de 1974\",\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Banco\"\n      ]\n    },\n    {\n      \"descripcion\": \"Piedra Ibarra participó en el asalto a la Escuela \\\"Jaime Torres Bodet\\\" e intervino en el robo cometido contra la Zapatería \\\"Tres Hermanos\\\" ubicada en Cuauhtémoc y F. I. Madero en Monterrey, N.L.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"Monterrey, N.L.\",\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Zapatería \\\"Tres Hermanos\\\"\"\n      ]\n    },\n    {\n      \"descripcion\": \"El 14 de mayo de 1974, se tuvo conocimiento que este elemento es del Comité Coordinador de la Liga Comunista \\\"23 de Septiembre\\\" en Nuevo León y Tamaulipas.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"14 de mayo de 1974\",\n      \"lugar\": null,\n      \"victimas\": [],\n      \"victimarios\": [\n        \"Comité Coordinador de la Liga Comunista \\\"23 de Septiembre\\\"\"\n      ]\n    },\n    {\n      \"descripcion\": \"El 13 de mayo del mismo año, sostuvieron un enfrentamiento a balazos con elementos de la Policía Judicial del Estado de Nuevo León, resultando dos de los Agentes heridos de gravedad escapando los guerrilleros.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"13 de mayo del mismo año\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"Policía Judicial del Estado de Nuevo León\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"Que en junio de 1974, se trasladó al D.F. a la III Reunión Nacional de la Liga, donde acordaron desarrollar jornadas nacionales de agitación y combate.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"junio de 1974\",\n      \"lugar\": \"D.F.\",\n      \"victimas\": [],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n\nAl fallar el secuestro, Piedra Ibarra se esconde en Tampico en la casa de ESCAMILLA LIRA, quien por acuerdo de la Coordinadora Nacional de la Liga Comunista \"23 de Septiembre\" dejaba de ser responsable del Comité Regional de Tampico y se le traslada a Culiacán, Sin.\n\nEl 29 de abril de 1974, HECTOR ESCAMILLA LIRA en conferencia de prensa efectuada el 27 del mismo mes y año en Monterrey, N.L. dijo que Piedra Ibarra le informó que Rodolfo Garza Montemayor y Joel Rojo Hernández fueron asesinados por ser \"policías Políticos\".\n\nEl 1o. de mayo de 1974, Piedra Ibarra participó en el asalto al Auto-Descuento Tecnológico de Monterrey.\n\nEl elemento citado auxilió a otros de la Liga Comunista \"23 de Septiembre\" que asaltaron la Sucursal \"Obispado\" del Banco Regional del Norte. Asimismo robaron en las panaderías en Pernambuco y Tecnológico en la ciudad de Monterrey.\n\nQue para el día 13 de mayo de 1974, se tenía planeada la \"expropiación\" en el Banco que se localiza en la \"Y\".\n\nPiedra Ibarra participó en el asalto a la Escuela \"Jaime Torres Bodet\" e intervino en el robo cometido contra la Zapatería \"Tres Hermanos\" ubicada en Cuauhtémoc y F. I. Madero en Monterrey, N.L.\n\nEl 14 de mayo de 1974, se tuvo conocimiento que este elemento es del Comité Coordinador de la Liga Comunista \"23 de Septiembre\" en Nuevo León y Tamaulipas.\n\nEl 13 de mayo del mismo año, sostuvieron un enfrentamiento a balazos con elementos de la Policía Judicial del Estado de Nuevo León, resultando dos de los Agentes heridos de gravedad escapando los guerrilleros.\n\nQue en junio de 1974, se trasladó al D.F. a la III Reunión Nacional de la Liga, donde acordaron desarrollar jornadas nacionales de agitación y combate.\n\n ",
+    "entidades": [
+        {
+            "texto": "Piedra Ibarra",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Tampico",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "ESCAMILLA LIRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Coordinadora Nacional de la Liga Comunista \"23 de Septiembre\"",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Culiacán, Sin.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "29 de abril de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "HECTOR ESCAMILLA LIRA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Monterrey, N.L.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Rodolfo Garza Montemayor",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Joel Rojo Hernández",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "policías Políticos",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "1o. de mayo de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Auto-Descuento Tecnológico",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Monterrey",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Sucursal \"Obispado\" del Banco Regional del Norte",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Pernambuco",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Tecnológico",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Monterrey",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "13 de mayo de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "expropiación",
+            "tipo": "EVENTO"
+        },
+        {
+            "texto": "Banco",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Y",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Piedra Ibarra",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Escuela \"Jaime Torres Bodet\"",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Zapatería \"Tres Hermanos\"",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Cuauhtémoc y F. I. Madero",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Monterrey, N.L.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "14 de mayo de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Comité Coordinador de la Liga Comunista \"23 de Septiembre\"",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Nuevo León y Tamaulipas",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "13 de mayo del mismo año",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Policía Judicial del Estado de Nuevo León",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "junio de 1974",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "D.F.",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "III Reunión Nacional de la Liga",
+            "tipo": "ORGANIZACIÓN"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "Piedra Ibarra se esconde en Tampico en la casa de ESCAMILLA LIRA, quien por acuerdo de la Coordinadora Nacional de la Liga Comunista \"23 de Septiembre\" dejaba de ser responsable del Comité Regional de Tampico y se le traslada a Culiacán, Sin.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "Tampico",
+            "victimas": [],
+            "victimarios": [
+                "Coordinadora Nacional de la Liga Comunista \"23 de Septiembre\"",
+                "ESCAMILLA LIRA"
+            ]
+        },
+        {
+            "descripcion": "El 29 de abril de 1974, HECTOR ESCAMILLA LIRA en conferencia de prensa efectuada el 27 del mismo mes y año en Monterrey, N.L. dijo que Piedra Ibarra le informó que Rodolfo Garza Montemayor y Joel Rojo Hernández fueron asesinados por ser \"policías Políticos\".",
+            "tipo": "ASESINATO",
+            "fecha": "29 de abril de 1974",
+            "lugar": "Monterrey, N.L.",
+            "victimas": [
+                "Rodolfo Garza Montemayor",
+                "Joel Rojo Hernández"
+            ],
+            "victimarios": [
+                "policías Políticos"
+            ]
+        },
+        {
+            "descripcion": "El 1o. de mayo de 1974, Piedra Ibarra participó en el asalto al Auto-Descuento Tecnológico de Monterrey.",
+            "tipo": "CAPTURA",
+            "fecha": "1o. de mayo de 1974",
+            "lugar": "Monterrey",
+            "victimas": [],
+            "victimarios": [
+                "Auto-Descuento Tecnológico"
+            ]
+        },
+        {
+            "descripcion": "El elemento citado auxilió a otros de la Liga Comunista \"23 de Septiembre\" que asaltaron la Sucursal \"Obispado\" del Banco Regional del Norte. Asimismo robaron en las panaderías en Pernambuco y Tecnológico en la ciudad de Monterrey.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "Monterrey",
+            "victimas": [],
+            "victimarios": [
+                "Banco Regional del Norte",
+                "Liga Comunista \"23 de Septiembre\"",
+                "panaderías",
+                "Tecnológico"
+            ]
+        },
+        {
+            "descripcion": "Que para el día 13 de mayo de 1974, se tenía planeada la \"expropiación\" en el Banco que se localiza en la \"Y\".",
+            "tipo": "CAPTURA",
+            "fecha": "13 de mayo de 1974",
+            "lugar": null,
+            "victimas": [],
+            "victimarios": [
+                "Banco"
+            ]
+        },
+        {
+            "descripcion": "Piedra Ibarra participó en el asalto a la Escuela \"Jaime Torres Bodet\" e intervino en el robo cometido contra la Zapatería \"Tres Hermanos\" ubicada en Cuauhtémoc y F. I. Madero en Monterrey, N.L.",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "Monterrey, N.L.",
+            "victimas": [],
+            "victimarios": [
+                "Zapatería \"Tres Hermanos\""
+            ]
+        },
+        {
+            "descripcion": "El 14 de mayo de 1974, se tuvo conocimiento que este elemento es del Comité Coordinador de la Liga Comunista \"23 de Septiembre\" en Nuevo León y Tamaulipas.",
+            "tipo": "CAPTURA",
+            "fecha": "14 de mayo de 1974",
+            "lugar": null,
+            "victimas": [],
+            "victimarios": [
+                "Comité Coordinador de la Liga Comunista \"23 de Septiembre\""
+            ]
+        },
+        {
+            "descripcion": "El 13 de mayo del mismo año, sostuvieron un enfrentamiento a balazos con elementos de la Policía Judicial del Estado de Nuevo León, resultando dos de los Agentes heridos de gravedad escapando los guerrilleros.",
+            "tipo": "CAPTURA",
+            "fecha": "13 de mayo del mismo año",
+            "lugar": null,
+            "victimas": [
+                "Policía Judicial del Estado de Nuevo León"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "Que en junio de 1974, se trasladó al D.F. a la III Reunión Nacional de la Liga, donde acordaron desarrollar jornadas nacionales de agitación y combate.",
+            "tipo": "CAPTURA",
+            "fecha": "junio de 1974",
+            "lugar": "D.F.",
+            "victimas": [],
+            "victimarios": []
+        }
+    ]
+}

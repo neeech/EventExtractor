@@ -1,0 +1,124 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \n2\n---en un automovil que el declarante tenia, por haberselo-\nfacilitado Jose y cuyas caracteristicas del mismo eran, mares-\nFord tipo Falcon, modelo mil novecientos sesenta, color azul,\nde cuatro puertas, dicho auto en esa ocasion que iban hacer -\nuns practica de tiro lo iba guiando el declarante, a su lado ->\nse sento Jose y atras Damian-are decidieron realizar la citada\npractica de tiro en un lugar que estuviera solitario y para el\nefecto se dirigieron rumbo a la Carbonifera, levando consigo-\nuna ametralladora calibre cuarenta y cinco, un rifle N Uno, - -\ndos pistolas cuarenta y cinco y una nueve milimetros, mismas -\nMERA ALVARE les habia mandado la organizacion, que despues de llegar -\nlico No. 2.\nFrey, Chih\nal lugar donde decisieron practicar el tiro y manejo de armas\ny habiendolo hecho, y ya cuando iban de regreso saliendo casi-\nde la Carbonifera se les atasco el auto y se bajaron los tres ->\na tratar de desatascarlo, cuando estaban et eso, Damian grito,\nque ahi venia un Jeep de la Policia, por lo que tomaron posi-->\nciones y esperaron a que llegara dicho vehiculo, que cuando - -\nllege, uno de los Policias corto cartucho con su pistola, por\nlo que Jose disparo el rifle N Uno, dandole en una pierna, -\ny gritandoles que se rindieran, a lo que los Policias leventa-\nron las manos y pusieron sun armas arriba del capacete, mien--\ntras tanto Jose arrancaba el alambre del radio trasmisor del -\nJeep, y estando boca-abajo en el suelo acostados Jose, agarro -\nla ametralladora cuarenta y cinco y los disparo primero, hacien\ndo le mismo el declaronte y Damian, que por cierto Damian siem\npre estuvo en la creencia de que no se les habia hecho, y no-\nse entero hasta el dia siguiente por los periodicos y por ellos\nque habian matado a los patrulleros. Despues de que les diapa-\n\ntodo el armamento en unos costalitos de lona y de manta que --\nllevaban.-Habiendose venido por la sierra hasta llegar a una\nColonia cuyo nombre ne recuerda donde tomaron un rutero que los\ndejo en el viaducto para abordar despues otro rutero que los\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"Jose\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Ford\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"mil novecientos sesenta\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Jose\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Damian\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"la Carbonifera\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"MERA ALVARE\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"la organizacion\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Frey, Chih\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"la Carbonifera\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"Damian\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"la Policia\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Jose\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"los Policias\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Jose\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Jose\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Damian\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Damian\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"el dia siguiente\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"la sierra\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"una Colonia cuyo nombre ne recuerda\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"el viaducto\",\n      \"tipo\": \"LUGAR\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"y gritandoles que se rindieran, a lo que los Policias leventaron las manos y pusieron sun armas arriba del capacete\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"saliendo casi-de la Carbonifera\",\n      \"victimas\": [\n        \"los Policias\"\n      ],\n      \"victimarios\": [\n        \"Jose\",\n        \"el declarante\",\n        \"Damian\"\n      ]\n    },\n    {\n      \"descripcion\": \"Jose, agarro - la ametralladora cuarenta y cinco y los disparo primero, hacien do le mismo el declaronte y Damian, que por cierto Damian siem pre estuvo en la creencia de que no se les habia hecho, y no- se entero hasta el dia siguiente por los periodicos y por ellos que habian matado a los patrulleros.\",\n      \"tipo\": \"ASESINATO\",\n      \"fecha\": null,\n      \"lugar\": \"saliendo casi-de la Carbonifera\",\n      \"victimas\": [\n        \"los patrulleros\"\n      ],\n      \"victimarios\": [\n        \"Jose\",\n        \"el declarante\",\n        \"Damian\"\n      ]\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \n2\n---en un automovil que el declarante tenia, por haberselo-\nfacilitado Jose y cuyas caracteristicas del mismo eran, mares-\nFord tipo Falcon, modelo mil novecientos sesenta, color azul,\nde cuatro puertas, dicho auto en esa ocasion que iban hacer -\nuns practica de tiro lo iba guiando el declarante, a su lado ->\nse sento Jose y atras Damian-are decidieron realizar la citada\npractica de tiro en un lugar que estuviera solitario y para el\nefecto se dirigieron rumbo a la Carbonifera, levando consigo-\nuna ametralladora calibre cuarenta y cinco, un rifle N Uno, - -\ndos pistolas cuarenta y cinco y una nueve milimetros, mismas -\nMERA ALVARE les habia mandado la organizacion, que despues de llegar -\nlico No. 2.\nFrey, Chih\nal lugar donde decisieron practicar el tiro y manejo de armas\ny habiendolo hecho, y ya cuando iban de regreso saliendo casi-\nde la Carbonifera se les atasco el auto y se bajaron los tres ->\na tratar de desatascarlo, cuando estaban et eso, Damian grito,\nque ahi venia un Jeep de la Policia, por lo que tomaron posi-->\nciones y esperaron a que llegara dicho vehiculo, que cuando - -\nllege, uno de los Policias corto cartucho con su pistola, por\nlo que Jose disparo el rifle N Uno, dandole en una pierna, -\ny gritandoles que se rindieran, a lo que los Policias leventa-\nron las manos y pusieron sun armas arriba del capacete, mien--\ntras tanto Jose arrancaba el alambre del radio trasmisor del -\nJeep, y estando boca-abajo en el suelo acostados Jose, agarro -\nla ametralladora cuarenta y cinco y los disparo primero, hacien\ndo le mismo el declaronte y Damian, que por cierto Damian siem\npre estuvo en la creencia de que no se les habia hecho, y no-\nse entero hasta el dia siguiente por los periodicos y por ellos\nque habian matado a los patrulleros. Despues de que les diapa-\n\ntodo el armamento en unos costalitos de lona y de manta que --\nllevaban.-Habiendose venido por la sierra hasta llegar a una\nColonia cuyo nombre ne recuerda donde tomaron un rutero que los\ndejo en el viaducto para abordar despues otro rutero que los\n ",
+    "entidades": [
+        {
+            "texto": "Jose",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Ford",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "mil novecientos sesenta",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Jose",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Damian",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "la Carbonifera",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "MERA ALVARE",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "la organizacion",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Frey, Chih",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "la Carbonifera",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "Damian",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "la Policia",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Jose",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "los Policias",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Jose",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Jose",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Damian",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Damian",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "el dia siguiente",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "la sierra",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "una Colonia cuyo nombre ne recuerda",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "el viaducto",
+            "tipo": "LUGAR"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "y gritandoles que se rindieran, a lo que los Policias leventaron las manos y pusieron sun armas arriba del capacete",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "saliendo casi-de la Carbonifera",
+            "victimas": [
+                "los Policias"
+            ],
+            "victimarios": [
+                "Jose",
+                "el declarante",
+                "Damian"
+            ]
+        },
+        {
+            "descripcion": "Jose, agarro - la ametralladora cuarenta y cinco y los disparo primero, hacien do le mismo el declaronte y Damian, que por cierto Damian siem pre estuvo en la creencia de que no se les habia hecho, y no- se entero hasta el dia siguiente por los periodicos y por ellos que habian matado a los patrulleros.",
+            "tipo": "ASESINATO",
+            "fecha": null,
+            "lugar": "saliendo casi-de la Carbonifera",
+            "victimas": [
+                "los patrulleros"
+            ],
+            "victimarios": [
+                "Jose",
+                "el declarante",
+                "Damian"
+            ]
+        }
+    ]
+}

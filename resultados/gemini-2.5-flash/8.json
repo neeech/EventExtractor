@@ -1,0 +1,125 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nA DOS AÑOS DE SU DESAPARICION\nSEGUIREMOS LUCHANDO HASTA LOGRAR\nSU LIBERACION\n\nPROFR. JUAN CARLOS\nMENDOZA GALOZ.\nDetenido-desaparecido por\nelementos de la D.G.P.T. el\ndía 30 de diciembre de 1981,\nel mismo día que el Profr.\nEzequiel Reyes Carrillo.\n\nPROFRA. AUSTREBERTA\nHILDA ESCOBEDO OCAÑA\nDesaparecida por elementos\npoliciacos el 31 de diciembre\nde 1981\n\nRESPONSABILIZAMOS AL ACTUAL\nGOBIERNO DE LA INTEGRIDAD FISICA\nY MORAL DE NUESTROS DOS\nMAESTROS Y DE LA DE MAS DE 507\nSECUESTRADOS POR MOTIVOS\nPOLITICOS\n\nNO PUEDE HABER RENOVACION\nMORAL MIENTRAS EN EL PAIS SE\nGOLPEE, ENCARCELE, TORTURE,\nDESAPAREZCA Y ASESINE AL PUEBLO\n\nLA REPRESION\nNO DETIENE EL\nAVANCE\nREVOLUCIONARIO\n\nCNTE\nCoordinadora Nacional de Trabajadores de la Educación\nANOCP\nAsamblea Nacional Obrero Campesino Fopular\nEscuela para trabajadores Maestro Rafael Ramírez.\n\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"A DOS AÑOS\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"JUAN CARLOS MENDOZA GALOZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"D.G.P.T.\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"día 30 de diciembre de 1981\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Ezequiel Reyes Carrillo\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"AUSTREBERTA HILDA ESCOBEDO OCAÑA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"elementos policiacos\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"31 de diciembre de 1981\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"ACTUAL GOBIERNO\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"PAIS\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"CNTE\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Coordinadora Nacional de Trabajadores de la Educación\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"ANOCP\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Asamblea Nacional Obrero Campesino Fopular\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Escuela para trabajadores Maestro Rafael Ramírez\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": [\n    {\n      \"descripcion\": \"Detenido-desaparecido por elementos de la D.G.P.T. el día 30 de diciembre de 1981, el mismo día que el Profr. Ezequiel Reyes Carrillo.\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"día 30 de diciembre de 1981\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"JUAN CARLOS MENDOZA GALOZ\",\n        \"Ezequiel Reyes Carrillo\"\n      ],\n      \"victimarios\": [\n        \"D.G.P.T.\"\n      ]\n    },\n    {\n      \"descripcion\": \"Desaparecida por elementos policiacos el 31 de diciembre de 1981\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": \"31 de diciembre de 1981\",\n      \"lugar\": null,\n      \"victimas\": [\n        \"AUSTREBERTA HILDA ESCOBEDO OCAÑA\"\n      ],\n      \"victimarios\": [\n        \"elementos policiacos\"\n      ]\n    },\n    {\n      \"descripcion\": \"507 SECUESTRADOS POR MOTIVOS POLITICOS\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": null,\n      \"victimas\": [\n        \"más de 507 secuestrados\"\n      ],\n      \"victimarios\": [\n        \"ACTUAL GOBIERNO\"\n      ]\n    },\n    {\n      \"descripcion\": \"DESAPAREZCA AL PUEBLO\",\n      \"tipo\": \"CAPTURA\",\n      \"fecha\": null,\n      \"lugar\": \"PAIS\",\n      \"victimas\": [\n        \"EL PUEBLO\"\n      ],\n      \"victimarios\": []\n    },\n    {\n      \"descripcion\": \"ASESINE AL PUEBLO\",\n      \"tipo\": \"ASESINATO\",\n      \"fecha\": null,\n      \"lugar\": \"PAIS\",\n      \"victimas\": [\n        \"EL PUEBLO\"\n      ],\n      \"victimarios\": []\n    }\n  ]\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nA DOS AÑOS DE SU DESAPARICION\nSEGUIREMOS LUCHANDO HASTA LOGRAR\nSU LIBERACION\n\nPROFR. JUAN CARLOS\nMENDOZA GALOZ.\nDetenido-desaparecido por\nelementos de la D.G.P.T. el\ndía 30 de diciembre de 1981,\nel mismo día que el Profr.\nEzequiel Reyes Carrillo.\n\nPROFRA. AUSTREBERTA\nHILDA ESCOBEDO OCAÑA\nDesaparecida por elementos\npoliciacos el 31 de diciembre\nde 1981\n\nRESPONSABILIZAMOS AL ACTUAL\nGOBIERNO DE LA INTEGRIDAD FISICA\nY MORAL DE NUESTROS DOS\nMAESTROS Y DE LA DE MAS DE 507\nSECUESTRADOS POR MOTIVOS\nPOLITICOS\n\nNO PUEDE HABER RENOVACION\nMORAL MIENTRAS EN EL PAIS SE\nGOLPEE, ENCARCELE, TORTURE,\nDESAPAREZCA Y ASESINE AL PUEBLO\n\nLA REPRESION\nNO DETIENE EL\nAVANCE\nREVOLUCIONARIO\n\nCNTE\nCoordinadora Nacional de Trabajadores de la Educación\nANOCP\nAsamblea Nacional Obrero Campesino Fopular\nEscuela para trabajadores Maestro Rafael Ramírez.\n\n ",
+    "entidades": [
+        {
+            "texto": "A DOS AÑOS",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "JUAN CARLOS MENDOZA GALOZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "D.G.P.T.",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "día 30 de diciembre de 1981",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Ezequiel Reyes Carrillo",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "AUSTREBERTA HILDA ESCOBEDO OCAÑA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "elementos policiacos",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "31 de diciembre de 1981",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "ACTUAL GOBIERNO",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "PAIS",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "CNTE",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Coordinadora Nacional de Trabajadores de la Educación",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "ANOCP",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Asamblea Nacional Obrero Campesino Fopular",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Escuela para trabajadores Maestro Rafael Ramírez",
+            "tipo": "ORGANIZACIÓN"
+        }
+    ],
+    "eventos": [
+        {
+            "descripcion": "Detenido-desaparecido por elementos de la D.G.P.T. el día 30 de diciembre de 1981, el mismo día que el Profr. Ezequiel Reyes Carrillo.",
+            "tipo": "CAPTURA",
+            "fecha": "día 30 de diciembre de 1981",
+            "lugar": null,
+            "victimas": [
+                "JUAN CARLOS MENDOZA GALOZ",
+                "Ezequiel Reyes Carrillo"
+            ],
+            "victimarios": [
+                "D.G.P.T."
+            ]
+        },
+        {
+            "descripcion": "Desaparecida por elementos policiacos el 31 de diciembre de 1981",
+            "tipo": "CAPTURA",
+            "fecha": "31 de diciembre de 1981",
+            "lugar": null,
+            "victimas": [
+                "AUSTREBERTA HILDA ESCOBEDO OCAÑA"
+            ],
+            "victimarios": [
+                "elementos policiacos"
+            ]
+        },
+        {
+            "descripcion": "507 SECUESTRADOS POR MOTIVOS POLITICOS",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": null,
+            "victimas": [
+                "más de 507 secuestrados"
+            ],
+            "victimarios": [
+                "ACTUAL GOBIERNO"
+            ]
+        },
+        {
+            "descripcion": "DESAPAREZCA AL PUEBLO",
+            "tipo": "CAPTURA",
+            "fecha": null,
+            "lugar": "PAIS",
+            "victimas": [
+                "EL PUEBLO"
+            ],
+            "victimarios": []
+        },
+        {
+            "descripcion": "ASESINE AL PUEBLO",
+            "tipo": "ASESINATO",
+            "fecha": null,
+            "lugar": "PAIS",
+            "victimas": [
+                "EL PUEBLO"
+            ],
+            "victimarios": []
+        }
+    ]
+}

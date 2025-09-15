@@ -1,0 +1,143 @@
+{
+    "prompt_events": "<s>[INST]\nTu tarea es revisar y corregir el siguiente JSON de eventos, asegurándote de que cumpla con todas las \"Instrucciones Estrictas\" y la \"Ontología de Tipos de Evento Permitidos\" que se definieron anteriormente.\n\n**Texto Original de Referencia**:\n\" \nHOJA DOS\nCONTINUAN DILIGENCIAS\n358\nhizo la declarante en varias y diversas ocasiones y como se lo in-\ndicó \"ARTURO guardó el dinero en su domicilio, para entregarlo a -\nalgún miembro de la Organización que se lo pidi\nto do recuer-\ngó a pedirle y la declarante le dió una\nda pero tal vez serían unos TREINTA MIL, DESOS\nunos seis meses\ndespués se lo dió a \"CESAR\", posiblemente a fines de junio de\n1971, desconociendo por el momento la procedencia del dinero, pero\ndespués y como \"cayeran detenidos unos compañeros, se convenció de\nque provenía de un robo cometido a los empleados de un Banco de Mo-\nrelia, Michoacan, que se cometió en esta Capital en la terminal de\ncamiones \"TRES ESTRELLAS DE ORO\"; que no supo que utilización se -\nle dió al dinero que recogieron \"CONRADO\" y \"CESAR\"; que en el mes\nde julio de 1971 y aprovechando sus vacaciones fué a la Ciudad de\nOaxacos, donde encontró a sus compañeros HERMINIA GOMEZ CARRASCO,\nMARIA RODRIGUEZ ORPIZ\" \"LAURA\", \"SIIZIA\". У \"МАТІК-\nANA\na)\nDEL JOEL GUILLERMO RAMOS VAZQUEZ a) MAURO, ELDA NEVAREZ a)\nTRMA, \"GERARDO\" y \"VERONICA\", de los que ignora sus nombres;\ncurriendo\nquien le indicó que fuera sa hace llamar SAMIRL\" \"ISIDRO a\n\"CHILO\" y la declarante lo encontró en Wefico porque teníe cita\npara buscarlo y cuando la declarante fué a Oaxaca, encontró que -\nsus compañeros realizaban días de campo entre ellos únicamente y\nahí se discutia\na de\npolítica,\nla declarante por que\nesas salidas al campo eran diarias duraron como diez diás para\ndiscutir los planes de estudio, libros y enseñanzas que debían -\ndarse en las escuelas para la organización, quedandose cono un --\nmes mas la declarante con tone los demás, aunque no viviendo jun-\ntos para terminar de preparar todo el programa e iniciar la insta\nlación de varias escuelas onyo número ignora la emitente porque\nyá su determinación correspondió a \"PANCHO\", que es PAULINO PEÑA\ny la declarante fué asignada a una escuela que se radicó en la\nCiudad de Tuxtla Gutiérrez, Chiapas, y fue la responsable de la\nmisma, en compañía de \"GERARDO\", teniendo dos alumnos \"AMOS\" -\nPRANCISCO\", impartióndoles Filosofía, Economía Política y Línea\nPolítica y \"GERARDO\" len les đió táctica Guerrillera, Explosivos,\nvuelta.-\n \"\n\n**Ontología de Tipos de Evento Permitidos**:\n- CAPTURA: secuestro, captura, detención o desaparición de personas.\n- ASESINATO: asesinato de personas.\n\n**Cada evento debe contener los siguientes campos**:\n- \"descripcion\": Debe ser la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto adicional ni información no relacionada con el evento específico. Siempre debe tener un valor y debe describir un evento dentro de los tipos permitidos.\n- \"tipo\": Uno de los valores permitidos (CAPTURA, ASESINATO).\n- \"fecha\": Valor textual que coincida exactamente con el texto y que corresponda a tipo FECHA (horas, días, meses, años, rangos o periodos de tiempo, incluyendo relativos como \"día de la fecha\"). Si no se menciona, usa `null`.\n- \"lugar\": Valor textual que coincida exactamente con el texto y que corresponda a tipo LUGAR (puede ser relativo o general). Si no se menciona, usa `null`.\n- \"victimas\": Lista de valores textuales de las entidades de tipo PERSONA afectadas por el evento. Definición de victima: Persona que sufre directamente las consecuencias del evento (captura o asesinato).\n    - Si se conoce el nombre de la persona, úsalo.\n    - Si se menciona una organización o grupo armado, extrae el nombre de la organización directamente y omite expresiones como \"miembros de\", \"adeptos de\", \"integrantes de\", etc.\n    - Si no se conoce el nombre de la persona pero sí su organización o grupo, incluye el nombre de la organización o grupo (una vez por mención de grupo). Incluir esto sólo cuando no se conozca el nombre de la persona.\n    - Si no se conoce el nombre de la persona ni su organización, pero se indica una cantidad o profesión (ej. \"dos campesinos\", \"varios individuos\"), utiliza esa descripción.\n    - Si no se aporta información específica más allá de una existencia genérica, utiliza \"otro\" (singular) u \"otros\" (plural).\n    - Si no se menciona explícitamente ninguna víctima, la lista debe ser vacía `[]`.\n- \"victimarios\": Lista de valores textuales de las entidades de tipo PERSONA u ORGANIZACIÓN responsables del evento (incluir presuntos responsables). Definición de victimario: Persona u organización que causa o ejecuta el evento (captura o asesinato). Incluye autores materiales y quienes dan la orden.\n    - Aplican las mismas reglas que para \"victimas\" (nombre de persona, organización, descripción genérica, \"otro/s\").\n    - Si no se menciona explícitamente ningún victimario, la lista debe ser vacía `[]`.\n\n**Instrucciones Estrictas para la Corrección**:\n1.  Verifica que solo se hayan identificado eventos de los tipos permitidos (CAPTURA, ASESINATO). Elimina cualquier evento que no encaje estrictamente en estas categorías (ej. asaltos, robos, ataques, enfrentamientos, emboscadas).\n2.  Asegúrate de que la \"descripcion\" de cada evento sea la frase literal o el conjunto de frases contiguas que describen el evento en el texto original, sin añadir contexto o información extra.\n3.  Confirma que las fechas y lugares, si existen, coincidan exactamente con el texto original. Si no se mencionan, deben ser `null`.\n4.  Revisa que las listas de \"victimas\" y \"victimarios\" contengan solo las entidades explícitamente mencionadas y que sigan las reglas de extracción (nombres de persona, organizaciones sin prefijos como \"miembros de\", descripciones genéricas, etc.). Asegúrate de que no haya múltiples menciones de la misma entidad, sea víctima/victimario en el mismo evento. Si no se mencionan, las listas deben ser vacías `[]`.\n5.  Verifica que los eventos estén en el orden en que aparecen en el texto original.\n6.  Aplica la **Regla especial para CAPTURA**: Si una persona \"presta declaración\", \"es interrogada\" o \"está detenida\" ante una autoridad, y no se mencionó una captura previa, considéralo CAPTURA, con la autoridad como victimario.\n7.  En eventos de tipo CAPTURA, si hay más de una mención de LUGAR, solo incluye el LUGAR inicial.\n8.  Asegúrate de que cada PERSONA sea extraída una única vez por evento.\n9.  Si no hay eventos válidos después de la corrección, devuelve un JSON con una clave \"eventos\" que contenga una lista vacía: `{\"eventos\": []}`.\n\n**Entidades ya identificadas en el texto original (Para referencia, no modificar directamente)**:\n```json\n{\n  \"entidades\": [\n    {\n      \"texto\": \"ARTURO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"TREINTA MIL\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"unos seis meses\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"CESAR\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"fines de junio de 1971\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Banco de Morelia, Michoacan\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"Morelia, Michoacan\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"TRES ESTRELLAS DE ORO\",\n      \"tipo\": \"ORGANIZACIÓN\"\n    },\n    {\n      \"texto\": \"CONRADO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"CESAR\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"julio de 1971\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"Ciudad de Oaxacos\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"HERMINIA GOMEZ CARRASCO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MARIA RODRIGUEZ ORPIZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"LAURA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"SIIZIA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MATIANA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"DEL JOEL GUILLERMO RAMOS VAZQUEZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"MAURO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ELDA NEVAREZ\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"TRMA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"GERARDO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"VERONICA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"SAMIRL\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"ISIDRO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"CHILO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Wefico\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"diez diás\",\n      \"tipo\": \"FECHA\"\n    },\n    {\n      \"texto\": \"PANCHO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"PAULINO PEÑA\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"Ciudad de Tuxtla Gutiérrez, Chiapas\",\n      \"tipo\": \"LUGAR\"\n    },\n    {\n      \"texto\": \"GERARDO\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"AMOS\",\n      \"tipo\": \"PERSONA\"\n    },\n    {\n      \"texto\": \"PRANCISCO\",\n      \"tipo\": \"PERSONA\"\n    }\n  ]\n}\n\n**JSON de Eventos a Revisar:**\n```json\n{\n  \"eventos\": []\n}\n```\n**JSON Corregido**:\n[/INST]\n",
+    "texto": " \nHOJA DOS\nCONTINUAN DILIGENCIAS\n358\nhizo la declarante en varias y diversas ocasiones y como se lo in-\ndicó \"ARTURO guardó el dinero en su domicilio, para entregarlo a -\nalgún miembro de la Organización que se lo pidi\nto do recuer-\ngó a pedirle y la declarante le dió una\nda pero tal vez serían unos TREINTA MIL, DESOS\nunos seis meses\ndespués se lo dió a \"CESAR\", posiblemente a fines de junio de\n1971, desconociendo por el momento la procedencia del dinero, pero\ndespués y como \"cayeran detenidos unos compañeros, se convenció de\nque provenía de un robo cometido a los empleados de un Banco de Mo-\nrelia, Michoacan, que se cometió en esta Capital en la terminal de\ncamiones \"TRES ESTRELLAS DE ORO\"; que no supo que utilización se -\nle dió al dinero que recogieron \"CONRADO\" y \"CESAR\"; que en el mes\nde julio de 1971 y aprovechando sus vacaciones fué a la Ciudad de\nOaxacos, donde encontró a sus compañeros HERMINIA GOMEZ CARRASCO,\nMARIA RODRIGUEZ ORPIZ\" \"LAURA\", \"SIIZIA\". У \"МАТІК-\nANA\na)\nDEL JOEL GUILLERMO RAMOS VAZQUEZ a) MAURO, ELDA NEVAREZ a)\nTRMA, \"GERARDO\" y \"VERONICA\", de los que ignora sus nombres;\ncurriendo\nquien le indicó que fuera sa hace llamar SAMIRL\" \"ISIDRO a\n\"CHILO\" y la declarante lo encontró en Wefico porque teníe cita\npara buscarlo y cuando la declarante fué a Oaxaca, encontró que -\nsus compañeros realizaban días de campo entre ellos únicamente y\nahí se discutia\na de\npolítica,\nla declarante por que\nesas salidas al campo eran diarias duraron como diez diás para\ndiscutir los planes de estudio, libros y enseñanzas que debían -\ndarse en las escuelas para la organización, quedandose cono un --\nmes mas la declarante con tone los demás, aunque no viviendo jun-\ntos para terminar de preparar todo el programa e iniciar la insta\nlación de varias escuelas onyo número ignora la emitente porque\nyá su determinación correspondió a \"PANCHO\", que es PAULINO PEÑA\ny la declarante fué asignada a una escuela que se radicó en la\nCiudad de Tuxtla Gutiérrez, Chiapas, y fue la responsable de la\nmisma, en compañía de \"GERARDO\", teniendo dos alumnos \"AMOS\" -\nPRANCISCO\", impartióndoles Filosofía, Economía Política y Línea\nPolítica y \"GERARDO\" len les đió táctica Guerrillera, Explosivos,\nvuelta.-\n ",
+    "entidades": [
+        {
+            "texto": "ARTURO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "TREINTA MIL",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "unos seis meses",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "CESAR",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "fines de junio de 1971",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Banco de Morelia, Michoacan",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "Morelia, Michoacan",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "TRES ESTRELLAS DE ORO",
+            "tipo": "ORGANIZACIÓN"
+        },
+        {
+            "texto": "CONRADO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "CESAR",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "julio de 1971",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "Ciudad de Oaxacos",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "HERMINIA GOMEZ CARRASCO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MARIA RODRIGUEZ ORPIZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "LAURA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "SIIZIA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MATIANA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "DEL JOEL GUILLERMO RAMOS VAZQUEZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "MAURO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ELDA NEVAREZ",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "TRMA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "GERARDO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "VERONICA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "SAMIRL",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "ISIDRO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "CHILO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Wefico",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "diez diás",
+            "tipo": "FECHA"
+        },
+        {
+            "texto": "PANCHO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "PAULINO PEÑA",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "Ciudad de Tuxtla Gutiérrez, Chiapas",
+            "tipo": "LUGAR"
+        },
+        {
+            "texto": "GERARDO",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "AMOS",
+            "tipo": "PERSONA"
+        },
+        {
+            "texto": "PRANCISCO",
+            "tipo": "PERSONA"
+        }
+    ],
+    "eventos": []
+}
