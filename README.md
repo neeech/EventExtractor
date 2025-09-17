@@ -1,12 +1,13 @@
-# Event Extractor IA
+# Event Extractor
 
 Este proyecto utiliza modelos de lenguaje generativo (LLMs) para extraer entidades y eventos estructurados a partir de texto en español.
 
 ## Características
 
 - **Extracción de Eventos**: Identifica y estructura eventos complejos y las entidades relacionadas (ej. fechas, lugares, participantes).
-- **Soporte para Múltiples Modelos**: Permite intercambiar fácilmente diferentes modelos de IA (Gemini, Gemma, etc.) para la extracción.
+- **Soporte para Múltiples Modelos**: Permite intercambiar fácilmente diferentes modelos de la API de Google AI Studio (Gemini, Gemma, etc.) para la extracción.
 - **Evaluación de Resultados**: Incluye un script para calcular métricas de rendimiento (precisión, recall, F1-score) comparando los resultados con un conjunto de datos de referencia.
+- **Metodología de Evaluación**: Compara cada evento extraído con los de referencia, calculando las métricas (precisión, recall, F1-score) campo por campo. Luego, asigna los pares de eventos de manera óptima para maximizar el F1-score promedio total.
 
 ## Cómo Funciona
 
