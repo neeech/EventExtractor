@@ -16,6 +16,10 @@ Este proyecto utiliza modelos de lenguaje generativo (LLMs) para extraer entidad
 3.  **Salida**: Los resultados de la extracción se guardan en la carpeta `resultados/`, organizados en subcarpetas según el modelo utilizado.
 4.  **Evaluación**: El script `evaluar.py` compara los JSON generados con los datos de referencia en `data/` para medir la calidad de la extracción.
 
+## Datos
+- Los datos utilizados para este proyecto provienen del proyecto [Angelus de México](https://seguridad.conahcyt.mx/guerra-sucia/angelus). 
+- Las anotaciones están basadas en la metodología desarrollada en dicho proyecto. 
+
 ## Uso
 
 ### 1. Instalación
