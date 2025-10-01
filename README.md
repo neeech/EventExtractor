@@ -42,10 +42,10 @@ API_KEY="TU_API_KEY_AQUI"
 
 ### 3. Ejecutar la Extracción
 
-Ejecuta el script `extraer.py` especificando el modelo que deseas utilizar.
+Ejecuta el script `extraer.py` especificando el modelo que deseas utilizar. Opcionalmente, puedes indicar los directorios de entrada y salida.
 
 ```bash
-python extraer.py --modelo <nombre-del-modelo>
+python extraer.py --modelo <nombre-del-modelo> [--input_dir <ruta>] [--output_dir <ruta>]
 ```
 
 Ejemplo:
@@ -55,10 +55,15 @@ python extraer.py --modelo gemini-2.5-flash
 
 ### 4. Evaluar los Resultados
 
-Para evaluar los resultados de un modelo, modifica la ruta `results_dir` en `evaluar.py` y luego ejecútalo:
+Para evaluar los resultados de un modelo, ejecuta el script `evaluar.py` especificando el modelo. Opcionalmente, puedes indicar los directorios de datos de referencia y de resultados.
 
 ```bash
-python evaluar.py
+python evaluar.py --modelo <nombre-del-modelo> [--input_dir <ruta>] [--results_dir <ruta>]
+```
+
+Ejemplo:
+```bash
+python evaluar.py --modelo gemini-2.5-flash
 ```
 
 ## Estructura del Proyecto
