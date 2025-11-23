@@ -81,3 +81,50 @@ python evaluar.py --modelo gemini-2.5-flash
 ├── requirements.txt    # Dependencias del proyecto
 └── README.md           # Este archivo
 ```
+
+## Análisis de Rendimiento de Modelos
+
+Se ha realizado una evaluación comparativa de diferentes modelos sobre los datos de referencia utilizando la métrica **F1-Score**.
+
+**Resumen de Resultados:**
+- **gemini-2.5-flash** es el modelo con mejor rendimiento general (F1: 0.748).
+- **gemma-3-27b-it** muestra un rendimiento intermedio (F1: 0.640).
+- **gemma-3-4b-it** presenta el rendimiento más bajo (F1: 0.318).
+
+### Tabla de Métricas Detallada
+
+| Model | Field | Precision | Recall | F1 |
+|:---|:---|---:|---:|---:|
+| **gemini-2.5-flash** | FECHA | 0.7910 | 0.8413 | **0.8154** |
+| | LUGAR | 0.7239 | 0.7698 | 0.7462 |
+| | VICTIMARIOS | 0.6622 | 0.6974 | 0.6793 |
+| | VICTIMAS | 0.7264 | 0.7778 | 0.7512 |
+| | **TOTALES** | **0.7259** | **0.7716** | **0.7480** |
+| **gemma-3-27b-it** | FECHA | 0.6744 | 0.6905 | 0.6824 |
+| | LUGAR | 0.5659 | 0.5794 | 0.5725 |
+| | VICTIMARIOS | 0.6137 | 0.6131 | 0.6134 |
+| | VICTIMAS | 0.6680 | 0.7196 | 0.6928 |
+| | **TOTALES** | **0.6305** | **0.6506** | **0.6404** |
+| **gemma-3-12b-it** | FECHA | 0.5105 | 0.5794 | 0.5428 |
+| | LUGAR | 0.4895 | 0.5556 | 0.5204 |
+| | VICTIMARIOS | 0.4709 | 0.5114 | 0.4903 |
+| | VICTIMAS | 0.5322 | 0.6310 | 0.5774 |
+| | **TOTALES** | **0.5008** | **0.5693** | **0.5328** |
+| **gemma-3-4b-it** | FECHA | 0.2927 | 0.4762 | 0.3625 |
+| | LUGAR | 0.2488 | 0.4048 | 0.3082 |
+| | VICTIMARIOS | 0.2338 | 0.3604 | 0.2836 |
+| | VICTIMAS | 0.2449 | 0.4458 | 0.3161 |
+| | **TOTALES** | **0.2550** | **0.4218** | **0.3179** |
+
+### Gráficos de Rendimiento
+
+#### Comparación General
+![F1 Score Comparison](resultados/charts/f1_score_comparison.png)
+
+#### Rendimiento por Campo
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="resultados/charts/f1_score_FECHA.png" width="45%" />
+  <img src="resultados/charts/f1_score_LUGAR.png" width="45%" />
+  <img src="resultados/charts/f1_score_VICTIMAS.png" width="45%" />
+  <img src="resultados/charts/f1_score_VICTIMARIOS.png" width="45%" />
+</div>

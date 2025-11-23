@@ -110,7 +110,21 @@ def main():
         filepath = os.path.join(modelo_dir, filename)
         with open(filepath, 'r', encoding='utf-8') as f:
             data = json.load(f)
-            eventos_pred.append(data.get('eventos', []))
+            pred = data.get('eventos', [])
+            if isinstance(pred, dict):
+                if "eventos" in pred:
+                    pred = pred["eventos"]
+                elif "events" in pred:
+                    pred = pred["events"]
+                else:
+                    # Fallback: try to find any list value
+                    for v in pred.values():
+                        if isinstance(v, list):
+                            pred = v
+                            break
+            if not isinstance(pred, list):
+                pred = []
+            eventos_pred.append(pred)
 
     tp_count, fp_count, fn_count = 0, 0, 0
 
